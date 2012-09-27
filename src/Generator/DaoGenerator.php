@@ -15,12 +15,6 @@ namespace Mokos\Generator;
  * 
  * class description here ...
  */
-class RowMapper {
-
-    private $field;
-    
-    public function __construct() {
-        ;
-    }
-    
+class DaoGenerator {
+    //put your code here
 }
