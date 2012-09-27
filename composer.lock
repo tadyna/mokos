@@ -1,0 +1,39 @@
+{
+    "hash": "6be227842d60c3d7c23005125c6f10bc",
+    "packages": [
+        {
+            "package": "doctrine/common",
+            "version": "2.3.0"
+        },
+        {
+            "package": "doctrine/dbal",
+            "version": "2.3.0"
+        },
+        {
+            "package": "doctrine/orm",
+            "version": "2.3.0"
+        },
+        {
+            "package": "nella/doctrine",
+            "version": "dev-master",
+            "source-reference": "cea0c254860460617c6719f4b3892a9858208399",
+            "commit-date": "1348123512"
+        },
+        {
+            "package": "nette/nette",
+            "version": "v2.0.5"
+        },
+        {
+            "package": "symfony/console",
+            "version": "v2.1.2"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "nella/doctrine": 20
+    }
+}
