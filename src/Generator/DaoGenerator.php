@@ -1,5 +1,6 @@
 <?php
 namespace Mokos\Generator;
+use Mokos\Template\Template;
 /**
  * Mokos
  *
@@ -15,6 +16,16 @@ namespace Mokos\Generator;
  * 
  * class description here ...
  */
-class DaoGenerator {
-    //put your code here
+class DaoGenerator extends BaseGenerator {
+    
+    protected function _fill(Template $template, $tableName) {
+        $template->set('domain_name', $this->_getClazzName($tableName));
+        $template->set('table_name', $tableName);
+        $template->set('date', date("Y-m-d H:i"));
+    }
+
+    protected function _getType() {
+        return "Dao";
+    }
+
 }

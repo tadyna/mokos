@@ -1,4 +1,5 @@
 <?php
+namespace Mokos\Dao;
 /**
  * Mokos
  *
