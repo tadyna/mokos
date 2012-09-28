@@ -1,6 +1,6 @@
 <?php
 namespace Mokos\Generator;
-use Mokos\Database\BaseAdapter;
+use Mokos\Database\AdapterBase;
 use Mokos\Template\Template;
 /**
  * Mokos
@@ -19,7 +19,7 @@ use Mokos\Template\Template;
  */
 abstract class BaseGenerator {
     /**
-     * @var BaseAdapter
+     * @var AdapterBase
      */
     protected $_adapter;
     /**
@@ -31,7 +31,7 @@ abstract class BaseGenerator {
      */
     private $_filePath;
     
-    public function __construct($templatePath, $filePath, BaseAdapter $adapter) 
+    public function __construct($templatePath, $filePath, AdapterBase $adapter) 
     {
         $this->_filePath = $filePath;
         $this->_templatePath = $templatePath;

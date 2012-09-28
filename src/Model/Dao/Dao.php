@@ -1,5 +1,5 @@
 <?php
-namespace Mokos\Dao;
+namespace Mokos\Model\Dao;
 /**
  * Mokos
  *
@@ -13,8 +13,29 @@ namespace Mokos\Dao;
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 
- * class description here ...
+ * Basic interface for Data Access Object pattern
  */
-interface Dao {
-    //put your code here
+interface Dao 
+{
+    /**
+     * Get entity by unique identificator
+     * @param integer $idEntity
+     */
+    public function findById($idEntity);
+    /**
+     * Get all entities which matches filter criteria given by parameter.
+     * If parameter is empty it means get all entities.
+     * @param array $condition
+     */
+    public function findAll(array $condition = array());
+    /**
+     * Create or update entity in storage
+     * @param mixed $entity
+     */
+    public function save($entity);   
+    /**
+     * Delete entity from storage
+     * @param mixed $entity
+     */
+    public function delete($entity); 
 }

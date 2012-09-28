@@ -1,6 +1,4 @@
 <?php
-namespace Mokos\Model\Dao;
-use Mokos\Model\Dao\Dao;
 /**
  * Mokos
  *
@@ -9,14 +7,14 @@ use Mokos\Model\Dao\Dao;
  *
  * @abstract
  * @author derhaa <dev.cejkatomas@gmail.com>
- * @category   Dao
- * @package    Model
- * @subpackage Dao
+ * @category   Data Access Object
+ * @package    DAO
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 
  * class description here ...
  */
-abstract class BaseDao implements Dao {
-    //put your code here
+interface DaoFactory 
+{
+    public function getFactory();
 }
