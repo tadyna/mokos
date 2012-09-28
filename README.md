@@ -1,4 +1,4 @@
 mokos
 =====
 
-Minimalist generator domain php classes. Database table per php class.
+Generator domain php classes. Database table per php class.
