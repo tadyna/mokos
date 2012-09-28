@@ -1,6 +1,6 @@
 {
     "name": "mokos",
-    "description": "Minimalist generator php class from database tables",
+    "description": "Generator php class from database tables",
     "keywords": ["generator", "class", "skeleton"],
     "type": "library",
     "license": "MIT",
