@@ -3,7 +3,7 @@ use Mokos\Model\Dao\BaseDao;
 /**
  * @date: ${date}
  */
-class ${domain_name}Dao extends BaseDao
+class ${domain_name}Mapper extends MapperZF
 {
     /**
      *
