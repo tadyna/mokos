@@ -15,8 +15,18 @@ use Mokos\Model\Dao\Dao;
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 
- * class description here ...
+ * Base implementation of data access object interface
  */
 abstract class BaseDao implements Dao {
-    //put your code here
+    /**
+     * @var Storage data source implementation
+     */
+    protected $dataSource;
+    /**
+     * @return Storage data source implementation
+     */
+    protected final function dataSource () 
+    {
+        return $this->dataSource;
+    }
 }
