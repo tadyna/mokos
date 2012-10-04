@@ -7,14 +7,13 @@ namespace Mokos\Model\Mapper;
  *   The MIT License
  *
  * @abstract
- * @author tocecz <dev.cejkatomas@gmail.com>
- * @category   Transfer
- * @package    Model
- * @subpackage Mapper
+ * @author tomascejka
+ * @category   Mapping data
+ * @package    Mapper
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 
- * class description here ...
+ * Base interface of mapper
  */
 interface Mapper {    
     /**

@@ -6,14 +6,13 @@
  *   The MIT License
  *
  * @abstract
- * @author tocecz <dev.cejkatomas@gmail.com>
+ * @author tocecz
  * @category   Transfer
- * @package    Model
- * @subpackage Dao
+ * @package    Dto
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 
- * class description here ...
+ * Base class of data transfer object
  */
 abstract class Dto implements Serializable
 {
@@ -27,32 +26,30 @@ abstract class Dto implements Serializable
      * @var int
      */
     private $version;
-    
-    public function getId() {
+    /**
+     * @return int unique identificator of entity
+     */
+    public final function getId() {
         return $this->id;
     }
-
-    public function setId($id) {
+    /**
+     * Set unique identificator of entity
+     * @param int $id
+     */
+    public final function setId($id) {
         $this->id = $id;
     }
-
-    public function getVersion() {
+    /**
+     * @return int version of entity
+     */
+    public final function getVersion() {
         return $this->version;
     }
-
-    public function setVersion($version) {
+    /**
+     * Set version of entity
+     * @param int $id
+     */
+    public final function setVersion($version) {
         $this->version = $version;
     }
-    /*
-     * 
-     */
-    public function serialize() {
-        
-    }
-    /*
-     * 
-     */
-    public function unserialize($serialized) {
-        
-    }    
 }

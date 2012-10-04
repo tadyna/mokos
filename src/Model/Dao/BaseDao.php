@@ -8,10 +8,9 @@ use Mokos\Model\Dao\Dao;
  *   The MIT License
  *
  * @abstract
- * @author derhaa <dev.cejkatomas@gmail.com>
- * @category   Dao
- * @package    Model
- * @subpackage Dao
+ * @author derhaa
+ * @category   Data access layer
+ * @package    Dao
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 
@@ -25,7 +24,7 @@ abstract class BaseDao implements Dao {
     /**
      * @return Storage data source implementation
      */
-    protected final function dataSource () 
+    protected function getDataSource () 
     {
         return $this->dataSource;
     }

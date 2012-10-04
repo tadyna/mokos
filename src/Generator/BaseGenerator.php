@@ -9,13 +9,13 @@ use Mokos\Template\Template;
  *   The MIT License
  *
  * @abstract
- * @author tocecz <dev.cejkatomas@gmail.com>
+ * @author tomascejka
  * @category   Generator
  * @package    Generator
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 
- * class description here ...
+ * Base class for generation of various classes
  */
 abstract class BaseGenerator {
     /**
@@ -30,7 +30,11 @@ abstract class BaseGenerator {
      * @var string path to directory where file will be generated 
      */
     private $_filePath;
-    
+    /**
+     * @param string $templatePath
+     * @param string $filePath
+     * @param \Mokos\Database\AdapterBase $adapter
+     */
     public function __construct($templatePath, $filePath, AdapterBase $adapter) 
     {
         $this->_filePath = $filePath;
@@ -39,6 +43,7 @@ abstract class BaseGenerator {
     }
     /**
      * Generate classes...
+     * @return void
      */
     public final function generate () 
     {
@@ -50,15 +55,15 @@ abstract class BaseGenerator {
             $clazzName = $this->_getClazzName($tableName);
             $template = new Template($this->_templatePath);
             $this->_fill($template, $tableName);
-            $template->write($this->_filePath.$clazzName.$this->_getType().'.class.php');
+            $template->write($this->_filePath.$clazzName.$this->_getType().'.php');
         }
     }
     /**
      * Give table name and upperCase first letter in name,
      * and if table contains '_' removed than and use camel-based naming class
-     * @return string name of table for class
+     * @return string modified table name for class
      */
-    protected function _getClazzName($tableName)
+    protected final function _getClazzName($tableName)
     {
         $name = strtoupper($tableName[0]).substr($tableName,1);
         for($i=0;$i<strlen($name);$i++){
@@ -68,6 +73,14 @@ abstract class BaseGenerator {
         }
         return $name;
     }
+    /**
+     * Fill template by specific variables by given generator implementation
+     * @return void
+     */
     protected abstract function _fill(Template $template, $tableName);
+    /**
+     * Returned name is used in filename
+     * @return string of generated entity, eg. Dao, Mapper, Repository
+     */
     protected abstract function _getType();
 }

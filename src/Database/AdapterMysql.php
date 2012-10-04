@@ -1,6 +1,6 @@
 <?php
 namespace Mokos\Database\Table;
-use Mokos\Database\ColumnMapper;
+use Mokos\Database\ColumnDescriptor;
 use Mokos\Database\Table\AdapterBase;
 /**
  * Mokos
@@ -9,53 +9,52 @@ use Mokos\Database\Table\AdapterBase;
  *   The MIT License
  *
  * @abstract
- * @author derhaa <dev.cejkatomas@gmail.com>
+ * @author derhaa
  * @category   Database
  * @package    Database
  * @subpackage Table
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 
- * class description here ...
+ * Adapter database rules for Mysql vendor
  */
 class AdapterMysql extends AdapterBase {
     /*
      * Return mysql specific column metadata
-     * @return array ColumnMapper objects
+     * @return array ColumnDescriptor objects
      */
-    protected function _getAllFields($tableName) {
-        $mappers[] = array();
-        foreach ($this->_pdo->query('describe '.$tableName) as $row) {
-            $mappers[] = new ColumnMapper (
-                $row['Field'],
-                $row['Type'],
-                (array_key_exists('NULL', $row)) ? $row['NULL'] === 'YES' ? true : false : false,
-                $row['Key'],
-                ($row['Key'] === 'UNI') ? true : false,
-                ($row['Key'] === 'PRI') ? true : false
-                //'default'  =>$row['Default'],
-                //'extra'    =>$row['Extra'],
+    public function getAllFields($tableName) {
+        $descriptors = array();
+        $query = "select from information_schema.columns where table_schema='".$tableName."'";
+        foreach ($this->_pdo->query($query) as $row) {
+            $descriptors[] = new ColumnDescriptor (
+                $row['COLUMN_NAME'],
+                $row['DATA_TYPE'],
+                ($row['IS_NULLABLE'] === 'YES'),
+                $row['COLUMN_KEY'],
+                ($row['COLUMN_KEY'] === 'UNI'),
+                ($row['COLUMN_KEY'] === 'PRI'),
+                $row['CHARACTER_MAXIMUM_LENGTH'],
+                $row['EXTRA'],
+                $row['COLUMN_DEFAULT'],
+                $row['COLUMN_COMMENT']
             );
         }
-        return $mappers;        
+        return $descriptors;        
     }
     /*
      * Return list of tables metadata via mysql specific query
      * @return array tables' metadata
      */
-    protected function _getAllTables() {
+    public function getAllTables() {
         return $this->_pdo->query('show tables');
     }
     /*
      * Return mapped type of column 
      * @return string data type
      */
-    protected function _getType(ColumnDescriptor $columnMapper) {
-        $type = $columnMapper->getType();
-        if(strpos($type, "(")) {
-            $arr = explode("(", $type);
-            $type = $arr[0];
-        }
+    public function getType(ColumnDescriptor $columnDescriptor) {
+        $type = $columnDescriptor->getType();
         switch ($type) {
             case "varchar":
             case "char":

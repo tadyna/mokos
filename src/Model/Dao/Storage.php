@@ -6,10 +6,9 @@ namespace Mokos\Model\Dao;
  * LICENCE
  *   The MIT License
  *
- * @author derhaa <dev.cejkatomas@gmail.com>
+ * @author derhaa
  * @category   Data access layer
- * @package    Model
- * @subpackage Dao
+ * @package    Dao
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 

@@ -8,18 +8,17 @@ use Mokos\Database\ColumnDescriptor;
  *   The MIT License
  *
  * @abstract
- * @author derhaa <dev.cejkatomas@gmail.com>
+ * @author tomascejka
  * @category   Database
  * @package    Database
  * @subpackage Table
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 
- * class description here ...
+ * Base class of database table rules for generating entities from database table
  */
 abstract class AdapterBase {
     /**
-     *
      * @var PHP Data Object
      */
     private $_pdo;
@@ -30,25 +29,8 @@ abstract class AdapterBase {
     {
         $this->_pdo = $pdo;
     }
-    public final function getAllTables () {
-        return $this->_getAllTables();
-    }
-    public final function getAllFields ($tableName) {
-        return $this->_getAllFields($tableName);
-    }
-    public final function getType (ColumnDescriptor $mapper) {
-        return $this->_getType($mapper);
-    }    
-    /**
-     * @abstract
-     */
-    protected abstract function _getAllTables();   
-    /**
-     * @abstract
-     */    
-    protected abstract function _getAllFields($tableName);
-    /**
-     * @abstract
-     */    
-    protected abstract function _getType(ColumnDescriptor $rowMapper);
+
+    abstract public function getAllFields($tableName);
+    abstract public function getAllTables();
+    abstract public function getType(ColumnDescriptor $columnDescriptor);
 }
