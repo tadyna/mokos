@@ -1,31 +1,53 @@
 {
-    "hash": "6be227842d60c3d7c23005125c6f10bc",
+    "hash": "2a0547f4d00d9c946b9f5c1a1d554068",
     "packages": [
         {
-            "package": "doctrine/common",
-            "version": "2.3.0"
-        },
-        {
-            "package": "doctrine/dbal",
-            "version": "2.3.0"
-        },
-        {
-            "package": "doctrine/orm",
-            "version": "2.3.0"
-        },
-        {
-            "package": "nella/doctrine",
+            "name": "symfony/console",
             "version": "dev-master",
-            "source-reference": "cea0c254860460617c6719f4b3892a9858208399",
-            "commit-date": "1348123512"
-        },
-        {
-            "package": "nette/nette",
-            "version": "v2.0.5"
-        },
-        {
-            "package": "symfony/console",
-            "version": "v2.1.2"
+            "target-dir": "Symfony/Component/Console",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Console",
+                "reference": "92cd0e84022f31287337ab17842bbfff47d2fc79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/symfony/Console/archive/92cd0e84022f31287337ab17842bbfff47d2fc79.zip",
+                "reference": "92cd0e84022f31287337ab17842bbfff47d2fc79",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "2012-12-14 09:43:16",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Console\\": ""
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Console Component",
+            "homepage": "http://symfony.com"
         }
     ],
     "packages-dev": null,
@@ -34,6 +56,6 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "nella/doctrine": 20
+        "symfony/console": 20
     }
 }

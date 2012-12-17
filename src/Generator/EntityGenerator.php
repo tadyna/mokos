@@ -28,7 +28,6 @@ class EntityGenerator extends BaseGenerator {
         $fields = "";
         $methods = "";
         foreach ($columns as $column) {
-            $column = new \Mokos\Database\ColumnDescriptor($tableName, $type, $nullable, $key, $unique, $primary, $maxLength, $column, $columns, $comment);
             $columnName = $column->getFieldName();
             $field = $column->getColumnName();
             $type = $column->getType();

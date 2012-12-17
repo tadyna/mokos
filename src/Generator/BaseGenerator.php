@@ -1,5 +1,6 @@
 <?php
 namespace Mokos\Generator;
+use Mokos\Generator\Generator;
 use Mokos\Database\AdapterBase;
 use Mokos\Template\Template;
 /**
@@ -17,7 +18,7 @@ use Mokos\Template\Template;
  * 
  * Base class for generation of various classes
  */
-abstract class BaseGenerator {
+abstract class BaseGenerator implements Generator {
     /**
      * @var AdapterBase
      */
@@ -48,9 +49,7 @@ abstract class BaseGenerator {
     public final function generate () 
     {
         $tables = $this->_adapter->getAllTables();
-        $i = 0;
         foreach ($tables as $table) {
-            if($i > 0) continue;//metatabulka
             $tableName = $table[0];
             $clazzName = $this->_getClazzName($tableName);
             $template = new Template($this->_templatePath);
