@@ -7,7 +7,7 @@ namespace Mokos\Model\Mapper;
  *   The MIT License
  *
  * @abstract
- * @author tocecz <dev.cejkatomas@gmail.com>
+ * @author tomascejka <dev.cejkatomas@gmail.com>
  * @category   Transfer
  * @package    Model
  * @subpackage Mapper
@@ -30,10 +30,12 @@ interface Mapper {
      */
     public function find($idEntity);
     /**
-     * Finder method to find all entities
+     * Get all entities which matches filter criteria given by parameter.
+     * If parameter is empty it means get all entities.
+     * @param array $condition
      * @return object entity
      */
-    public function findAll();
+    public function findAll(array $condition = array());
     /**
      * Concrete implementation can use this for writing and executing specific sql queries
      * @param string $query sql query

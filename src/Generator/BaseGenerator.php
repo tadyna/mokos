@@ -9,7 +9,7 @@ use Mokos\Template\Template;
  *   The MIT License
  *
  * @abstract
- * @author tocecz <dev.cejkatomas@gmail.com>
+ * @author tomascejka <dev.cejkatomas@gmail.com>
  * @category   Generator
  * @package    Generator
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
