@@ -15,7 +15,7 @@ namespace Mokos\Database;
  * 
  * Descriptor of table column
  */
-class ColumnDescriptor {
+class Column {
     /**
      * @var string 
      */

@@ -1,7 +1,7 @@
 <?php
-namespace Mokos\Database\Table;
-use Mokos\Database\ColumnDescriptor;
-use Mokos\Database\Table\AdapterBase;
+namespace Mokos\Database;
+use Mokos\Database\Column;
+use Mokos\Database\AdapterBase;
 /**
  * Mokos
  *
@@ -17,16 +17,18 @@ use Mokos\Database\Table\AdapterBase;
  * 
  * Adapter database rules for Mysql vendor
  */
-class AdapterMysql extends AdapterBase {
-    /*
+class AdapterMysql extends AdapterBase 
+{
+    /**
      * Return mysql specific column metadata
      * @return array ColumnDescriptor objects
      */
-    public function getAllFields($tableName) {
+    public function getAllFields($tableName) 
+    {
         $descriptors = array();
-        $query = "select from information_schema.columns where table_schema='".$tableName."'";
+        $query = "select * from information_schema.columns where table_name='".$tableName."'";
         foreach ($this->_pdo->query($query) as $row) {
-            $descriptors[] = new ColumnDescriptor (
+            $descriptors[$row['COLUMN_NAME']] = new Column (
                 $row['COLUMN_NAME'],
                 $row['DATA_TYPE'],
                 ($row['IS_NULLABLE'] === 'YES'),
@@ -41,18 +43,24 @@ class AdapterMysql extends AdapterBase {
         }
         return $descriptors;        
     }
-    /*
+    /**
      * Return list of tables metadata via mysql specific query
-     * @return array tables' metadata
+     * @return array Table descriptor
      */
-    public function getAllTables() {
-        return $this->_pdo->query('show tables');
+    public function getAllTables() 
+    {
+    	$descriptors = array();
+        foreach($this->_pdo->query('show tables') as $table){
+        	$descriptors[] = new Table($table[0]); 
+        }
+        return $descriptors;
     }
-    /*
+    /**
      * Return mapped type of column 
      * @return string data type
      */
-    public function getType(ColumnDescriptor $columnDescriptor) {
+    public function getType(Column $columnDescriptor) 
+    {
         $type = $columnDescriptor->getType();
         switch ($type) {
             case "varchar":
