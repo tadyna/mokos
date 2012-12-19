@@ -58,7 +58,7 @@ class AdapterMysqlTest extends \PHPUnit_Framework_TestCase {
 	 * Test if table columns are equals
 	 */
 	public function testGetAllFields()
-	{
+	{//TODO [derhaa] finish test ...
 		$tables = $this->object->getAllTables();
 		$fields = $this->object->getAllFields($tables[0]->getName());
 		return $this->assertEquals(1, 1);

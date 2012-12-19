@@ -20,6 +20,6 @@ class DomainRepositoryTest extends AbstractUnitTest
 	
 	public function testGetSomething()
 	{
-		return $this->assertEquals(1, 1);
+		return $this->assertEquals(1, 1);//TODO [derhaa] finish test...
 	}
 }
