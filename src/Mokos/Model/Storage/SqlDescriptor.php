@@ -1,6 +1,17 @@
 <?php
 namespace Mokos\Model\Storage;
-
+/**
+ * Descriptor for sql metadata
+ * LICENCE
+ *   The MIT License
+ *
+ * @author derhaa
+ * @category   Data access layer
+ * @package    Storage
+ * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
+ * @license    http://opensource.org/licenses/mit-license.php - The MIT License
+ *
+ */
 class SqlDescriptor {
 	/**
 	 * Table name
