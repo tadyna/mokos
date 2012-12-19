@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<phpunit>
+    <php>
+        <var name="DB_DSN" value="mysql:dbname=mokos_test;host=localhost" />
+        <var name="DB_USER" value="mokos_test" />
+        <var name="DB_PASSWD" value="mokos_test" />
+        <var name="DB_DBNAME" value="mokos_test" />
+    </php>
+</phpunit>
+<!-- see http://www.phpunit.de/wiki/Documentation -->
+<!--phpunit bootstrap="/path/to/bootstrap.php"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="true">
+</phpunit-->

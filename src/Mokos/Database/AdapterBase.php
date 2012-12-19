@@ -1,6 +1,6 @@
 <?php
 namespace Mokos\Database;
-use Mokos\Database\ColumnDescriptor;
+use Mokos\Database\Column;
 /**
  * Mokos
  *
@@ -16,11 +16,12 @@ use Mokos\Database\ColumnDescriptor;
  * 
  * Base class of database table rules for generating entities from database table
  */
-abstract class AdapterBase {
+abstract class AdapterBase 
+{
     /**
      * @var PHP Data Object
      */
-    private $_pdo;
+    protected $_pdo;
     /**
      * @param \PDO $pdo
      */
@@ -28,8 +29,19 @@ abstract class AdapterBase {
     {
         $this->_pdo = $pdo;
     }
-
+    /**
+     * Return array of descriptors of table column
+     * @return array Mokos\Database\Column objects
+     */
     abstract public function getAllFields($tableName);
+    /**
+     * Return array of descriptors of database table
+     * @return array Mokos\Database\Table objects
+     */    
     abstract public function getAllTables();
-    abstract public function getType(ColumnDescriptor $columnDescriptor);
+    /**
+     * Return mapped type of column as string 
+     * @return data type as string
+     */
+    abstract public function getType(Column $columnDescriptor);
 }

@@ -42,11 +42,11 @@ interface Mapper {
     public function query($query);
     /**
      * Concrete implementation must define a way how transform data and SAVE them
-     * @param object $data
+     * @param integer $idEntity unique id of entity
      * @throws MapperException
      * @return void
      */
-    public function remove($entity);
+    public function remove($idEntity);
     /**
      * Concrete implementation must define a way how transform data and persist them
      * @param object $entity
