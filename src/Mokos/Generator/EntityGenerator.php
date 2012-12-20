@@ -33,6 +33,7 @@ class EntityGenerator extends BaseGenerator {
             $type = $column->getType();
                 //$fields .=($j==1) ? "/**\n" : "    /**\n";
             $fields .="    /**\n";
+            $fields .="     * ".$column->getComment()."\n";
             $fields .="     * @var ".$type." ".$field.";\n";
             $fields .="     */\n";
             $fields .="    private \$_".$field.";\n";
