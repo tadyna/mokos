@@ -41,9 +41,9 @@ class PersonDBTest extends PHPUnit_Extensions_Database_TestCase
 		return $this->getOperations()->CLEAN_INSERT();
 	}	
 	
-	public function testNewPersonCreation()
+	public function testCreatePerson()
 	{
-		$data = array('ID_PERSON'=>3, 'FULLNAME'=>'Kaja Cejkova');
+		$data = array('ID_PERSON'=>3, 'FULLNAME'=>'Nikodim Michal');
 		$descriptor = new SqlDescriptor(self::$TABLE_NAME, $data);
 		$this->testedObject->insert($descriptor);		
 	
@@ -51,7 +51,7 @@ class PersonDBTest extends PHPUnit_Extensions_Database_TestCase
 		$this->assertDataSetsEqual($xml_dataset, $this->getConnection()->createDataSet());
 	}
 
-	public function testUpdatePersonModify()
+	public function testUpdatePerson()
 	{
 		$data = array('FULLNAME'=>'Karolina Malkova UPD');
 		$descriptor = new SqlDescriptor(self::$TABLE_NAME, $data, array('ID_PERSON'=>2));

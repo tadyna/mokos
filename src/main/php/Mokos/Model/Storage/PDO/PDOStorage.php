@@ -134,7 +134,7 @@ class PDOStorage implements Storage {
 	 * Injection of pdo implementation
 	 * @param \PDO $pdo
 	 */
-	public function setPDO(\PDO $pdo) {
+	public function __construct(\PDO $pdo) {
 		$this->pdo = $pdo;
 	}
 
