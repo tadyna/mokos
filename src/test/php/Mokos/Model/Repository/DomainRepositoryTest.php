@@ -1,6 +1,5 @@
 <?php
 use Mokos\Model\Repository\DomainRepository;
-require_once '/../../../AbstractUnitTest.php';
 /**
  *
  * @author derhaa
@@ -20,6 +19,6 @@ class DomainRepositoryTest extends AbstractUnitTest
 	
 	public function testGetSomething()
 	{
-		return $this->assertEquals(1, 1);//TODO [derhaa] finish test...
+		return $this->assertEquals(1, 1);
 	}
 }
