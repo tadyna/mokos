@@ -1,5 +1,5 @@
 <?php
-namespace Mokos\Database\Table;
+namespace Mokos\Database;
 use Mokos\Database\ColumnMapper;
 use Mokos\Database\Table\AdapterBase;
 /**
