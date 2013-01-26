@@ -17,7 +17,7 @@ class PDOStorage implements Storage {
 	private $_defaultFetchMode = \PDO::FETCH_OBJ;
 	/**
 	 * @see \Mokos\Model\Storage\Storage::insert()
-	 * @param $data \Mokos\Model\Storage\SqlDescriptor
+	 * @param $data \Mokos\Model\Storage\PDO\SqlDescriptor
 	 */
 	public function insert($data) {
 		$datas = $data->getColumns();
@@ -26,7 +26,7 @@ class PDOStorage implements Storage {
 	}
 	/**
 	 * @see \Mokos\Model\Storage\Storage::update()
-	 * @param $data \Mokos\Model\Storage\SqlDescriptor
+	 * @param $data \Mokos\Model\Storage\PDO\SqlDescriptor
 	 */
 	public function update($data) {
 		$datas = $data->getColumns();

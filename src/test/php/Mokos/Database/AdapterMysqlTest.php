@@ -23,27 +23,29 @@ class AdapterMysqlTest extends PHPUnit_Extensions_Database_TestCase {
 		$this->object = new AdapterMysql($this->pdo);
 	}
 	/*
-	 * @see PHPUnit_Extensions_Database_TestCase::getConnection
+	 * (non-PHPdoc)
+	 * @see PHPUnit\Extensions\Database\TestCase::getConnection
 	 */
 	protected function getConnection()
 	{
 		return $this->createDefaultDBConnection($this->pdo, $GLOBALS['DB_DBNAME']);
 	}
 	/*
-	 * @see PHPUnit_Extensions_Database_TestCase::getDataSet
-	*/
+	 * (non-PHPdoc)
+	 * @see PHPUnit\Extensions\Database\TestCase::getDataSet
+	 */
 	protected function getDataSet()
 	{
 		return $this->createFlatXMLDataSet(dirname(__FILE__).'/person-seed.xml');
 	}
 	/*
-	 * @see PHPUnit_Extensions_Database_TestCase::getSetUpOperation
-	*/
+	 * (non-PHPdoc)
+	 * @see PHPUnit\Extensions\Database\TestCase::getSetUpOperation
+	 */
 	protected function getSetUpOperation()
 	{
 		return $this->getOperations()->CLEAN_INSERT();
 	}	
-	
 	/**
 	 * Test if names of tables are equals
 	 */
