@@ -1,11 +1,13 @@
 <?php
 use Mokos\Database\AdapterMysql;
-require_once '/../../../vendor/autoload.php';
 /**
- * 
  * @author derhaa
  */
-class AdapterMysqlTest extends \PHPUnit_Framework_TestCase {
+class AdapterMysqlTest extends PHPUnit_Extensions_Database_TestCase {
+	/**
+	 * @var string name of testing table
+	 */
+	private static $tableName = 'person_in_organization';
 	/**
 	 * @var Mokos\Database\AdapterMysql
 	 */
@@ -14,30 +16,34 @@ class AdapterMysqlTest extends \PHPUnit_Framework_TestCase {
 	 * PDO implementation
 	 * @var \PDO
 	 */
-	private $pdo;	
-	/**
-	 * Sets up the fixture, for example, opens a network connection.
-	 * This method is called before a test is executed.
-	 */
-	protected function setUp()
-	{	
-		if($this->pdo != null) {
-			$this->object = new AdapterMysql($this->pdo);
-		} else {
-			$dns = 'mysql:dbname=sima;host=127.0.0.1';
-			$user = 'root';
-			$password = '';
-			$this->pdo = new PDO($dns, $user, $password);
-			$this->object = new AdapterMysql($this->pdo);
-		}
-	}
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown()
+	private $pdo;
+	public function __construct()
 	{
+		$this->pdo = new PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD']);
+		$this->object = new AdapterMysql($this->pdo);
 	}
+	/*
+	 * @see PHPUnit_Extensions_Database_TestCase::getConnection
+	 */
+	protected function getConnection()
+	{
+		return $this->createDefaultDBConnection($this->pdo, $GLOBALS['DB_DBNAME']);
+	}
+	/*
+	 * @see PHPUnit_Extensions_Database_TestCase::getDataSet
+	*/
+	protected function getDataSet()
+	{
+		return $this->createFlatXMLDataSet(dirname(__FILE__).'/person-seed.xml');
+	}
+	/*
+	 * @see PHPUnit_Extensions_Database_TestCase::getSetUpOperation
+	*/
+	protected function getSetUpOperation()
+	{
+		return $this->getOperations()->CLEAN_INSERT();
+	}	
+	
 	/**
 	 * Test if names of tables are equals
 	 */
@@ -58,9 +64,19 @@ class AdapterMysqlTest extends \PHPUnit_Framework_TestCase {
 	 * Test if table columns are equals
 	 */
 	public function testGetAllFields()
-	{//TODO [derhaa] finish test ...
+	{
 		$tables = $this->object->getAllTables();
 		$fields = $this->object->getAllFields($tables[0]->getName());
-		return $this->assertEquals(1, 1);
+		$ds = new PHPUnit_Extensions_Database_DataSet_QueryDataSet($this->getConnection());
+		$ds->addTable(self::$tableName);
+		
+		$queryTable = $ds->getTable(self::$tableName);
+		$expectedTable = $this->getDataSet()->getTable(self::$tableName);
+		$this->assertTablesEqual($expectedTable, $queryTable);
+		
+		$this->assertEquals(2, $this->getConnection()->getRowCount(self::$tableName), "Wrong count of rows in table ".self::$tableName);
+		$expectedRow = array('ID_PERSON'=>'1', 'FULLNAME'=>'Tomas Cejka');
+		$queryRow = $queryTable->getRow(0); 
+		return $this->assertEquals($expectedRow, $queryRow, "Rows are not equals");
 	}
 }

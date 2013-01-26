@@ -14,7 +14,7 @@ use Mokos\Model\Repository\Repository;
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  */
-class DomainRepository implements Repository {
+abstract class DomainRepository implements Repository {
 	/*
 	 * (non-PHPdoc)
 	 * @see \Mokos\Model\Repository\Repository::save()
@@ -51,7 +51,7 @@ class DomainRepository implements Repository {
 	 * Injection of mapper implementation
 	 * @param \Mokos\Model\Mapper\DomainMapper $mapper
 	 */
-	public final function setMapper(\Mokos\Model\Mapper\DomainMapper $mapper){
+	public final function __construct(\Mokos\Model\Mapper\DomainMapper $mapper){
 		$this->mapper = $mapper;
 	}
 }
