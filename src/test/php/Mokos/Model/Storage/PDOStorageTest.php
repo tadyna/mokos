@@ -7,7 +7,7 @@ use Mokos\Model\Storage\SqlDescriptor;
  * @author derhaa
  *
  */
-class PersonDBTest extends PHPUnit_Extensions_Database_TestCase 
+class PDOStorageTest extends PHPUnit_Extensions_Database_TestCase 
 {
 	private static $TABLE_NAME = 'PERSON';
 	private static $ID_PERSON = 999;
@@ -45,7 +45,7 @@ class PersonDBTest extends PHPUnit_Extensions_Database_TestCase
 	{
 		$data = array('ID_PERSON'=>3, 'FULLNAME'=>'Nikodim Michal');
 		$descriptor = new SqlDescriptor(self::$TABLE_NAME, $data);
-		$this->testedObject->insert($descriptor);		
+		$o =  $this->testedObject->insert($descriptor);		
 	
 		$xml_dataset = $this->createFlatXMLDataSet(dirname(__FILE__).'/person-after-new-person.xml');
 		$this->assertDataSetsEqual($xml_dataset, $this->getConnection()->createDataSet());

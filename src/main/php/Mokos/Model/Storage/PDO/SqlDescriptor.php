@@ -1,5 +1,5 @@
 <?php
-namespace Mokos\Model\Storage;
+namespace Mokos\Model\Storage\PDO;
 /**
  * Descriptor for sql metadata
  * LICENCE

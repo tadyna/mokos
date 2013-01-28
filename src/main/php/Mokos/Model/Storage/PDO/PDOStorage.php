@@ -17,7 +17,7 @@ class PDOStorage implements Storage {
 	private $_defaultFetchMode = \PDO::FETCH_OBJ;
 	/**
 	 * @see \Mokos\Model\Storage\Storage::insert()
-	 * @param $data \Mokos\Model\Storage\SqlDescriptor
+	 * @param $data \Mokos\Model\Storage\PDO\SqlDescriptor
 	 */
 	public function insert($data) {
 		$datas = $data->getColumns();
@@ -26,14 +26,14 @@ class PDOStorage implements Storage {
 	}
 	/**
 	 * @see \Mokos\Model\Storage\Storage::update()
-	 * @param $data \Mokos\Model\Storage\SqlDescriptor
+	 * @param $data \Mokos\Model\Storage\PDO\SqlDescriptor
 	 */
 	public function update($data) {
 		$datas = $data->getColumns();
 		$criterias = $data->getConditions();
 		$query = $this->prepareUpdateQuery($data->getTableName(), array_keys($datas), array_values($datas), array_keys($criterias));
 		$params = array_merge(array_values($datas), array_values($criterias));
-		return $this->executeQuery($query, $params)->fetch($this->_defaultFetchMode);
+		$this->executeQuery($query, $params);
 	}
 	/**
 	 * @see \Mokos\Model\Storage\Storage::delete()
@@ -41,14 +41,14 @@ class PDOStorage implements Storage {
 	 */
 	public function delete($data) {
 		$query = $this->prepareDeleteQuery($tableName, $data['criteria']);
-		return $this->executeQuery($query, $params);
+		$this->executeQuery($query, $params);
 	}
 	/*
 	 * (non-PHPdoc)
 	 * @see \Mokos\Model\Storage\Storage::fetchAll()
 	 */
 	public function fetchAll($sql, array $params = array()) {
-		return $this->executeQuery($query, $params)->fetchAll();
+		return $this->executeQuery($query, $params);
 	}
 	/*
 	 * (non-PHPdoc)
