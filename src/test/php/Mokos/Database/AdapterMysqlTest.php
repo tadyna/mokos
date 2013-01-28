@@ -20,7 +20,7 @@ class AdapterMysqlTest extends PHPUnit_Extensions_Database_TestCase {
 	public function __construct()
 	{
 		$this->pdo = new PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD']);
-		$this->object = new AdapterMysql($this->pdo);
+		$this->object = new AdapterMysql($this->pdo, $GLOBALS['DB_DATABASE']);
 	}
 	/*
 	 * (non-PHPdoc)
@@ -52,13 +52,16 @@ class AdapterMysqlTest extends PHPUnit_Extensions_Database_TestCase {
 	public function testGetAllTables()
 	{
 		$names = array();
-		foreach($this->pdo->query('show tables') as $table){
-			$names[] = $table[0];
+		$query = "select * from information_schema.tables where table_schema='".$GLOBALS['DB_DATABASE']."'";
+		foreach($this->pdo->query($query) as $table){
+			$names[0] = $table['TABLE_NAME'];
+			$names[1] = $table['TABLE_COMMENT'];
 		}		
 		$tables = $this->object->getAllTables();
 		$names2 = array();
 		foreach($tables as $table){
-			$names2[] = $table->getName();
+			$names2[0] = $table->getName();
+			$names2[1] = $table->getDescription();
 		}	
 		return $this->assertEquals($names, $names2);
 	}

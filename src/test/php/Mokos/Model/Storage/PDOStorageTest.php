@@ -1,7 +1,7 @@
 <?php
 require_once 'PHPUnit/Extensions/Database/TestCase.php';
 use Mokos\Model\Storage\PDO\PDOStorage;
-use Mokos\Model\Storage\SqlDescriptor;
+use Mokos\Model\Storage\PDO\SqlDescriptor;
 /**
  * 
  * @author derhaa
@@ -9,7 +9,7 @@ use Mokos\Model\Storage\SqlDescriptor;
  */
 class PDOStorageTest extends PHPUnit_Extensions_Database_TestCase 
 {
-	private static $TABLE_NAME = 'PERSON';
+	private static $TABLE_NAME = 'person_in_organization';
 	private static $ID_PERSON = 999;
 	/**
 	 * @var PDO

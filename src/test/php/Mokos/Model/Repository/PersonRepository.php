@@ -1,5 +1,4 @@
 <?php
-use Mokos\Model\Repository\DomainRepository;
 /**
  * @author derhaa
  * @Repository

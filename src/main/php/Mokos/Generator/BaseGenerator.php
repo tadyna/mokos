@@ -50,11 +50,10 @@ abstract class BaseGenerator implements Generator {
     {
         $tables = $this->_adapter->getAllTables();
         foreach ($tables as $table) {
-            $tableName = $table[0];
-            $clazzName = $this->_getClazzName($tableName);
+            $tableName = $table->getName();
             $template = new Template($this->_templatePath);
-            $this->_fill($template, $tableName);
-            $template->write($this->_filePath.$clazzName.$this->_getType().'.php');
+            $this->_fill($template, $tableName, $table->getDescription());
+            $template->write($this->_filePath.$this->_getClazzName($tableName).$this->_getType().'.php');
         }
     }
     /**
@@ -76,7 +75,7 @@ abstract class BaseGenerator implements Generator {
      * Fill template by specific variables by given generator implementation
      * @return void
      */
-    protected abstract function _fill(Template $template, $tableName);
+    protected abstract function _fill(Template $template, $tableName, $tableDescription);
     /**
      * Returned name is used in filename
      * @return string of generated entity, eg. Dao, Mapper, Repository
