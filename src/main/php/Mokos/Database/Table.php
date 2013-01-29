@@ -21,10 +21,22 @@ class Table {
 	 */
 	private $name;
 	/**
+	 * @var string table description
+	 */
+	private $description;
+	/**
 	 * Descriptor of database table
 	 */
-	public function __construct($tableName) {
+	public function __construct($tableName, $description) {
 		$this->name = $tableName;
+		$this->description = $description;
+	}
+	/**
+	 * Return description of database table
+	 * @return string
+	 */
+	public function getDescription() {
+		return $this->description;
 	}
 	/**
 	 * Return name of database table
@@ -32,5 +44,5 @@ class Table {
 	 */
 	public function getName() {
 		return $this->name;
-	}
+	}	
 }

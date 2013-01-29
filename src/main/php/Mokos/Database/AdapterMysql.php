@@ -49,9 +49,11 @@ class AdapterMysql extends AdapterBase
      */
     public function getAllTables() 
     {
+    	$query = "select * from information_schema.tables where table_schema='".$this->schemaName."'";
     	$descriptors = array();
-        foreach($this->_pdo->query('show tables') as $table){
-        	$descriptors[] = new Table($table[0]); 
+    	$result = $this->_pdo->query($query);
+        foreach($result as $table){
+        	$descriptors[] = new Table($table['TABLE_NAME'], $table['TABLE_COMMENT']); 
         }
         return $descriptors;
     }

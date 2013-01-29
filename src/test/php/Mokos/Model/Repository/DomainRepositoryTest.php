@@ -1,10 +1,11 @@
 <?php
 use Mokos\Model\Repository\DomainRepository;
+use PersonRepository;
 /**
  *
  * @author derhaa
  */
-class DomainRepositoryTest extends PHPUnit_Framework_TestCase
+class DomainRepositoryTest extends \PHPUnit_Framework_TestCase
 {
 	/**
 	 * Mock of \PersonMapper implementation
@@ -19,8 +20,8 @@ class DomainRepositoryTest extends PHPUnit_Framework_TestCase
 	
 	protected function setUp()
 	{
-		$this->mapper = $this->getMock('PersonMapper');
-		$this->object = new PersonRepository($this->mapper);
+// 		$this->mapper = $this->getMock('PersonMapper');
+// 		$this->object = new PersonRepository($this->mapper);
 	}
 	
 	public function testGetSomething()

@@ -17,13 +17,17 @@ use Mokos\Template\Template;
  * Generator for domain Entity objects
  */
 class EntityGenerator extends BaseGenerator {
+	const DOMAIN_NAME = 'domain_name';
+	const DOMAIN_DESCRIPTION = 'domain_description';
+	const CLAZZ_FIELDS = 'clazz_fields';
+	const CLAZZ_GET_SET_METHODS = 'clazz_get_set_methods';
     /**
      * @param \Mokos\Template\Template $template
      * @param string $tableName name of database table
      */
-    protected function _fill(Template $template, $tableName) {
+    protected function _fill(Template $template, $tableName, $tableDescription) {
         $clazzName = $this->_getClazzName($tableName);
-        $template->set('domain_name', $clazzName);
+        $template->set(self::DOMAIN_NAME, $clazzName);
         $columns = $this->_adapter->getAllFields($tableName);
         $fields = "";
         $methods = "";
@@ -52,10 +56,10 @@ class EntityGenerator extends BaseGenerator {
             $methods .="        \$this->_".$field."=\$".$field.";\n";
             $methods .="    }\n";            
         }
-        $template->set('clazz_fields', $fields);
-        $template->set('clazz_get_set_methods', $methods);
+        $template->set(self::CLAZZ_FIELDS, $fields);
+        $template->set(self::CLAZZ_GET_SET_METHODS, $methods);
         $template->set('date', date("Y-m-d H:i"));
-        $template->set('domain_description', "");
+        $template->set(self::DOMAIN_DESCRIPTION, $tableDescription);
     }
 
     protected function _getType() {
