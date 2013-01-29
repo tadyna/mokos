@@ -18,7 +18,7 @@ use Mokos\Template\Template;
  * 
  * Base class for generation of various classes
  */
-abstract class BaseGenerator implements Generator {
+abstract class GeneratorBase implements Generator {
     /**
      * @var AdapterBase
      */
@@ -52,8 +52,8 @@ abstract class BaseGenerator implements Generator {
         foreach ($tables as $table) {
             $tableName = $table->getName();
             $template = new Template($this->_templatePath);
-            $this->_fill($template, $tableName, $table->getDescription());
-            $template->write($this->_filePath.$this->_getClazzName($tableName).$this->_getType().'.php');
+            $this->fill($template, $tableName, $table->getDescription());
+            $template->write($this->_filePath.DIRECTORY_SEPARATOR.$this->getClazzName($tableName).$this->getType().'.php');
         }
     }
     /**
@@ -61,12 +61,12 @@ abstract class BaseGenerator implements Generator {
      * and if table contains '_' removed than and use camel-based naming class
      * @return string modified table name for class
      */
-    protected final function _getClazzName($tableName)
+    public final function getClazzName($tableName)
     {
         $name = strtoupper($tableName[0]).substr($tableName,1);
         for($i=0;$i<strlen($name);$i++){
             if($name[$i]=='_'){
-                $name = substr($name, 0, $i).strtoupper($name[$i+1]).substr($tableName, $i+2);
+                $name = substr($name, 0, $i).strtoupper($name[$i+1]).substr($name, $i+2);
             }
         }
         return $name;
@@ -75,10 +75,10 @@ abstract class BaseGenerator implements Generator {
      * Fill template by specific variables by given generator implementation
      * @return void
      */
-    protected abstract function _fill(Template $template, $tableName, $tableDescription);
+    protected abstract function fill(Template $template, $tableName, $tableDescription);
     /**
      * Returned name is used in filename
      * @return string of generated entity, eg. Dao, Mapper, Repository
      */
-    protected abstract function _getType();
+    protected abstract function getType();
 }

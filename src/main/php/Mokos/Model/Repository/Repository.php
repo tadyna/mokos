@@ -1,7 +1,7 @@
 <?php
 namespace Mokos\Model\Repository;
 /**
- * Base interface of repository
+ * Interface of repository
  * 
  * LICENCE
  *   The MIT License
@@ -13,7 +13,8 @@ namespace Mokos\Model\Repository;
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  */
-interface Repository {
+interface Repository 
+{
 	/**
 	 * Finder method to find entity by given unique key
 	 * @param mixed $idEntity unique key of entity to be able to find in storage

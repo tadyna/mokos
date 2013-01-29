@@ -19,7 +19,8 @@ class PDOStorage implements Storage {
 	 * @see \Mokos\Model\Storage\Storage::insert()
 	 * @param $data \Mokos\Model\Storage\PDO\SqlDescriptor
 	 */
-	public function insert($data) {
+	public function insert($data) 
+        {
 		$datas = $data->getColumns();
 		$query = $this->prepareInsertQuery($data->getTableName(), array_keys($datas));
 		return $this->executeQuery($query, array_values($datas))->fetch($this->_defaultFetchMode);
@@ -28,7 +29,8 @@ class PDOStorage implements Storage {
 	 * @see \Mokos\Model\Storage\Storage::update()
 	 * @param $data \Mokos\Model\Storage\PDO\SqlDescriptor
 	 */
-	public function update($data) {
+	public function update($data) 
+        {
 		$datas = $data->getColumns();
 		$criterias = $data->getConditions();
 		$query = $this->prepareUpdateQuery($data->getTableName(), array_keys($datas), array_keys($criterias));
@@ -37,24 +39,30 @@ class PDOStorage implements Storage {
 	}
 	/**
 	 * @see \Mokos\Model\Storage\Storage::delete()
-	 * @param $data \Mokos\Model\Storage\SqlDescriptor
+	 * @param $data \Mokos\Model\Storage\PDO\SqlDescriptor
 	 */
-	public function delete($data) {
-		$query = $this->prepareDeleteQuery($tableName, $data->getColumns());
+	public function delete($data) 
+        {
+		$datas = $data->getColumns();
+		$criterias = $data->getConditions();            
+		$query = $this->prepareDeleteQuery($data->getTableName(), $data->getColumns());
+                $params = array_merge(array_values($datas), array_values($criterias));
 		$this->executeQuery($query, $params);
 	}
 	/*
 	 * (non-PHPdoc)
 	 * @see \Mokos\Model\Storage\Storage::fetchAll()
 	 */
-	public function fetchAll($sql, array $params = array()) {
+	public function fetchAll($query, array $params = array()) 
+        {
 		return $this->executeQuery($query, $params);
 	}
 	/*
 	 * (non-PHPdoc)
 	 * @see \Mokos\Model\Storage\Storage::query()
 	 */
-	public function query($query) {
+	public function query($query) 
+        {
 		return $this->executeQuery($query, null)->fetchAll();
 	}
 	/*
@@ -63,11 +71,12 @@ class PDOStorage implements Storage {
 	 * @param array $columns name of columns
 	 * @return string sql query
 	 */
-	private function prepareInsertQuery($tableName, array $columns) {
+	private function prepareInsertQuery($tableName, array $columns) 
+        {
 		$placeholders = array();
-		foreach ($columns as $column => $value) {
-			$placeholders[] = '?';
-		}
+                for ($index = 0; $index < count($columns); $index++) {
+                    $placeholders[] = '?';
+                }
 		$query = 'INSERT INTO ' . $tableName . ' (' . implode(', ', $columns) . ')' . ' VALUES (' . implode(', ', $placeholders) . ')';
 		return $query;
 	}
@@ -78,14 +87,15 @@ class PDOStorage implements Storage {
 	 * @param array $criteria update criteria for where clauzule
 	 * @return string
 	 */
-	private function prepareUpdateQuery($tableName, array $columns, array $criterias) {
+	private function prepareUpdateQuery($tableName, array $columns, array $criterias) 
+        {
 		$set = array();
-		foreach ($columns as $column => $value) {
-			$set[] = $value . ' = ?';
+		foreach ($columns as $column) {
+			$set[] = $column . ' = ?';
 		}
 		$identifiers = array();
-		foreach ($criterias as $criteria => $value) {
-			$identifiers[] = $value . ' = ?';
+		foreach ($criterias as $criteria) {
+			$identifiers[] = $criteria . ' = ?';
 		}
 		$query = 'UPDATE ' . $tableName . ' SET ' . implode(', ', $set) . ' WHERE (' . implode(' = ? AND ', $identifiers) . ')';
 		return $query;
@@ -112,7 +122,8 @@ class PDOStorage implements Storage {
 	 * @throws Exception if query fails
 	 * @return \PDOStatement
 	 */
-	private function executeQuery($query, $params) {
+	private function executeQuery($query, $params) 
+        {
 		try {
 			$statement = null;
 			if(!$this->pdo->inTransaction()) $this->pdo->beginTransaction();
@@ -140,8 +151,8 @@ class PDOStorage implements Storage {
 	 * Injection of pdo implementation
 	 * @param \PDO $pdo
 	 */
-	public function __construct(\PDO $pdo) {
+	public function __construct(\PDO $pdo) 
+        {
 		$this->pdo = $pdo;
 	}
-
 }

@@ -16,17 +16,19 @@ use Mokos\Template\Template;
  * 
  * Generator for domain Entity objects
  */
-class EntityGenerator extends BaseGenerator {
+class GeneratorEntity extends GeneratorBase {
 	const DOMAIN_NAME = 'domain_name';
 	const DOMAIN_DESCRIPTION = 'domain_description';
 	const CLAZZ_FIELDS = 'clazz_fields';
 	const CLAZZ_GET_SET_METHODS = 'clazz_get_set_methods';
+        const CLAZZ_SERIALIZATION = 'clazz_serialize';
+        const CLAZZ_DESERIALIZATION = 'clazz_deserialize';
     /**
      * @param \Mokos\Template\Template $template
      * @param string $tableName name of database table
      */
-    protected function _fill(Template $template, $tableName, $tableDescription) {
-        $clazzName = $this->_getClazzName($tableName);
+    protected function fill(Template $template, $tableName, $tableDescription) {
+        $clazzName = $this->getClazzName($tableName);
         $template->set(self::DOMAIN_NAME, $clazzName);
         $columns = $this->_adapter->getAllFields($tableName);
         $fields = "";
@@ -35,25 +37,24 @@ class EntityGenerator extends BaseGenerator {
             $columnName = $column->getFieldName();
             $field = $column->getColumnName();
             $type = $column->getType();
-                //$fields .=($j==1) ? "/**\n" : "    /**\n";
             $fields .="    /**\n";
             $fields .="     * ".$column->getComment()."\n";
-            $fields .="     * @var ".$type." ".$field.";\n";
+            $fields .="     * @var ".$type." ".$columnName.";\n";
             $fields .="     */\n";
-            $fields .="    private \$_".$field.";\n";
-            $methods .="    /**\n";
-            $methods .="     * @return ".$type." $".$field.";\n";
+            $fields .="    private \$".$columnName.";\n";
+            $methods .="   /**\n";
+            $methods .="     * @return ".$type." $".$columnName.";\n";
             $methods .="     */\n";                
-            $methods .="    public function get".$columnName."()\n";
+            $methods .="    public function get".$field."()\n";
             $methods .="    {\n" ;
-            $methods .="        return \$this->_".$field.";\n";
+            $methods .="        return \$this->".$columnName.";\n";
             $methods .="    }\n";
             $methods .="    /**\n";
-            $methods .="     *@param ".$type." $".$field.";\n";
+            $methods .="     *@param ".$type." $".$columnName.";\n";
             $methods .="     */\n";                
-            $methods .="    public function set".$columnName."(\$".$field.")\n";
+            $methods .="    public function set".$field."(\$".$columnName.")\n";
             $methods .="    {\n" ;
-            $methods .="        \$this->_".$field."=\$".$field.";\n";
+            $methods .="        \$this->".$columnName."=\$".$columnName.";\n";
             $methods .="    }\n";            
         }
         $template->set(self::CLAZZ_FIELDS, $fields);
@@ -62,7 +63,7 @@ class EntityGenerator extends BaseGenerator {
         $template->set(self::DOMAIN_DESCRIPTION, $tableDescription);
     }
 
-    protected function _getType() {
+    protected function getType() {
         return "";
     }
 }

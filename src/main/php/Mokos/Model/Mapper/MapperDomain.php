@@ -1,9 +1,7 @@
 <?php
 namespace Mokos\Model\Mapper;
 use Mokos\Model\Storage\Storage;
-
 use Mokos\Model\Domain\Entity;
-
 use Mokos\Model\Mapper\Mapper;
 /**
  * Domain mapper implementation. It must be extended for specific domain object.
@@ -18,7 +16,7 @@ use Mokos\Model\Mapper\Mapper;
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  */
-abstract class DomainMapper implements Mapper {
+abstract class MapperDomain implements Mapper {
 	/**
 	 * Implementation of storage saves given entity
 	 * @param $entity \Mokos\Model\Domain\Entity

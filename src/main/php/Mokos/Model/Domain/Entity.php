@@ -15,7 +15,8 @@ namespace Mokos\Model\Domain;
  * 
  * This is central domain model class represents as Entity
  */
-abstract class Entity implements \Serializable {
+abstract class Entity implements \Serializable 
+{
     /** 
      * Unique id of object
      * @var int 
@@ -29,27 +30,31 @@ abstract class Entity implements \Serializable {
     /**
      * @return int unique identificator of entity
      */
-    public final function getId() {
+    public final function getId() 
+    {
         return $this->id;
     }
     /**
      * Set unique identificator of entity
      * @param int $id
      */
-    public final function setId($id) {
+    public final function setId($id) 
+    {
         $this->id = $id;
     }
     /**
      * @return int version of entity
      */
-    public final function getVersion() {
+    public final function getVersion() 
+    {
         return $this->version;
     }
     /**
      * Set version of entity
      * @param int $id
      */
-    public final function setVersion($version) {
+    public final function setVersion($version) 
+    {
         $this->version = $version;
     }
     /*
@@ -57,36 +62,17 @@ abstract class Entity implements \Serializable {
      * @throw EntityException if serialization fails
      * @return string representation of entity object
      */
-    public final function serialize() {
-        try {
-            return $this->writeObject();
-        } catch (\Exception $e) {
-            throw new EntityException('Entity cannot be serialized', null, $e);
-        }
+    public function serialize() 
+    {
+        //for override
     }
     /*
      * It allows deserializovat (construct) entity from string
      * @param string $serialized string representation of the object. 
      * @throw EntityException if deserialization fails
      */
-    public final function unserialize($serialized) {
-        try {
-            $this->readObject($serialized);
-        } catch (\Exception $e) {
-            throw new EntityException('Entity cannot be deserialized', null, $e);
-        }
-    }
-    /**
-     * @abstract
-     * Serialize object to string represetation
-     * @throw EntityException if serialization fails
-     * @return string serializied entity object
-     */
-    abstract protected function writeObject();
-    /**
-     * @abstract
-     * Construct object from string representation
-     * @param string $serialized
-     */
-    abstract protected function readObject($serialized);    
+    public function unserialize($unserialized) 
+    {
+       //for overrride
+    }   
 }

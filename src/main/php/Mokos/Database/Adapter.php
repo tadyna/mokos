@@ -30,7 +30,7 @@ interface Adapter
 	public function getAllTables();
 	/**
 	 * Return mapped type of column as string
-	 * @return data type as string
+	 * @return string data type as string
 	*/
 	public function getType(Column $columnDescriptor);
 }

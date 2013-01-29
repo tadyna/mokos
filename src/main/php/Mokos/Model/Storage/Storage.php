@@ -12,7 +12,8 @@ namespace Mokos\Model\Storage;
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  *
  */
-interface Storage {
+interface Storage 
+{
     /**
      * Concrete implementation must define a way how to insert given data
      * @param mixed $data

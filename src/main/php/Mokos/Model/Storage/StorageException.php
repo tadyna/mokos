@@ -14,8 +14,10 @@ namespace Mokos\Dao;
  * 
  * Basic storage exception
  */
-class StorageException extends Exception {
-    public function __construct($message, $code, $previous) {
+class StorageException extends Exception 
+{
+    public function __construct($message, $code, $previous) 
+    {
         parent::__construct($message, $code, $previous);
     }
 }

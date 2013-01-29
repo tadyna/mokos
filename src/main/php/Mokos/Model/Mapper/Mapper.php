@@ -15,7 +15,8 @@ namespace Mokos\Model\Mapper;
  * 
  * Base interface of mapper
  */
-interface Mapper {    
+interface Mapper 
+{    
     /**
      * Each mapper knows how to map storage entity as array
      * @param integer $idEntity

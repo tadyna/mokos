@@ -17,8 +17,7 @@
         "phpunit/phpunit": "3.7.*",
         "phpunit/dbunit": ">=1.2",
         "mockery/mockery": ">=0.7.2",
-        "hamcrest/hamcrest": "1.1.0"
-        "phpunit/dbunit": ">=1.2",
+        "hamcrest/hamcrest": "1.1.0",
         "mockery/mockery": ">=0.7.2"
     },
     "require": {
