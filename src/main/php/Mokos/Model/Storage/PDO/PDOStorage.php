@@ -31,7 +31,7 @@ class PDOStorage implements Storage {
 	public function update($data) {
 		$datas = $data->getColumns();
 		$criterias = $data->getConditions();
-		$query = $this->prepareUpdateQuery($data->getTableName(), array_keys($datas), array_values($datas), array_keys($criterias));
+		$query = $this->prepareUpdateQuery($data->getTableName(), array_keys($datas), array_keys($criterias));
 		$params = array_merge(array_values($datas), array_values($criterias));
 		$this->executeQuery($query, $params);
 	}
@@ -40,7 +40,7 @@ class PDOStorage implements Storage {
 	 * @param $data \Mokos\Model\Storage\SqlDescriptor
 	 */
 	public function delete($data) {
-		$query = $this->prepareDeleteQuery($tableName, $data['criteria']);
+		$query = $this->prepareDeleteQuery($tableName, $data->getColumns());
 		$this->executeQuery($query, $params);
 	}
 	/*
@@ -63,7 +63,7 @@ class PDOStorage implements Storage {
 	 * @param array $columns name of columns
 	 * @return string sql query
 	 */
-	private function prepareInsertQuery($tableName, $columns) {
+	private function prepareInsertQuery($tableName, array $columns) {
 		$placeholders = array();
 		foreach ($columns as $column => $value) {
 			$placeholders[] = '?';
@@ -78,7 +78,7 @@ class PDOStorage implements Storage {
 	 * @param array $criteria update criteria for where clauzule
 	 * @return string
 	 */
-	private function prepareUpdateQuery($tableName, $columns, $values, $criterias) {
+	private function prepareUpdateQuery($tableName, array $columns, array $criterias) {
 		$set = array();
 		foreach ($columns as $column => $value) {
 			$set[] = $value . ' = ?';
@@ -90,11 +90,17 @@ class PDOStorage implements Storage {
 		$query = 'UPDATE ' . $tableName . ' SET ' . implode(', ', $set) . ' WHERE (' . implode(' = ? AND ', $identifiers) . ')';
 		return $query;
 	}
-	private function prepareDeleteQuery($tableName, $criterias)
+	/*
+	 * 
+	 * @param string $tableName
+	 * @param array $columns
+	 * @return string
+	 */
+	private function prepareDeleteQuery($tableName, array $columns)
 	{
 		$identifiers = array();
-		foreach ($criterias as $criteria => $value) {
-			$identifiers[] = $criteria . ' = ?';
+		foreach ($columns as $column => $value) {
+			$identifiers[] = $column . ' = ' . $column[$value];
 		}		
 		$query = 'DELETE FROM ' .$tableName . ' WHERE (' . implode(' AND ', $identifiers) . ')';
 		return $query;

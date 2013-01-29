@@ -35,7 +35,7 @@ abstract class DomainMapper implements Mapper {
 	 * @see \Mokos\Model\Mapper\Mapper::remove()
 	 */
 	public function remove($idEntity) {
-		$this->storage->remove($idEntity);
+		$this->storage->delete($idEntity);
 	}
 	/**
 	 * Implementation of storage execute given sql query

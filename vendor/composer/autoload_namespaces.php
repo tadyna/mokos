@@ -9,4 +9,6 @@ return array(
     'Symfony\\Component\\Yaml' => $vendorDir . '/symfony/yaml/',
     'Symfony\\Component\\Console\\' => $vendorDir . '/symfony/console/',
     'Mokos' => $baseDir . '/src/main/php',
+    'Mockery' => $vendorDir . '/mockery/mockery/library/',
+    'Hamcrest_' => $vendorDir . '/hamcrest/hamcrest/Hamcrest-1.1.0/',
 );
