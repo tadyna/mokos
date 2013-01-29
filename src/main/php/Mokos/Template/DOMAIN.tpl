@@ -8,8 +8,8 @@
  */
 class ${domain_name} extends Entity
 {
-    ${clazz_fields}
-    ${clazz_get_set_methods}
+   ${clazz_fields}
+   ${clazz_get_set_methods}
     /**
      * @return string represetantion of entity
      * @throw EntityException if serialization fails
