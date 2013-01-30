@@ -27,7 +27,7 @@ class GeneratorBaseTest extends \PHPUnit_Framework_TestCase {
 	 * @see PHPUnit_Framework_TestCase::setUp()
 	 */
 	public function setUp() {
-		$this->mock = new BaseGeneratorMock(__DIR__ . DIRECTORY_SEPARATOR . 'DOMAIN.tpl', __DIR__, $this->adapter);
+		$this->mock = new Mokos\Generator\GeneratorEntity(__DIR__ . DIRECTORY_SEPARATOR . 'DOMAIN.tpl', __DIR__, $this->adapter);
 	}
         /**
          * Test generate clazz name
