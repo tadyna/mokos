@@ -25,7 +25,8 @@ class GeneratorEntityTest extends \PHPUnit_Framework_TestCase {
 	 * @see PHPUnit_Framework_TestCase::setUp()
 	 */
 	public function setUp() {
-		$this->mock = new \Mokos\Generator\GeneratorEntity(__DIR__ . DIRECTORY_SEPARATOR . 'DOMAIN_MOKOS.tpl', __DIR__, $this->adapter);
+            $path = '..'.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR.'templates'.DIRECTORY_SEPARATOR.'DOMAIN.tpl';
+            $this->mock = new \Mokos\Generator\GeneratorEntity($path, __DIR__, $this->adapter);
 	}
 	/**
 	 * Test generate process... without asserting, only for exception

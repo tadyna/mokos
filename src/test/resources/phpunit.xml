@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <phpunit>
     <php>
+        <var name="DB_VENDOR" value="mysql" />
         <var name="DB_DATABASE" value="mokos_test" />
         <var name="DB_HOST" value="localhost" />
         <var name="DB_DSN" value="mysql:dbname=mokos_test;host=localhost" />

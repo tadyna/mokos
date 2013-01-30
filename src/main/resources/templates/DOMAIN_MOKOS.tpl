@@ -1,5 +1,5 @@
 <?php
-use Mokos\Model\Entity;
+use Mokos\Model\Domain\Entity;
 /**
  *
  * @date: ${date}
@@ -17,20 +17,19 @@ class ${domain_name} extends Entity
      */
     protected final function serialize() 
     {
-        $retval = array();
-        return $retval;
+        //do something
     }
     /**
      * It allows deserializovat entity from various sources
      * @param mixed $serialized 
      * @throw EntityException if deserialization fails
      */
-    protected final function unserialize($serialized) 
+    protected final function readObject($serialized) 
     {
         if(is_array($serialized)) {
-            //do something
-        } else if (is_object($serialized)) {
             // do something
+        } else if (is_object($serialized)) {
+            //do something
         } else {
             throw new Exception('${domain_name} object cannot be deserialized', null, null);
         }

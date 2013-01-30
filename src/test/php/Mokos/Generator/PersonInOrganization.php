@@ -1,15 +1,13 @@
 <?php
-use Mokos\Model\Entity;
 /**
- *
- * @date: 2013-01-30 15:54
+ * @date: 2013-01-30 21:03
  * @version: ${version}
  *      
- * Table with persons in organization     
+ *      
  */
-class PersonInOrganization extends Entity
+class PersonInOrganization implements \Serializable
 {
-        /**
+       /**
      * 
      * @var int idPerson;
      */
@@ -20,7 +18,7 @@ class PersonInOrganization extends Entity
      */
     private $fullname;
 
-       /**
+      /**
      * @return int $idPerson;
      */
     public function getIdPerson()
@@ -55,20 +53,19 @@ class PersonInOrganization extends Entity
      */
     protected final function serialize() 
     {
-        $retval = array();
-        return $retval;
+        //do something
     }
     /**
      * It allows deserializovat entity from various sources
      * @param mixed $serialized 
      * @throw EntityException if deserialization fails
      */
-    protected final function unserialize($serialized) 
+    protected final function readObject($serialized) 
     {
         if(is_array($serialized)) {
-            //do something
-        } else if (is_object($serialized)) {
             // do something
+        } else if (is_object($serialized)) {
+            //do something
         } else {
             throw new Exception('PersonInOrganization object cannot be deserialized', null, null);
         }

@@ -1,32 +1,33 @@
 <?php
 /**
- *
  * @date: ${date}
  * @version: ${version}
  *      
  * ${domain_description}     
  */
-class ${domain_name} extends Entity
+class ${domain_name} implements \Serializable
 {
    ${clazz_fields}
    ${clazz_get_set_methods}
     /**
-     * @return string represetantion of entity
+     * @return array represetantion of entity
      * @throw EntityException if serialization fails
      */
-    protected final function writedObject() {
-        return ${serialization};
+    protected final function serialize() 
+    {
+        //do something
     }
     /**
      * It allows deserializovat entity from various sources
      * @param mixed $serialized 
      * @throw EntityException if deserialization fails
      */
-    protected final function readObject($serialized) {
+    protected final function readObject($serialized) 
+    {
         if(is_array($serialized)) {
-            ${unserialization_from_array}
+            // do something
         } else if (is_object($serialized)) {
-            ${unserialization_from_object}
+            //do something
         } else {
             throw new Exception('${domain_name} object cannot be deserialized', null, null);
         }
