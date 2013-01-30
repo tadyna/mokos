@@ -1,5 +1,5 @@
 <?php
-require_once 'PHPUnit/Extensions/Database/TestCase.php';
+require_once '/../DatabaseTestBase.php';
 use Mokos\Model\Storage\PDO\PDOStorage;
 use Mokos\Model\Storage\PDO\SqlDescriptor;
 /**
@@ -7,7 +7,7 @@ use Mokos\Model\Storage\PDO\SqlDescriptor;
  * @author derhaa
  *
  */
-class PDOStorageTest extends PHPUnit_Extensions_Database_TestCase 
+class PDOStorageTest extends \DatabaseTestBase 
 {
 	private static $TABLE_NAME = 'person_in_organization';
 	private static $ID_PERSON = 999;
@@ -22,23 +22,16 @@ class PDOStorageTest extends PHPUnit_Extensions_Database_TestCase
 	
 	public function __construct()
 	{
-		$this->pdo = new PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD']);
+		parent::__construct();
 		$this->testedObject = new PDOStorage($this->pdo);
 	}
-	
-	protected function getConnection()
-	{
-		return $this->createDefaultDBConnection($this->pdo, $GLOBALS['DB_DBNAME']);
-	}
-	
+	/*
+         * (non-PHPdoc)
+         * @see PHPUnit\Extensions\Database\TestCase::getDataSet
+        */
 	protected function getDataSet()
 	{
 		return $this->createFlatXMLDataSet(dirname(__FILE__).'/person-seed.xml');
-	}
-
-	protected function getSetUpOperation()
-	{
-		return $this->getOperations()->CLEAN_INSERT();
 	}	
 	
 	public function testCreatePerson()
