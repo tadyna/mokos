@@ -4,3 +4,4 @@
 /.buildpath
 /.project
 /data-sources.xml
+/src/test/resources/templates
