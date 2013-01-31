@@ -4,7 +4,7 @@ use Mokos\Database\Adapter\AdapterMysql;
 /**
  * @author tomascejka
  */
-class GeneratorServiceTest extends \UnitTestBase 
+class GeneratorMapperTest extends \UnitTestBase 
 {
     /**
      * Generator for normal template
@@ -15,7 +15,7 @@ class GeneratorServiceTest extends \UnitTestBase
      * Generator for mokos-based template
      * @var Mokos\Generator\Generator
      */
-    private $mock2; 
+    private $mock2;    
     /**
      * @var Mokos\Database\Adapter
      */
@@ -34,14 +34,14 @@ class GeneratorServiceTest extends \UnitTestBase
      */
     public function setUp() 
     {
-        $this->mock1 = new \Mokos\Generator\GeneratorService(
-                $this->pathTemplateDir.'SERVICE.tpl',
+        $this->mock1 = new \Mokos\Generator\GeneratorMapper(
+                $this->pathTemplateDir.'MAPPER.tpl',
                 $this->pathTemporaryDir, 
                 $this->adapter);
-        $this->mock2 = new \Mokos\Generator\GeneratorService(
-                $this->pathTemplateDir.'SERVICE_MOKOS.tpl',
+        $this->mock2 = new \Mokos\Generator\GeneratorMapper(
+                $this->pathTemplateDir.'MAPPER_MOKOS.tpl',
                 $this->pathTemporaryDirMokos, 
-                $this->adapter);        
+                $this->adapter);         
     }
     /**
      * Test generate process... without asserting, only for exception

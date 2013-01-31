@@ -14,7 +14,7 @@ use Mokos\Template\Template;
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 
- * Generator for domain Entity objects
+ * Generator for Service objects
  */
 class GeneratorService extends GeneratorBase {
     /**
@@ -23,9 +23,6 @@ class GeneratorService extends GeneratorBase {
      */
     protected function fill(Template $template, $tableName, $tableDescription) {
         $template->set(self::MARK_ANNOTATION, "@Service");
-        $template->set(self::TABLE_NAME_SIMPLE, $this->getTableNameSimple($tableName));
-        $template->set(self::DOMAIN_NAME, $this->getClazzName($tableName));
-        $template->set(self::DOMAIN_NAME_LOWER, $this->getClazzNameLower($tableName));
         $template->set(self::DOMAIN_DESCRIPTION, "Service for ".$this->getClazzName($tableName)." entity");
     }
     /**

@@ -1,7 +1,6 @@
 <?php
 namespace Mokos\Model\Repository;
 use Mokos\Model\Repository\Repository;
-use Mokos\Model\Mapper\MapperDomain;
 /**
  * Base interface of domain repository
  *
@@ -35,6 +34,14 @@ abstract class RepositoryDomain implements Repository
     }
     /*
      * (non-PHPdoc)
+     * @see \Mokos\Model\Repository\Repository::removeAll()
+     */
+    public function removeAll() 
+    {
+        $this->mapper->removeAll();
+    }    
+    /*
+     * (non-PHPdoc)
      * @see \Mokos\Model\Repository\Repository::findAll()
      */
     public function findAll(array $condition = array()) 
@@ -55,9 +62,9 @@ abstract class RepositoryDomain implements Repository
     protected $mapper;
     /**
      * Injection of mapper implementation
-     * @param \Mokos\Model\Mapper\MapperDomain $mapper
+     * @param \Mokos\Model\Mapper\Mapper $mapper
      */
-    public function __construct(MapperDomain $mapper)
+    public function __construct(Mapper $mapper)
     {
         $this->mapper = $mapper;
     }

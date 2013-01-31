@@ -63,6 +63,11 @@ abstract class GeneratorBase implements Generator
         foreach ($tables as $table) {
             $tableName = $table->getName();
             $template = new Template($this->_templatePath);
+            $date = new \DateTime();
+            $template->set('date', $date->format('Y-m-d H:i:s'));
+            $template->set(self::TABLE_NAME_SIMPLE, $this->getTableNameSimple($tableName));
+            $template->set(self::DOMAIN_NAME, $this->getClazzName($tableName));
+            $template->set(self::DOMAIN_NAME_LOWER, $this->getClazzNameLower($tableName));            
             $this->fill($template, $tableName, $table->getDescription());
             $template->write($this->_filePath.DIRECTORY_SEPARATOR.$this->getClazzName($tableName).$this->getType().'.php');
         }

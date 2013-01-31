@@ -12,6 +12,7 @@ use Mokos\Model\Storage\Storage;
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  *
+ * @deprecated
  */
 class PDOStorage implements Storage {
 	private $_defaultFetchMode = \PDO::FETCH_OBJ;
@@ -49,6 +50,14 @@ class PDOStorage implements Storage {
                 $params = array_merge(array_values($datas), array_values($criterias));
 		$this->executeQuery($query, $params);
 	}
+	/**
+	 * @see \Mokos\Model\Storage\Storage::deleteAll()
+         * @param $data \Mokos\Model\Storage\PDO\SqlDescriptor
+	 */
+	public function deleteAll($data) 
+        {
+		$this->executeQuery("DELETE FROM ".$data->getTableName(), array());
+	}        
 	/*
 	 * (non-PHPdoc)
 	 * @see \Mokos\Model\Storage\Storage::fetchAll()

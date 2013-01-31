@@ -3,7 +3,8 @@
  * @date: ${date}
  * @version: ${version}
  *      
- * ${domain_description}     
+ * ${domain_description}
+ * ${mark_annotation}
  */
 class ${domain_name}Repository
 {

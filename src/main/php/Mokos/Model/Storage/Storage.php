@@ -33,6 +33,12 @@ interface Storage
      */
     public function delete($data);
     /**
+     * Storage engine must define how to remove datas
+     * @param mixed $data
+     * @return void
+     */
+    public function deleteAll($data);    
+    /**
      * Storage engine can invoke specific sql query
      * @param string $sql
      * @param array $params conditions for where clausule

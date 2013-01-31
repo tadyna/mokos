@@ -7,9 +7,15 @@ use Mokos\Database\Adapter\AdapterMysql;
 class GeneratorEntityTest extends \UnitTestBase 
 {
     /**
+     * Generator for simple template
      * @var Mokos\Generator\Generator
      */
-    private $mock;
+    private $mock1;
+    /**
+     * Generator for mokos-based template
+     * @var Mokos\Generator\Generator
+     */
+    private $mock2;
     /**
      * @var Mokos\Database\Adapter
      */
@@ -28,16 +34,21 @@ class GeneratorEntityTest extends \UnitTestBase
      */
     public function setUp() 
     {
-        $this->mock = new \Mokos\Generator\GeneratorEntity(
+        $this->mock1 = new \Mokos\Generator\GeneratorEntity(
                 $this->pathTemplateDir.'DOMAIN.tpl',
                 $this->pathTemporaryDir, 
                 $this->adapter);
+        $this->mock2 = new \Mokos\Generator\GeneratorEntity(
+                $this->pathTemplateDir.'DOMAIN_MOKOS.tpl',
+                $this->pathTemporaryDirMokos, 
+                $this->adapter);        
     }
     /**
      * Test generate process... without asserting, only for exception
      */
     public function testGenerate() 
     {
-        $this->mock->generate();
+        $this->mock1->generate();
+        $this->mock2->generate();
     }
 }

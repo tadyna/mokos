@@ -15,28 +15,34 @@ namespace Mokos\Model\Repository;
  */
 interface Repository 
 {
-	/**
-	 * Finder method to find entity by given unique key
-	 * @param mixed $idEntity unique key of entity to be able to find in storage
-	 * @return object entity
-	 */
-	public function find($idEntity);
-	/**
-	 * Finder method to find all entities
-	 * @param array conditions for sql where clauzule
-	 * @return array of entities
-	*/
-	public function findAll(array $condition=array());
-	/**
-	 * Concrete implementation must define a way how transform data and SAVE them
-	 * @param integer $idEntity
-	 * @return void
-	*/
-	public function remove($idEntity);
-	/**
-	 * Concrete implementation must define a way how transform data and persist them
-	 * @param object $entity
-	 * @return void
-	*/
-	public function save($entity);
+    /**
+    * Finder method to find entity by given unique key
+    * @param mixed $idEntity unique key of entity to be able to find in storage
+    * @return object entity
+    */
+   public function find($idEntity);
+   /**
+    * Finder method to find all entities
+    * @param array conditions for sql where clauzule
+    * @return array of entities
+   */
+   public function findAll(array $condition=array());
+   /**
+    * Concrete implementation must define a way how remove entity
+    * @param integer $idEntity
+    * @return void
+   */
+   public function remove($idEntity);
+   /**
+    * Concrete implementation must define a way how remove entities
+    * @param integer $idEntity
+    * @return void
+   */
+   public function removeAll();        
+   /**
+    * Concrete implementation must define a way how transform data and persist them
+    * @param object $entity
+    * @return void
+   */
+   public function save($entity);
 }

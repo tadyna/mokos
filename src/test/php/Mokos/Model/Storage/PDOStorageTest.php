@@ -4,6 +4,7 @@ use Mokos\Model\Storage\PDO\PDOStorage;
 use Mokos\Model\Storage\PDO\SqlDescriptor;
 /**
  * @author tomascejka
+ * @deprecated
  */
 class PDOStorageTest extends \DatabaseTestBase 
 {

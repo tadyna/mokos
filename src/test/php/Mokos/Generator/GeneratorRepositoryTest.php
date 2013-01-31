@@ -40,7 +40,7 @@ class GeneratorRepositoryTest extends \UnitTestBase
                 $this->adapter);
         $this->mock2 = new \Mokos\Generator\GeneratorRepository(
                 $this->pathTemplateDir.'REPOSITORY_MOKOS.tpl',
-                $this->pathTemporaryDir.DIRECTORY_SEPARATOR.'Mokos', 
+                $this->pathTemporaryDirMokos, 
                 $this->adapter);        
     }
     /**

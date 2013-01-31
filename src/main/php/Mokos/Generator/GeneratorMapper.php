@@ -14,21 +14,21 @@ use Mokos\Template\Template;
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 
- * Generator for Repository objects
+ * Generator for Mapper objects
  */
-class GeneratorRepository extends GeneratorBase {
+class GeneratorMapper extends GeneratorBase {
     /**
      * @param \Mokos\Template\Template $template
      * @param string $tableName name of database table
      */
     protected function fill(Template $template, $tableName, $tableDescription) {
-        $template->set(self::MARK_ANNOTATION, "@Repository");
-        $template->set(self::DOMAIN_DESCRIPTION, "Repository for ".$this->getClazzName($tableName)." entity");
+        $template->set(self::MARK_ANNOTATION, "@Mapper");
+        $template->set(self::DOMAIN_DESCRIPTION, "Mapper for ".$this->getClazzName($tableName)." entity");
     }
     /**
      * @return string name suffix
      */
     protected function getType() {
-        return "Repository";
+        return "Mapper";
     }
 }
