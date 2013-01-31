@@ -1,5 +1,4 @@
 <?php
-use Mokos\Model\Mapper\Mapper;
 /**
  * @date: ${date}
  * @version: ${version}
@@ -7,7 +6,7 @@ use Mokos\Model\Mapper\Mapper;
  * ${domain_description}
  * ${mark_annotation}
  */
-class ${domain_name}MapperImpl implements Mapper
+class ${domain_name}MapperImpl
 {
     /**
      * Inject ${table_name_simple} storage implementation
