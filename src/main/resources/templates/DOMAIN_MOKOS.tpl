@@ -24,7 +24,7 @@ class ${domain_name} extends Entity
      * @param mixed $serialized 
      * @throw EntityException if deserialization fails
      */
-    protected final function readObject($serialized) 
+    protected final function unserialize($serialized) 
     {
         if(is_array($serialized)) {
             // do something

@@ -10,7 +10,8 @@ class EntityTest extends \PHPUnit_Framework_TestCase
      */
     private $entity;
     /*
-     * @inheritDoc
+     * (non-PHPdoc)
+     * @see PHPUnit_Framework_TestCase::setUp()
      */
     protected function setUp() {
         $this->entity = new \Person("tomas", "cejka");

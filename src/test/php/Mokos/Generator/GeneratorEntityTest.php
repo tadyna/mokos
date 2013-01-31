@@ -1,10 +1,12 @@
 <?php
+require_once '/../PdoFactory.php';
+require_once '/../UnitTestBase.php';
 use Mokos\Database\AdapterMysql;
 /**
- * @author tocecz
- *
+ * @author tomascejka
  */
-class GeneratorEntityTest extends \PHPUnit_Framework_TestCase {
+class GeneratorEntityTest extends \UnitTestBase 
+{
 	/**
 	 * @var Mokos\Generator\Generator
 	 */
@@ -16,17 +18,20 @@ class GeneratorEntityTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * create \PDO object and Mokos\Database\Adapter object
 	 */
-	public function __construct() {
-		$pdo = new PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD']);
-		$this->adapter = new AdapterMysql($pdo, $GLOBALS['DB_DATABASE']);
+	public function __construct() 
+        {
+            $this->adapter = new AdapterMysql(\PdoFactory::createConnection(), \PdoFactory::getDatabaseName());
 	}
 	/*
 	 * (non-PHPdoc)
 	 * @see PHPUnit_Framework_TestCase::setUp()
 	 */
-	public function setUp() {
-            $path = '..'.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR.'templates'.DIRECTORY_SEPARATOR.'DOMAIN.tpl';
-            $this->mock = new \Mokos\Generator\GeneratorEntity($path, __DIR__, $this->adapter);
+	public function setUp() 
+        {
+            $this->mock = new \Mokos\Generator\GeneratorEntity(
+                    $this->pathTemplateDir.'DOMAIN.tpl',
+                    $this->pathTemporaryDir, 
+                    $this->adapter);
 	}
 	/**
 	 * Test generate process... without asserting, only for exception

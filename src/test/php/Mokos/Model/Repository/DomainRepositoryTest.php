@@ -1,9 +1,6 @@
 <?php
-use Mokos\Model\Repository\DomainRepository;
-use PersonRepository;
 /**
- *
- * @author derhaa
+ * @author tomascejka
  */
 class DomainRepositoryTest extends \PHPUnit_Framework_TestCase
 {

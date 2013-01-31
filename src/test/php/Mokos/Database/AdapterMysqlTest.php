@@ -2,9 +2,9 @@
 require_once '/../DatabaseTestBase.php';
 use Mokos\Database\AdapterMysql;
 /**
- * @author derhaa
+ * @author tomascejka
  */
-class AdapterMysqlTest extends \DatabaseTestBase 
+class AdapterMysqlTest extends \DatabaseTestBase
 {
     /**
      * @var string name of testing table

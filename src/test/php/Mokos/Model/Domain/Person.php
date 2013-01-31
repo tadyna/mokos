@@ -1,7 +1,7 @@
 <?php
 use Mokos\Model\Domain\Entity;
 /**
- * @author tocecz
+ * @author tomascejka
  */
 class Person extends Entity 
 {

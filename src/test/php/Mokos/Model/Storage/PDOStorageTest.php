@@ -46,7 +46,7 @@ class PDOStorageTest extends \DatabaseTestBase
             $descriptor = new SqlDescriptor(self::$TABLE_NAME, $data);
             $o =  $this->testedObject->insert($descriptor);		
 
-            $xml_dataset = $this->createFlatXMLDataSet($this->resources.'/person-after-new-person.xml');
+            $xml_dataset = $this->createFlatXMLDataSet($this->resources.'person-after-new-person.xml');
             $this->assertDataSetsEqual($xml_dataset, $this->getConnection()->createDataSet());
     }
     /**
@@ -58,7 +58,7 @@ class PDOStorageTest extends \DatabaseTestBase
         $descriptor = new SqlDescriptor(self::$TABLE_NAME, $data, array('ID_PERSON'=>2));
         $this->testedObject->update($descriptor);
 
-        $xml_dataset = $this->createFlatXMLDataSet($this->resources.'/person-after-update-person.xml');
+        $xml_dataset = $this->createFlatXMLDataSet($this->resources.'person-after-update-person.xml');
         $this->assertDataSetsEqual($xml_dataset, $this->getConnection()->createDataSet());
     }	
 }
