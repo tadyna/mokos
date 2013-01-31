@@ -29,7 +29,7 @@ abstract class DatabaseTestBase extends \PHPUnit_Extensions_Database_TestCase
     {
         self::$pdo = new \PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD']);
         $this->database = $GLOBALS['DB_DATABASE'];
-        $this->pathResources = '..'.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR.'datasets'.DIRECTORY_SEPARATOR;
+        $this->pathResources = '..'.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR.'Mokos'.DIRECTORY_SEPARATOR;
     }
     /**
      * Create PDO object and create connection. It is create one time per test!

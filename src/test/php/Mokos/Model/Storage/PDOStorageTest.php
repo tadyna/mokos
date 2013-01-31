@@ -1,56 +1,64 @@
 <?php
-require_once '/../DatabaseTestBase.php';
+require_once '/../../DatabaseTestBase.php';
 use Mokos\Model\Storage\PDO\PDOStorage;
 use Mokos\Model\Storage\PDO\SqlDescriptor;
 /**
- * 
- * @author derhaa
- *
+ * @author tomascejka
  */
 class PDOStorageTest extends \DatabaseTestBase 
 {
-	private static $TABLE_NAME = 'person_in_organization';
-	private static $ID_PERSON = 999;
-	/**
-	 * @var PDO
-	 */	
-	protected $pdo;
-	/**
-	 * @var PDOStorage
-	 */
-	private $testedObject;
-	
-	public function __construct()
-	{
-		parent::__construct();
-		$this->testedObject = new PDOStorage($this->pdo);
-	}
-	/*
-         * (non-PHPdoc)
-         * @see PHPUnit\Extensions\Database\TestCase::getDataSet
-        */
-	protected function getDataSet()
-	{
-		return $this->createFlatXMLDataSet(dirname(__FILE__).'/person-seed.xml');
-	}	
-	
-	public function testCreatePerson()
-	{
-		$data = array('ID_PERSON'=>3, 'FULLNAME'=>'Nikodim Michal');
-		$descriptor = new SqlDescriptor(self::$TABLE_NAME, $data);
-		$o =  $this->testedObject->insert($descriptor);		
-	
-		$xml_dataset = $this->createFlatXMLDataSet(dirname(__FILE__).'/person-after-new-person.xml');
-		$this->assertDataSetsEqual($xml_dataset, $this->getConnection()->createDataSet());
-	}
+    /**
+     *
+     * @var string name of database table 
+     */
+    private static $TABLE_NAME = 'person_in_organization';
+    /**
+     * @var string filepath for testing resources (datasets)
+     */
+    private $resources;
+    /**
+     * @var PDOStorage
+     */
+    private $testedObject;
+    /**
+     * Create tested object Mokos\Model\Storage\PDO\PDOStorage
+     */
+    public function __construct()
+    {
+            parent::__construct();
+            $this->testedObject = new PDOStorage(self::$pdo);
+            $this->resources = $this->pathResources.DIRECTORY_SEPARATOR.'Model'.DIRECTORY_SEPARATOR.'Storage'.DIRECTORY_SEPARATOR;
+    }
+    /*
+     * (non-PHPdoc)
+     * @see PHPUnit\Extensions\Database\TestCase::getDataSet
+    */
+    protected function getDataSet()
+    {
+            return $this->createFlatXMLDataSet($this->resources.'person-seed.xml');
+    }	
+    /**
+     * Test creating domain object
+     */
+    public function testCreatePerson()
+    {
+            $data = array('ID_PERSON'=>3, 'FULLNAME'=>'Nikodim Michal');
+            $descriptor = new SqlDescriptor(self::$TABLE_NAME, $data);
+            $o =  $this->testedObject->insert($descriptor);		
 
-	public function testUpdatePerson()
-	{
-		$data = array('FULLNAME'=>'Karolina Malkova UPD');
-		$descriptor = new SqlDescriptor(self::$TABLE_NAME, $data, array('ID_PERSON'=>2));
-		$this->testedObject->update($descriptor);
-	
-		$xml_dataset = $this->createFlatXMLDataSet(dirname(__FILE__).'/person-after-update-person.xml');
-		$this->assertDataSetsEqual($xml_dataset, $this->getConnection()->createDataSet());
-	}	
+            $xml_dataset = $this->createFlatXMLDataSet($this->resources.'/person-after-new-person.xml');
+            $this->assertDataSetsEqual($xml_dataset, $this->getConnection()->createDataSet());
+    }
+    /**
+     * Test update domain object
+     */
+    public function testUpdatePerson()
+    {
+        $data = array('FULLNAME'=>'Karolina Malkova UPD');
+        $descriptor = new SqlDescriptor(self::$TABLE_NAME, $data, array('ID_PERSON'=>2));
+        $this->testedObject->update($descriptor);
+
+        $xml_dataset = $this->createFlatXMLDataSet($this->resources.'/person-after-update-person.xml');
+        $this->assertDataSetsEqual($xml_dataset, $this->getConnection()->createDataSet());
+    }	
 }

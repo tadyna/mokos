@@ -28,7 +28,7 @@ class AdapterMysqlTest extends \DatabaseTestBase
      */
     protected function getDataSet()
     {
-        return $this->createFlatXMLDataSet($this->pathResources.'adapterMysqlTest.xml');
+        return $this->createFlatXMLDataSet($this->pathResources.DIRECTORY_SEPARATOR.'Database'.DIRECTORY_SEPARATOR.'adapterMysqlTest.xml');
     }	
     /**
      * Test if names of tables are equals
