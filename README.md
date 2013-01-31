@@ -1,4 +1,6 @@
 mokos
 =====
 
-Generator domain php classes. Database table per php class.
+Generator domain/repository/mapper php classes from database.
+
+Alpha version - do not use in production.
