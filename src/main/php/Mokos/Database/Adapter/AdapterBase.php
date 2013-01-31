@@ -1,7 +1,7 @@
 <?php
-namespace Mokos\Database;
-use Mokos\Database\Adapter;
-use Mokos\Database\Column;
+namespace Mokos\Database\Adapter;
+use Mokos\Database\Configuration;
+use Mokos\Database\Adapter\Adapter;
 /**
  * Mokos
  *
@@ -22,17 +22,17 @@ abstract class AdapterBase implements Adapter
     /**
      * @var PHP Data Object
      */
-    protected $_pdo;
+    protected $pdo;
     /**
      * @var string name of database schema
      */
     protected $schemaName;
     /**
-     * @param \PDO $pdo
+     * @param \Mokos\Database\Configuration $configuration
      */
-    public function __construct(\PDO $pdo, $schemaName) 
+    public function __construct(Configuration $configuration) 
     {
-        $this->_pdo = $pdo;
-        $this->schemaName = $schemaName;
+        $this->schemaName = $configuration->getDbName();
+        $this->pdo = $configuration->getConnection();
     }
 }

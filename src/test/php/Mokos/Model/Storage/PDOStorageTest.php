@@ -26,7 +26,7 @@ class PDOStorageTest extends \DatabaseTestBase
     public function __construct()
     {
             parent::__construct();
-            $this->testedObject = new PDOStorage(self::$pdo);
+            $this->testedObject = new PDOStorage($this->configuration->getConnection());
             $this->resources = $this->pathResources.DIRECTORY_SEPARATOR.'Model'.DIRECTORY_SEPARATOR.'Storage'.DIRECTORY_SEPARATOR;
     }
     /*

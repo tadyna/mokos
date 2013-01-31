@@ -1,7 +1,8 @@
 <?php
-namespace Mokos\Database;
-use Mokos\Database\Column;
-use Mokos\Database\AdapterBase;
+namespace Mokos\Database\Adapter;
+use Mokos\Database\Adapter\AdapterBase;
+use Mokos\Database\Metadata\Column;
+use Mokos\Database\Metadata\Table;
 /**
  * Mokos
  *
@@ -27,7 +28,7 @@ class AdapterMysql extends AdapterBase
     {
         $descriptors = array();
         $query = "select * from information_schema.columns where table_name='".$tableName."'";
-        foreach ($this->_pdo->query($query) as $row) {
+        foreach ($this->pdo->query($query) as $row) {
             $descriptors[$row['COLUMN_NAME']] = new Column (
                 $row['COLUMN_NAME'],
                 $row['DATA_TYPE'],
@@ -51,7 +52,7 @@ class AdapterMysql extends AdapterBase
     {
     	$query = "select * from information_schema.tables where table_schema='".$this->schemaName."'";
     	$descriptors = array();
-    	$result = $this->_pdo->query($query);
+    	$result = $this->pdo->query($query);
         foreach($result as $table){
         	$descriptors[] = new Table($table['TABLE_NAME'], $table['TABLE_COMMENT']); 
         }

@@ -1,7 +1,7 @@
 <?php
 namespace Mokos\Generator;
 use Mokos\Generator\Generator;
-use Mokos\Database\AdapterBase;
+use Mokos\Database\Adapter\AdapterBase;
 use Mokos\Template\Template;
 /**
  * Mokos
@@ -20,7 +20,7 @@ use Mokos\Template\Template;
  */
 abstract class GeneratorBase implements Generator {
     /**
-     * @var AdapterBase
+     * @var \Mokos\Database\Adapter\Adapter
      */
     protected $_adapter;
     /**

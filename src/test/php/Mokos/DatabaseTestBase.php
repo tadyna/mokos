@@ -1,20 +1,11 @@
 <?php
-require_once 'PdoFactory.php';
+require_once 'Configuration.php';
 /**
  * Basic interface for database/integration test subclass
  * @author derhaa
  */
 abstract class DatabaseTestBase extends PHPUnit_Extensions_Database_TestCase
 {
-    /**
-     * PDO implementation
-     * @var \PDO
-     */
-    protected static $pdo;
-    /**
-     * @var string name of database
-     */
-    protected $database;
     /**
      * Look at /test/php/resources
      * @var string filepath to test directory
@@ -30,14 +21,17 @@ abstract class DatabaseTestBase extends PHPUnit_Extensions_Database_TestCase
      */
     private $connection;
     /**
+     * @var Mokos\Database\Configuration
+     */
+    protected $configuration;
+    /**
      * Construct PDO object and init database settings
      */
     public function __construct() 
     {
-        self::$pdo = PdoFactory::createConnection();
-        $this->database = PdoFactory::getDatabaseName();
         $this->pathTestDir = '..'.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR;
         $this->pathResources = $this->pathTestDir.'Mokos'.DIRECTORY_SEPARATOR;
+        $this->configuration = new Configuration();
     } 
     /**
      * Create PDO object and create connection. It is create one time per test!
@@ -46,7 +40,7 @@ abstract class DatabaseTestBase extends PHPUnit_Extensions_Database_TestCase
     protected function getConnection() 
     {
         if($this->connection === null ) {
-            $this->connection = $this->createDefaultDBConnection(self::$pdo);
+            $this->connection = $this->createDefaultDBConnection($this->configuration->getConnection());
         }
         return $this->connection;
     }

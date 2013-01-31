@@ -1,5 +1,6 @@
 <?php
 namespace Mokos\Database;
+use Mokos\Database\Adapter\AdapterFactory;
 use Mokos\Configuration;
 /**
  * Mokos
@@ -18,33 +19,28 @@ use Mokos\Configuration;
 class Database 
 {
     /**
-     * @var \ArrayObject 
+     * @var Configuration
      */
     private $configurations;
+    /**
+     * @var Adapter\AdapterFactory
+     */
+    private $adapterFactory;
     /**
      * @param \Mokos\Configuration $configuration
      * @throws \Exception
      */
     public function __construct(Configuration $configuration) 
-     {
-        $this->dns = null;
-        $this->dir = $configuration->getOutputDirPath();
-        $server = $configuration->getDbServer();
-        $host = $configuration->getDbHost();
-        $port = $configuration->getDbPort();
-        $db = $configuration->getDbName();
-        switch($server)
-        {
-            case "mysql": 
-                $dns='mysql:host='.$host.';port='.$port.';dbname='.$db; break;
-            case "sqlsrv": //sqlsrv:Server=localhost,1521;Database=testdb
-                $dns='sqlsrv:Server='.$host.','.$port.';Database='.$db; break;
-            case "pgsql": //pgsql:host=localhost;port=5432;dbname=testdb;user=bruce;password=mypass
-                $dns='pgsql:host='.$host.';port='.$port.';dbname='.$db; break; 
-            case "sqlite": 
-                $dns=$host; break;
-            default:
-                throw new \Exception("Unsupported database connection: ".$configurations);
-        }        
+    {
+        $this->configurations = $configuration;
+        $this->adapterFactory = new AdapterFactory();
+    }
+    /**
+     * @return Adapter\Adapter
+     */
+    public function getAdapter() 
+    {
+        $adapter = $this->adapterFactory->getAdapter($this->configurations);
+        return $adapter;
     }
 }

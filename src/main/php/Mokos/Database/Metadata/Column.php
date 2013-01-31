@@ -1,5 +1,5 @@
 <?php
-namespace Mokos\Database;
+namespace Mokos\Database\Metadata;
 /**
  * Mokos
  *
@@ -69,7 +69,8 @@ class Column {
      * @param mixed $default
      * @param string $comment
      */
-    public function __construct($columName, $type, $nullable, $key, $unique, $primary, $maxLength, $extra, $default, $comment) {
+    public function __construct($columName, $type, $nullable, $key, $unique, $primary, $maxLength, $extra, $default, $comment) 
+    {
         $this->name = $columName;
         $this->type = $type;
         $this->nullable = $nullable;
@@ -100,7 +101,8 @@ class Column {
      * Return name of column
      * @return string
      */
-    public function getColumnName() {
+    public function getColumnName() 
+    {
         $retval = $this->getFieldName();
         $retval = strtoupper($retval[0]).substr($retval,1);
         return $retval;
@@ -109,42 +111,48 @@ class Column {
      * Return data type of column
      * @return string
      */
-    public function getType() {
+    public function getType() 
+    {
         return $this->type;
     }
     /**
      * Return if column is nullable
      * @return bool
      */
-    public function isNullable() {
+    public function isNullable() 
+    {
         return $this->nullable;
     }
     /**
      * Return key of column, eg. PRI, UNI, MUL see mysql manual
      * @return string
      */
-    public function getKey() {
+    public function getKey() 
+    {
         return $this->key;
     }
     /**
      * Return if column is unique
      * @return bool
      */
-    public function isUnique() {
+    public function isUnique() 
+    {
         return $this->unique;
     }
     /**
      * Return if column is primary
      * @return bool
      */
-    public function isPrimary() {
+    public function isPrimary() 
+    {
         return $this->primary;
     }
     /**
      * Return max length of value
      * @return int
      */
-    public function getMaxLength() {
+    public function getMaxLength() 
+    {
         return $this->maxLength;
     }
     /**

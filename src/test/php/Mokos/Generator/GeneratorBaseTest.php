@@ -1,8 +1,7 @@
 <?php
-require_once '/../PdoFactory.php';
 require_once '/../UnitTestBase.php';
 use Mokos\Generator\GeneratorBase;
-use Mokos\Database\AdapterMysql;
+use Mokos\Database\Adapter\AdapterMysql;
 use Mokos\Template\Template;
 /**
  * @author tomascejka
@@ -21,7 +20,8 @@ class GeneratorBaseTest extends \UnitTestBase {
      */
     public function __construct() 
     {
-        $this->adapter = new AdapterMysql(\PdoFactory::createConnection(), \PdoFactory::getDatabaseName());
+        parent::__construct();
+        $this->adapter = new AdapterMysql($this->configuration);
     }
     /*
      * (non-PHPdoc)

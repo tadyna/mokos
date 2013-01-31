@@ -1,6 +1,6 @@
 <?php
-require_once '/../DatabaseTestBase.php';
-use Mokos\Database\AdapterMysql;
+require_once '/../../DatabaseTestBase.php';
+use Mokos\Database\Adapter\AdapterMysql;
 /**
  * @author tomascejka
  */
@@ -11,7 +11,7 @@ class AdapterMysqlTest extends \DatabaseTestBase
      */
     private static $tableName = 'person_in_organization';
     /**
-     * @var Mokos\Database\AdapterMysql
+     * @var Mokos\Database\Adapter\AdapterMysql
      */
     private $object;
     /**
@@ -20,7 +20,7 @@ class AdapterMysqlTest extends \DatabaseTestBase
     public function __construct()
     {
         parent::__construct();
-        $this->object = new AdapterMysql(self::$pdo, $this->database);
+        $this->object = new AdapterMysql($this->configuration);
     }
     /*
      * (non-PHPdoc)
@@ -36,8 +36,8 @@ class AdapterMysqlTest extends \DatabaseTestBase
     public function testGetAllTables()
     {
             $names = array();
-            $query = "select * from information_schema.tables where table_schema='".$this->database."'";
-            foreach(self::$pdo->query($query) as $table){
+            $query = "select * from information_schema.tables where table_schema='".$this->configuration->getDbName()."'";
+            foreach($this->configuration->getConnection()->query($query) as $table){
                     $names[0] = $table['TABLE_NAME'];
                     $names[1] = $table['TABLE_COMMENT'];
             }		
