@@ -8,7 +8,6 @@ use Mokos\Model\Storage\PDO\SqlDescriptor;
 class PDOStorageTest extends \DatabaseTestBase 
 {
     /**
-     *
      * @var string name of database table 
      */
     private static $TABLE_NAME = 'person_in_organization';
@@ -25,9 +24,9 @@ class PDOStorageTest extends \DatabaseTestBase
      */
     public function __construct()
     {
-            parent::__construct();
-            $this->testedObject = new PDOStorage($this->configuration->getConnection());
-            $this->resources = $this->pathResources.DIRECTORY_SEPARATOR.'Model'.DIRECTORY_SEPARATOR.'Storage'.DIRECTORY_SEPARATOR;
+        parent::__construct();
+        $this->testedObject = new PDOStorage($this->configuration->getConnection());
+        $this->resources = $this->pathResources.DIRECTORY_SEPARATOR.'Model'.DIRECTORY_SEPARATOR.'Storage'.DIRECTORY_SEPARATOR;
     }
     /*
      * (non-PHPdoc)
@@ -35,19 +34,17 @@ class PDOStorageTest extends \DatabaseTestBase
     */
     protected function getDataSet()
     {
-            return $this->createFlatXMLDataSet($this->resources.'person-seed.xml');
+        return $this->createFlatXMLDataSet($this->resources.'person-seed.xml');
     }	
     /**
      * Test creating domain object
      */
     public function testCreatePerson()
     {
-            $data = array('ID_PERSON'=>3, 'FULLNAME'=>'Nikodim Michal');
-            $descriptor = new SqlDescriptor(self::$TABLE_NAME, $data);
-            $o =  $this->testedObject->insert($descriptor);		
-
-            $xml_dataset = $this->createFlatXMLDataSet($this->resources.'person-after-new-person.xml');
-            $this->assertDataSetsEqual($xml_dataset, $this->getConnection()->createDataSet());
+        $data = array('ID_PERSON'=>3, 'FULLNAME'=>'Nikodim Michal');
+        $this->testedObject->insert(new SqlDescriptor(self::$TABLE_NAME, $data));		
+        $xml_dataset = $this->createFlatXMLDataSet($this->resources.'person-after-new-person.xml');
+        $this->assertDataSetsEqual($xml_dataset, $this->getConnection()->createDataSet());
     }
     /**
      * Test update domain object

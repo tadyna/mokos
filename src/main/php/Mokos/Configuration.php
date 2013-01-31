@@ -55,4 +55,11 @@ class Configuration implements Database\Configuration
     {
         return $this->OUTPUT_DIR_PATH;
     }
+    /**
+     * @return string application version
+     */
+    public function getAppVersion()
+    {
+        return "";
+    }
 }

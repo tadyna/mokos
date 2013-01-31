@@ -18,7 +18,18 @@ use Mokos\Template\Template;
  * 
  * Base class for generation of various classes
  */
-abstract class GeneratorBase implements Generator {
+abstract class GeneratorBase implements Generator 
+{
+    const APP_VERSION = 'version';
+    const MARK_ANNOTATION = 'mark_annotation';
+    const TABLE_NAME_SIMPLE = 'table_name_simple';
+    const DOMAIN_NAME = 'domain_name';
+    const DOMAIN_NAME_LOWER = 'domain_name_lower';
+    const DOMAIN_DESCRIPTION = 'domain_description';
+    const CLAZZ_FIELDS = 'clazz_fields';
+    const CLAZZ_GET_SET_METHODS = 'clazz_get_set_methods';
+    const CLAZZ_SERIALIZATION = 'clazz_serialize';
+    const CLAZZ_DESERIALIZATION = 'clazz_deserialize';    
     /**
      * @var \Mokos\Database\Adapter\Adapter
      */
@@ -71,6 +82,29 @@ abstract class GeneratorBase implements Generator {
         }
         return $name;
     }
+    /**
+     * Extract table name from metadata object
+     * @return string camelized name of table
+     */
+    public final function getClazzNameLower($tableName)
+    {
+          $name = strtolower($tableName);
+          for($i=0;$i<strlen($name);$i++){
+              if($name[$i]=='_'){
+                  $name = substr($name, 0, $i).strtoupper($name[$i+1]).substr($name, $i+2);
+              }
+          }          
+          return $name;
+    } 
+    /**
+     * Extract table name from metadata object
+     * @return string name of table without underscores
+     */
+    public final function getTableNameSimple($tableName)
+    {
+          $name = strtolower($tableName);         
+          return str_ireplace("_", " ", $name);
+    }     
     /**
      * Fill template by specific variables by given generator implementation
      * @return void

@@ -16,18 +16,15 @@ use Mokos\Template\Template;
  * 
  * Generator for domain Entity objects
  */
-class GeneratorEntity extends GeneratorBase {
-	const DOMAIN_NAME = 'domain_name';
-	const DOMAIN_DESCRIPTION = 'domain_description';
-	const CLAZZ_FIELDS = 'clazz_fields';
-	const CLAZZ_GET_SET_METHODS = 'clazz_get_set_methods';
-        const CLAZZ_SERIALIZATION = 'clazz_serialize';
-        const CLAZZ_DESERIALIZATION = 'clazz_deserialize';
+class GeneratorEntity extends GeneratorBase 
+{
     /**
      * @param \Mokos\Template\Template $template
      * @param string $tableName name of database table
      */
-    protected function fill(Template $template, $tableName, $tableDescription) {
+    protected function fill(Template $template, $tableName, $tableDescription) 
+    {
+        $template->set(self::MARK_ANNOTATION, "@Entity");
         $clazzName = $this->getClazzName($tableName);
         $template->set(self::DOMAIN_NAME, $clazzName);
         $columns = $this->_adapter->getAllFields($tableName);
@@ -62,8 +59,11 @@ class GeneratorEntity extends GeneratorBase {
         $template->set('date', date("Y-m-d H:i"));
         $template->set(self::DOMAIN_DESCRIPTION, $tableDescription);
     }
-
-    protected function getType() {
+    /**
+     * @return string name suffix
+     */
+    protected function getType() 
+    {
         return "";
     }
 }

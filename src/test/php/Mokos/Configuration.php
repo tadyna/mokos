@@ -32,4 +32,11 @@ class Configuration implements Mokos\Database\Configuration
     {
         //do nothing
     }
+    /**
+     * @inheritDoc
+     */    
+    public function getAppVersion()
+    {
+        return "0.1.1 alpha";
+    }
 }

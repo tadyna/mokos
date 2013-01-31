@@ -26,6 +26,10 @@ interface Configuration
      */
     public function getDbName();
     /**
+     * @return string application version
+     */
+    public function getAppVersion();    
+    /**
      * @return string directory path where files are be generated
      */
     public function getOutputDirPath();    

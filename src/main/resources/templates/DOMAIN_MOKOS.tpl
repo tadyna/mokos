@@ -5,7 +5,8 @@ use Mokos\Model\Domain\Entity;
  * @date: ${date}
  * @version: ${version}
  *      
- * ${domain_description}     
+ * ${domain_description}
+ * ${mark_annotation}
  */
 class ${domain_name} extends Entity
 {
