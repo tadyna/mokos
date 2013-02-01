@@ -3,7 +3,8 @@ namespace Mokos\Template;
 /**
  * @author http://phpdao.com
  */
-class Template {
+class Template 
+{
     /**
      * @var string path to template file
      */

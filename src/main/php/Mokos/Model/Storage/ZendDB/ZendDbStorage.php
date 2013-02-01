@@ -13,6 +13,7 @@ use \Mokos\Model\Storage\Storage;
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  *
  */
-class ZendDbStorage implements Storage {
-	
+class ZendDbStorage implements Storage 
+{
+// do something	
 }

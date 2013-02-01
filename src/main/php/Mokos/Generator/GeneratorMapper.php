@@ -16,19 +16,22 @@ use Mokos\Template\Template;
  * 
  * Generator for Mapper objects
  */
-class GeneratorMapper extends GeneratorBase {
+class GeneratorMapper extends GeneratorBase 
+{
     /**
      * @param \Mokos\Template\Template $template
      * @param string $tableName name of database table
      */
-    protected function fill(Template $template, $tableName, $tableDescription) {
+    protected function fill(Template $template, $tableName, $tableDescription) 
+    {
         $template->set(self::MARK_ANNOTATION, "@Mapper");
         $template->set(self::DOMAIN_DESCRIPTION, "Mapper for ".$this->getClazzName($tableName)." entity");
     }
     /**
      * @return string name suffix
      */
-    protected function getType() {
+    protected function getType() 
+    {
         return "Mapper";
     }
 }

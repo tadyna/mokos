@@ -12,7 +12,8 @@ namespace \Mokos\Model\Storage\ZendDB;
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  *
  */
-abstract class ZendDbTable extends Zend_Db_Table_Abstract {
+abstract class ZendDbTable extends Zend_Db_Table_Abstract 
+{
 	/**
 	 * @var string name of database table
 	 */
@@ -25,7 +26,8 @@ abstract class ZendDbTable extends Zend_Db_Table_Abstract {
 	 * @param string $tableName
 	 * @param string $privateKey
 	 */
-	public function __construct($tableName, $privateKey) {
+	public function __construct($tableName, $privateKey) 
+        {
 		$this->_name = $tableName;
 		$this->_primary = $privateKey;
 	}

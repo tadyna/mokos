@@ -30,13 +30,15 @@ class SqlQuery
 	/**
 	 * @return string sql query
 	 */
-	public function getQuery() {
+	public function getQuery() 
+        {
 		return $this->query;
 	}
 	/**
 	 * @return array associative array condition-value pair
 	 */
-	public function getConditions() {
+	public function getConditions() 
+        {
 		return $this->conditions;
 	}	
 }

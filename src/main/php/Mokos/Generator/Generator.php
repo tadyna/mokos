@@ -14,6 +14,7 @@ namespace Mokos\Generator;
  * 
  * class description here ...
  */
-interface Generator {
+interface Generator 
+{
     public function generate ();
 }

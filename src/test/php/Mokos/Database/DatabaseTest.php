@@ -5,7 +5,7 @@ require_once '/../IntegrationTest.php';
  *
  * @author derhaa
  */
-class DatabaseTest extends \IntegrationTest 
+class DatabaseTest //extends \IntegrationTest 
 {
     /**
      * @var Mokos\Database\Database

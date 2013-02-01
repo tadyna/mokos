@@ -5,7 +5,20 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-
+/**
+ * Mokos
+ *
+ * LICENCE
+ *   The MIT License
+ *
+ * @author     derhaa
+ * @category   Console
+ * @package    Console
+ * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
+ * @license    http://opensource.org/licenses/mit-license.php - The MIT License
+ * 
+ * Base command for generation process
+ */
 class GenerateCommand extends Command
 {
     protected function configure()

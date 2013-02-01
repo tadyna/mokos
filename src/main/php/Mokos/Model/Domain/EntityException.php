@@ -14,7 +14,8 @@ namespace Mokos\Model\Domain;
  * 
  * Entity exception
  */
-class EntityException extends \Exception {
+class EntityException extends \Exception 
+{
     /**
      * @param type $message
      * @param type $code

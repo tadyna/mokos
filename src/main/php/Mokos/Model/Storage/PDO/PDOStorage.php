@@ -14,7 +14,8 @@ use Mokos\Model\Storage\Storage;
  *
  * @deprecated
  */
-class PDOStorage implements Storage {
+class PDOStorage implements Storage 
+{
 	private $_defaultFetchMode = \PDO::FETCH_OBJ;
 	/**
 	 * @see \Mokos\Model\Storage\Storage::insert()
