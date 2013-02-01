@@ -1,11 +1,11 @@
 <?php
-require_once '/../DatabaseTestBase.php';
+require_once '/../IntegrationTest.php';
 /**
  * Description of db_Database
  *
  * @author derhaa
  */
-class DatabaseTest extends \DatabaseTestBase 
+class DatabaseTest extends \IntegrationTest 
 {
     /**
      * @var Mokos\Database\Database
@@ -18,12 +18,13 @@ class DatabaseTest extends \DatabaseTestBase
     {
         parent::__construct();
         $this->object = null;
-    }    
+    }
     /*
      * (non-PHPdoc)
-     * @see PHPUnit\Extensions\Database\TestCase::getDataSet
+     * @see DatabaseTestBase::getDirectoryName()
      */
-    protected function getDataSet() {
-        return $this->createFlatXMLDataSet($this->pathResources.'databaseTest.xml');
-    }    
+    public function getDirectoryName()
+    {
+        return __DIR__;
+    }
 }

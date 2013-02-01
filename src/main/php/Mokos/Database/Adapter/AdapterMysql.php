@@ -78,4 +78,7 @@ class AdapterMysql extends AdapterBase
         }
         return $type;
     }
+    public function getMetadata() {
+        //select constraint_name, table_name, column_name, referenced_table_name, referenced_column_name from information_schema.key_column_usage where table_schema='TABLENAME' and referenced_table_name is not null;
+    }
 }

@@ -1,10 +1,10 @@
 <?php
-require_once '/../../DatabaseTestBase.php';
+require_once '/../../IntegrationTest.php';
 use Mokos\Database\Adapter\AdapterMysql;
 /**
  * @author tomascejka
  */
-class AdapterMysqlTest extends \DatabaseTestBase
+class AdapterMysqlTest extends \IntegrationTest
 {
     /**
      * @var string name of testing table
@@ -21,15 +21,15 @@ class AdapterMysqlTest extends \DatabaseTestBase
     {
         parent::__construct();
         $this->object = new AdapterMysql($this->configuration);
-    }
+    }	
     /*
      * (non-PHPdoc)
-     * @see PHPUnit\Extensions\Database\TestCase::getDataSet
+     * @see DatabaseTestBase::getDirectoryName()
      */
-    protected function getDataSet()
+    public function getDirectoryName()
     {
-        return $this->createFlatXMLDataSet($this->pathResources.DIRECTORY_SEPARATOR.'Database'.DIRECTORY_SEPARATOR.'adapterMysqlTest.xml');
-    }	
+        return __DIR__;
+    }    
     /**
      * Test if names of tables are equals
      */
@@ -65,5 +65,16 @@ class AdapterMysqlTest extends \DatabaseTestBase
             $expectedRow = array('ID_PERSON'=>'1', 'FULLNAME'=>'Tomas Cejka');
             $queryRow = $queryTable->getRow(0); 
             return $this->assertEquals($expectedRow, $queryRow, "Rows are not equals");
+    }
+    /**
+     * Test loading/parsing metadata
+     */
+    public function testGetMetadata()
+    {
+        //$statement = "select constraint_name, table_name, column_name, referenced_table_name, referenced_column_name from information_schema.key_column_usage where table_schema='".$this->configuration->getDbName()."'";// and referenced_table_name is not null";
+//        $result = $this->configuration->getConnection()->query($statement);
+        $d = basename(dirname(__DIR__));
+        $result = $this->configuration->getConnection()->query("show tables");
+        var_dump($result);
     }
 }

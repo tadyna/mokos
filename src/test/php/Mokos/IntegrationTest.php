@@ -1,10 +1,11 @@
 <?php
 require_once 'Configuration.php';
+require_once 'TruncateDatabaseOperation.php';
 /**
  * Basic interface for database/integration test subclass
  * @author derhaa
  */
-abstract class DatabaseTestBase extends PHPUnit_Extensions_Database_TestCase
+abstract class IntegrationTest extends PHPUnit_Extensions_Database_TestCase
 {
     /**
      * Look at /test/php/resources
@@ -25,6 +26,10 @@ abstract class DatabaseTestBase extends PHPUnit_Extensions_Database_TestCase
      */
     protected $configuration;
     /**
+     * @var string name of this class
+     */
+    private $clazzname;    
+    /**
      * Construct PDO object and init database settings
      */
     public function __construct() 
@@ -32,6 +37,9 @@ abstract class DatabaseTestBase extends PHPUnit_Extensions_Database_TestCase
         $this->pathTestDir = '..'.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR;
         $this->pathResources = $this->pathTestDir.'Mokos'.DIRECTORY_SEPARATOR;
         $this->configuration = new Configuration();
+        $clazz = new \ReflectionClass($this);
+        $this->clazzname = $clazz->getName();  
+        
     } 
     /**
      * Create PDO object and create connection. It is create one time per test!
@@ -44,11 +52,36 @@ abstract class DatabaseTestBase extends PHPUnit_Extensions_Database_TestCase
         }
         return $this->connection;
     }
+    /*
+     * (non-PHPdoc)
+     * @see PHPUnit\Extensions\Database\TestCase::getDataSet
+     */
+    protected function getDataSet()
+    {
+        $dir = $this->getDirectoryName();
+        if($dir === null || $dir === "" || !file_exists($dir)) {
+            throw new Exception ("Directory of test class not found");
+        }
+        $filePath = str_ireplace("\\mokos\\src\\test\\php", "\\mokos\\src\\test\\resources", $dir).DIRECTORY_SEPARATOR.$this->clazzname.'.xml';
+        if(!file_exists($filePath)) {
+            throw new Exception($this->clazzname . " has not data resource '".$this->clazzname.".xml' defined. There is must exist file ".$filePath);
+        }
+        return $this->createFlatXMLDataSet($filePath);
+    }
     /**
      * @return \PHPUnit_Extensions_Database_Operation_Composite
      */
     protected function getSetUpOperation()
     {
-        return $this->getOperations()->CLEAN_INSERT();
-    }   
+        //return $this->getOperations()->CLEAN_INSERT();
+        return new \PHPUnit_Extensions_Database_Operation_Composite(array(
+            new TruncateDatabaseOperation(),
+            \PHPUnit_Extensions_Database_Operation_Factory::INSERT()
+        ));        
+    }
+    /**
+     * Must return __DIR__ directive in each subclass!
+     * @return full filepath of file
+     */
+    abstract function getDirectoryName();
 }
