@@ -62,4 +62,8 @@ class Configuration implements Database\Configuration
     {
         return "";
     }
+
+    public function getVendorName() {
+        return $this->DB_SERVER;
+    }
 }

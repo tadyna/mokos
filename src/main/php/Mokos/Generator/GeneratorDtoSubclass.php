@@ -28,7 +28,7 @@ class GeneratorDtoSubclass extends GeneratorBase
         $template->set(self::MARK_ANNOTATION, "@Entity");
         $clazzName = $this->getClazzName($tableName);
         $template->set(self::DOMAIN_NAME, $clazzName);
-        $columns = $this->_adapter->getAllFields($tableName);
+        $columns = $this->adapter->getAllFields($tableName);
         $fields = "";
         $methods = "";
         foreach ($columns as $column) {

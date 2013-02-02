@@ -19,28 +19,17 @@ use Mokos\Configuration;
 class Database 
 {
     /**
-     * @var Configuration
-     */
-    private $configurations;
-    /**
      * @var Adapter\AdapterFactory
      */
-    private $adapterFactory;
+    private static $adapterFactory;
     /**
      * @param \Mokos\Configuration $configuration
-     * @throws \Exception
-     */
-    public function __construct(Configuration $configuration) 
-    {
-        $this->configurations = $configuration;
-        $this->adapterFactory = new AdapterFactory();
-    }
-    /**
      * @return Adapter\Adapter
      */
-    public function getAdapter() 
+    public function getAdapter(Configuration $configuration) 
     {
-        $adapter = $this->adapterFactory->getAdapter($this->configurations);
+        if(self::$adapter === null) self::$adapter = new AdapterFactory();
+        $adapter = self::$adapterFactory->getAdapter($configuration);
         return $adapter;
     }
 }

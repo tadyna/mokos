@@ -57,5 +57,17 @@ interface Mapper
      * @throws MapperException
      * @return void
      */
-    public function save(Entity $entity);    
+    public function save(Entity $entity);
+    /**
+     * @return array representation of domain object
+     */
+    public function record2Array($record);    
+    /**
+     * @return Mokos\Model\Domain\Entity entity
+     */
+    public function record2Domain($record);
+    /**
+     * @return Mokos\Model\Dto\Dto object
+     */
+    public function record2Dto($record);    
 }

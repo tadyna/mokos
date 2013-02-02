@@ -39,4 +39,8 @@ class Configuration implements Mokos\Database\Configuration
     {
         return "0.1.1 alpha";
     }
+
+    public function getVendorName() {
+        return $GLOBALS['DB_VENDOR'];
+    }
 }

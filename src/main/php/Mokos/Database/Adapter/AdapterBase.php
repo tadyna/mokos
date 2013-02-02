@@ -28,11 +28,23 @@ abstract class AdapterBase implements Adapter
      */
     protected $schemaName;
     /**
+     * @var \Mokos\Database\Configuration $configuration
+     */
+    private $configuration;
+    /**
      * @param \Mokos\Database\Configuration $configuration
      */
     public function __construct(Configuration $configuration) 
     {
         $this->schemaName = $configuration->getDbName();
         $this->pdo = $configuration->getConnection();
+        $this->configuration =$configuration;
+    }
+    /**
+     * @return string name of database vendor
+     */
+    public function getVendorName()
+    {
+        return $this->configuration->getVendorName();
     }
 }

@@ -35,15 +35,19 @@ abstract class GeneratorBase implements Generator
     /**
      * @var \Mokos\Database\Adapter\Adapter
      */
-    protected $_adapter;
+    protected $adapter;
     /**
      * @var string path to template file
      */
-    private $_templatePath;
+    protected $templatePath;
     /**
      * @var string path to directory where file will be generated 
      */
-    private $_filePath;
+    protected $filePath;
+    /**
+     * @var string name of postfix for filename
+     */
+    protected $filePostfix;    
     /**
      * @param string $templatePath
      * @param string $filePath
@@ -52,21 +56,21 @@ abstract class GeneratorBase implements Generator
      */
     public function __construct($templatePath, $filePath, $filePostfix, AdapterBase $adapter) 
     {
-        $this->_filePath = $filePath;
-        $this->_templatePath = $templatePath;
-        $this->_adapter = $adapter;
+        $this->filePath = $filePath;
+        $this->templatePath = $templatePath;
+        $this->adapter = $adapter;
         $this->filePostfix = $filePostfix;
     }
     /**
      * Generate classes...
      * @return void
      */
-    public final function generate () 
+    public function generate () 
     {
-        $tables = $this->_adapter->getAllTables();
+        $tables = $this->adapter->getAllTables();
         foreach ($tables as $table) {
             $tableName = $table->getName();
-            $template = new Template($this->_templatePath);
+            $template = new Template($this->templatePath);
             $date = new \DateTime();
             $template->set('date', $date->format('Y-m-d H:i:s'));
             $template->set(self::EMPTY_CLASS, "//TODO class implementation");
@@ -75,7 +79,7 @@ abstract class GeneratorBase implements Generator
             $template->set(self::DOMAIN_NAME, $this->getClazzName($tableName));
             $template->set(self::DOMAIN_NAME_LOWER, $this->getClazzNameLower($tableName));            
             $this->fill($template, $tableName, $table->getDescription());
-            $template->write($this->_filePath.DIRECTORY_SEPARATOR.$this->getClazzName($tableName).$this->getType().$this->filePostfix.'.php');
+            $template->write($this->filePath.DIRECTORY_SEPARATOR.$this->getClazzName($tableName).$this->getType().$this->filePostfix.'.php');
         }
     }
     /**
