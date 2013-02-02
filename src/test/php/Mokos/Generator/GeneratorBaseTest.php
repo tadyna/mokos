@@ -31,7 +31,8 @@ class GeneratorBaseTest extends \UnitTestBase {
     {
         $this->mock = new BaseGeneratorMock(
                 null, 
-                $this->pathTemporaryDir, 
+                $this->pathTemporaryDir,
+                '',
                 $this->adapter);
     }
     /**

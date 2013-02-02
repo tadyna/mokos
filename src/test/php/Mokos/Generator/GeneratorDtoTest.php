@@ -4,13 +4,18 @@ use Mokos\Database\Adapter\AdapterMysql;
 /**
  * @author tomascejka
  */
-class GeneratorEntityTest extends \UnitTestBase 
+class GeneratorDtoTest extends \UnitTestBase 
 {
     /**
      * Generator for simple template
      * @var Mokos\Generator\Generator
      */
-    private $mock;
+    private $mock1;
+    /**
+     * Generator for simple template
+     * @var Mokos\Generator\Generator
+     */
+    private $mock2;    
     /**
      * @var Mokos\Database\Adapter
      */
@@ -29,10 +34,15 @@ class GeneratorEntityTest extends \UnitTestBase
      */
     public function setUp() 
     {
-        $this->mock = new \Mokos\Generator\GeneratorEntity(
-                $this->pathTemplateDir.'DOMAIN_IMPL.tpl',
+        $this->mock1 = new \Mokos\Generator\GeneratorDto(
+                $this->pathTemplateDir.'DTO_IMPL.tpl',
                 $this->pathTemporaryDir, 
-                'Impl',
+                '',
+                $this->adapter);         
+        $this->mock2 = new \Mokos\Generator\GeneratorDtoSubclass(
+                $this->pathTemplateDir.'DTO_IMPL.tpl',
+                $this->pathTemporaryDir, 
+                'Subclassed',
                 $this->adapter);        
     }
     /**
@@ -40,6 +50,7 @@ class GeneratorEntityTest extends \UnitTestBase
      */
     public function testGenerate() 
     {
-        $this->mock->generate();
+        $this->mock1->generate();
+        $this->mock2->generate();
     }
 }

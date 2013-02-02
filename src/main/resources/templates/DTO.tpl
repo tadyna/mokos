@@ -1,10 +1,11 @@
 <?php
+namespace Mokos\Model\Dto;
 /**
  * @date: ${date}
  * @version: ${version}
  *      
  */
-abstract class Entity implements \Serializable 
+abstract class Dto implements \Serializable
 {
     /** 
      * Unique id of object
@@ -45,5 +46,5 @@ abstract class Entity implements \Serializable
     public final function setVersion($version) 
     {
         $this->version = $version;
-    }  
+    }
 }

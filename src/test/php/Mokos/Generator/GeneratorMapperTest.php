@@ -36,11 +36,13 @@ class GeneratorMapperTest extends \UnitTestBase
     {
         $this->mock1 = new \Mokos\Generator\GeneratorMapper(
                 $this->pathTemplateDir.'MAPPER.tpl',
-                $this->pathTemporaryDir, 
+                $this->pathTemporaryDir,
+                '',
                 $this->adapter);
         $this->mock2 = new \Mokos\Generator\GeneratorMapper(
-                $this->pathTemplateDir.'MAPPER_MOKOS.tpl',
-                $this->pathTemporaryDirMokos, 
+                $this->pathTemplateDir.'MAPPER_IMPL.tpl',
+                $this->pathTemporaryDir,
+                'Impl',
                 $this->adapter);         
     }
     /**

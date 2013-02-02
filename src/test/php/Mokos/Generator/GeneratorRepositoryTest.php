@@ -36,12 +36,14 @@ class GeneratorRepositoryTest extends \UnitTestBase
     {
         $this->mock1 = new \Mokos\Generator\GeneratorRepository(
                 $this->pathTemplateDir.'REPOSITORY.tpl',
-                $this->pathTemporaryDir, 
+                $this->pathTemporaryDir,
+                '',
                 $this->adapter);
         $this->mock2 = new \Mokos\Generator\GeneratorRepository(
-                $this->pathTemplateDir.'REPOSITORY_MOKOS.tpl',
-                $this->pathTemporaryDirMokos, 
-                $this->adapter);        
+                $this->pathTemplateDir.'REPOSITORY_IMPL.tpl',
+                $this->pathTemporaryDir, 
+                'Impl',
+                $this->adapter);       
     }
     /**
      * Test generate process... without asserting, only for exception

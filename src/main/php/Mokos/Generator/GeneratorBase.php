@@ -29,7 +29,9 @@ abstract class GeneratorBase implements Generator
     const CLAZZ_FIELDS = 'clazz_fields';
     const CLAZZ_GET_SET_METHODS = 'clazz_get_set_methods';
     const CLAZZ_SERIALIZATION = 'clazz_serialize';
-    const CLAZZ_DESERIALIZATION = 'clazz_deserialize';    
+    const CLAZZ_DESERIALIZATION = 'clazz_deserialize';
+    const EMPTY_CLASS = "empty_class";
+    const EMPTY_METHOD = "empty_method";
     /**
      * @var \Mokos\Database\Adapter\Adapter
      */
@@ -45,13 +47,15 @@ abstract class GeneratorBase implements Generator
     /**
      * @param string $templatePath
      * @param string $filePath
+     * @param string $filePostfix
      * @param \Mokos\Database\AdapterBase $adapter
      */
-    public function __construct($templatePath, $filePath, AdapterBase $adapter) 
+    public function __construct($templatePath, $filePath, $filePostfix, AdapterBase $adapter) 
     {
         $this->_filePath = $filePath;
         $this->_templatePath = $templatePath;
         $this->_adapter = $adapter;
+        $this->filePostfix = $filePostfix;
     }
     /**
      * Generate classes...
@@ -65,11 +69,13 @@ abstract class GeneratorBase implements Generator
             $template = new Template($this->_templatePath);
             $date = new \DateTime();
             $template->set('date', $date->format('Y-m-d H:i:s'));
+            $template->set(self::EMPTY_CLASS, "//TODO class implementation");
+            $template->set(self::EMPTY_METHOD, "//TODO method implementation");
             $template->set(self::TABLE_NAME_SIMPLE, $this->getTableNameSimple($tableName));
             $template->set(self::DOMAIN_NAME, $this->getClazzName($tableName));
             $template->set(self::DOMAIN_NAME_LOWER, $this->getClazzNameLower($tableName));            
             $this->fill($template, $tableName, $table->getDescription());
-            $template->write($this->_filePath.DIRECTORY_SEPARATOR.$this->getClazzName($tableName).$this->getType().'.php');
+            $template->write($this->_filePath.DIRECTORY_SEPARATOR.$this->getClazzName($tableName).$this->getType().$this->filePostfix.'.php');
         }
     }
     /**

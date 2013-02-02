@@ -35,7 +35,6 @@ class AdapterMysqlMetadataTest extends IntegrationTest
      */
     public function testGetMetadata()
     {
-        $xx = realpath(__DIR__.'/../../');
         $statement = "select constraint_name, table_name, column_name, referenced_table_name, referenced_column_name from information_schema.key_column_usage where table_schema='".$this->configuration->getDbName()."' and referenced_table_name is not null";
         foreach ($this->configuration->getConnection()->query($statement) as $vv) {
             var_dump($vv[0]);

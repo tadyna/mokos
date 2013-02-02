@@ -56,23 +56,5 @@ abstract class Entity implements \Serializable
     public final function setVersion($version) 
     {
         $this->version = $version;
-    }
-    /*
-     * String representation of entity object
-     * @throw EntityException if serialization fails
-     * @return string representation of entity object
-     */
-    public function serialize() 
-    {
-        //for override
-    }
-    /*
-     * It allows deserializovat (construct) entity from string
-     * @param string $serialized string representation of the object. 
-     * @throw EntityException if deserialization fails
-     */
-    public function unserialize($unserialized) 
-    {
-       //for overrride
-    }   
+    }  
 }

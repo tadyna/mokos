@@ -3,20 +3,31 @@
  * @date: ${date}
  * @version: ${version}
  *      
- * ${domain_description}     
+ * Service for ${domain_description} entity
  */
-class ${domain_name}ServiceImpl
+interface ${domain_name}Service
 {
     /**
-     * @var ${domain_name}Repository repository
+     * Create ${domain_name} object
+     * @param array transfer object
+     * @return array object
      */
-    private $${domain_name_lower}Repository;
+    public function create${domain_name}(array $data);
     /**
-     * Inject ${table_name_simple} repository implementation
-     * @param ${domain_name}Repository implementation
+     * Update ${domain_name} object
+     * @param array transfer object
+     * @return void
      */
-    protected final function set${domain_name}Repository(${domain_name}Repository $repository) 
-    {
-        $this->${domain_name_lower}Repository = $repository;
-    }
+    public function update${domain_name}(array $data);
+    /**
+     * Delete ${domain_name} object
+     * @param int unique key of domain entity
+     * @return void
+     */
+    public function delete${domain_name}($idEntity);
+    /**
+     * Delete all existing ${domain_name} entities
+     * @return void
+     */
+    public function deleteAll${domain_name}();  
 }

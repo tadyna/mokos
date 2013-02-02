@@ -15,7 +15,7 @@ class GeneratorServiceTest extends \UnitTestBase
      * Generator for mokos-based template
      * @var Mokos\Generator\Generator
      */
-    private $mock2; 
+    private $mock2;    
     /**
      * @var Mokos\Database\Adapter
      */
@@ -36,12 +36,14 @@ class GeneratorServiceTest extends \UnitTestBase
     {
         $this->mock1 = new \Mokos\Generator\GeneratorService(
                 $this->pathTemplateDir.'SERVICE.tpl',
-                $this->pathTemporaryDir, 
-                $this->adapter);
+                $this->pathTemporaryDir,
+                '',
+                $this->adapter); 
         $this->mock2 = new \Mokos\Generator\GeneratorService(
-                $this->pathTemplateDir.'SERVICE_MOKOS.tpl',
-                $this->pathTemporaryDirMokos, 
-                $this->adapter);        
+                $this->pathTemplateDir.'SERVICE_IMPL.tpl',
+                $this->pathTemporaryDir, 
+                'Impl',
+                $this->adapter);         
     }
     /**
      * Test generate process... without asserting, only for exception

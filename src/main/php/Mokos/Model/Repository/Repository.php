@@ -1,5 +1,6 @@
 <?php
 namespace Mokos\Model\Repository;
+use Mokos\Model\Domain\Entity;
 /**
  * Interface of repository
  * 
@@ -35,14 +36,14 @@ interface Repository
    public function remove($idEntity);
    /**
     * Concrete implementation must define a way how remove entities
-    * @param integer $idEntity
+    * @param array conditions for sql where clauzule
     * @return void
    */
-   public function removeAll();        
+   public function removeAll(array $condition=array());        
    /**
     * Concrete implementation must define a way how transform data and persist them
-    * @param object $entity
+    * @param Mokos\Model\Domain\Entity $entity
     * @return void
    */
-   public function save($entity);
+   public function save(Entity $entity);
 }

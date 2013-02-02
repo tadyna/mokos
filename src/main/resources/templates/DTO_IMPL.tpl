@@ -1,14 +1,11 @@
 <?php
-use Mokos\Model\Domain\Entity;
 /**
- *
  * @date: ${date}
  * @version: ${version}
  *      
- * ${domain_description}
- * ${mark_annotation}
+ * ${domain_description}     
  */
-class ${domain_name} extends Entity
+class ${domain_name}Dto extends Dto
 {
     ${clazz_fields}
     ${clazz_get_set_methods}
@@ -21,7 +18,7 @@ class ${domain_name} extends Entity
         //do something
     }
     /**
-     * It allows deserializovat entity from various sources
+     * It allows deserializovat dto from various sources
      * @param mixed $serialized 
      * @throw EntityException if deserialization fails
      */
@@ -32,7 +29,7 @@ class ${domain_name} extends Entity
         } else if (is_object($serialized)) {
             //do something
         } else {
-            throw new Exception('${domain_name} object cannot be deserialized', null, null);
+            throw new Exception('${domain_name}Dto object cannot be deserialized', null, null);
         }
-    }
+    }   
 }
