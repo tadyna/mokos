@@ -9,7 +9,7 @@ class AdapterMysqlTest extends \IntegrationTest
     /**
      * @var string name of testing table
      */
-    private static $tableName = 'person_in_organization';
+    private static $tableName = 'person';
     /**
      * @var Mokos\Database\Adapter\AdapterMysql
      */
@@ -62,7 +62,7 @@ class AdapterMysqlTest extends \IntegrationTest
             $this->assertTablesEqual($expectedTable, $queryTable);
 
             $this->assertEquals(2, $this->getConnection()->getRowCount(self::$tableName), "Wrong count of rows in table ".self::$tableName);
-            $expectedRow = array('ID_PERSON'=>'1', 'FULLNAME'=>'Tomas Cejka');
+            $expectedRow = array('ID_PERSON'=>'1', 'FULLNAME'=>'Tomas Cejka', 'FIRST_NAME'=>'Tomas', 'LAST_NAME'=>'Cejka');
             $queryRow = $queryTable->getRow(0); 
             return $this->assertEquals($expectedRow, $queryRow, "Rows are not equals");
     }
