@@ -32,6 +32,7 @@ abstract class GeneratorBase implements Generator
     const CLAZZ_DESERIALIZATION = 'clazz_deserialize';
     const EMPTY_CLASS = "empty_class";
     const EMPTY_METHOD = "empty_method";
+    const DOMAIN_GET_PRIMARY_METHOD = "domain_get_primary_method";
     /**
      * @var \Mokos\Database\Adapter\Adapter
      */

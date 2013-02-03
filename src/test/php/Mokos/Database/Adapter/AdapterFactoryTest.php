@@ -11,7 +11,7 @@ class AdapterFactoryTest extends \UnitTestBase
      * @var \Mokos\Database\Adapter\AdapterFactory
      */
     private $mock;
-    
+    /** */
     public function __construct() 
     {
         parent::__construct();
@@ -30,6 +30,6 @@ class AdapterFactoryTest extends \UnitTestBase
     public function testGetAdapter() 
     {
         $adapter = $this->mock->getAdapter($this->configuration);
-        $this->assertEquals($GLOBALS['DB_VENDOR'], $adapter->getVendorName());
+        $this->assertTrue($adapter instanceof \Mokos\Database\Adapter\AdapterMysql);
     }
 }

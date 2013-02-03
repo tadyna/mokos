@@ -49,6 +49,14 @@ class GeneratorCollection extends GeneratorBase
     protected function fill(Template $template, $tableName, $tableDescription) 
     {
         $template->set(self::DOMAIN_DESCRIPTION, "Aggregate root collection for ".$this->getClazzName($tableName)." entity");
+        $columns = $this->adapter->getAllFields($tableName);
+        foreach ($columns as $column) {
+            /* @var $column \Mokos\Database\Metadata\Column */
+            if($column->isPrimary()) {
+                $template->set(self::DOMAIN_GET_PRIMARY_METHOD, 'get'.$column->getColumnName().'()');     
+                break;
+            }           
+        }
     }
     /**
      * @return string name suffix

@@ -15,17 +15,7 @@ class GeneratorCollectionTest extends \UnitTestBase
      * Generator for simple template
      * @var Mokos\Generator\Generator
      */
-    private $mock2;
-    /**
-     * Generator for simple template
-     * @var Mokos\Generator\Generator
-     */
-    private $mock3;
-    /**
-     * Generator for simple template
-     * @var Mokos\Generator\Generator
-     */
-    private $mock4;    
+    private $mock2;   
     /**
      * @var Mokos\Database\Adapter
      */
@@ -50,17 +40,7 @@ class GeneratorCollectionTest extends \UnitTestBase
                 '',
                 $this->adapter);
         $this->mock2 = new \Mokos\Generator\GeneratorCollection(
-                $this->pathTemplateDir.'COLLECTION_BASE.tpl',
-                $this->pathTemporaryDir, 
-                'Base',
-                $this->adapter);
-        $this->mock3 = new \Mokos\Generator\GeneratorCollection(
                 $this->pathTemplateDir.'COLLECTION_BASE_IMPL.tpl',
-                $this->pathTemporaryDir, 
-                'BaseImpl',
-                $this->adapter);
-        $this->mock4 = new \Mokos\Generator\GeneratorCollection(
-                $this->pathTemplateDir.'COLLECTION_IMPL.tpl',
                 $this->pathTemporaryDir, 
                 'Impl',
                 $this->adapter);        
@@ -72,7 +52,5 @@ class GeneratorCollectionTest extends \UnitTestBase
     {
         $this->mock1->generate();
         $this->mock2->generate();
-        $this->mock3->generate();
-        $this->mock4->generate();
     }
 }

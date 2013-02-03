@@ -8,47 +8,102 @@
 abstract class CollectionBase implements \Countable, \ArrayAccess, \IteratorAggregate
 {
     /**
-     * @inheritDoc
+     * @param $key mixed unique id of object
+     * @return mixed object from collection
      */
-    public function get($key) {
+    public function get($key) 
+    {
         return $this->offsetGet($key);
     }
     /**
-     * @inheritDoc
+     * @param $key mixed unique id of object
+     * @return bool if $key exists in collection
      */
-    public function exists($key) {
+    public function exists($key) 
+    {
         return $this->offsetExists($key);
     }
     /**
-     * @inheritDoc
+     * Clear collection
+     * @return void
      */
-    public function clear() {
+    public function clear() 
+    {
         $this->items = array();
     }
     /**
-     * @inheritDoc
+     * @return array represtation of collection
      */
-    public function toArray() {
+    public function toArray() 
+    {
         return $this->items;
     }
     /**
-     * @inheritDoc
+     * @inheritDoc \Countable
      */
-    public function count() {
+    public function count() 
+    {
         return count($this->items);
     }
     /**
-     * @inheritDoc
+     * @inheritDoc \ArrayAccess
      */
-    public function offsetGet($key) {
+    public function offsetGet($key) 
+    {
         if (isset($this->items[$key])) {
             return $this->items[$key];
         }
     }
     /**
-     * @inheritDoc
+     * @inheritDoc \ArrayAccess
      */
-    public function getIterator() {
+    public function offsetSet($key, $value) 
+    {
+        if (!$this->isInstanceOf($value)) {
+            throw new \InvalidArgumentException(
+                "Could not add the object to the collection.");
+        }
+        if (!isset($key)) {
+            $this->items[] = $value;
+        }
+        else {
+            $this->items[$key] = $value;
+        }
+    }
+    /**
+     * @inheritDoc \ArrayAccess
+     */
+    public function offsetUnset($key) 
+    {
+        if ($this->isInstanceOf($key)) {
+            $this->items = array_filter($this->items,
+                function ($v) use ($key) {
+                    return $v !== $key;
+                });
+        }
+        else if (isset($this->items[$key])) {
+            unset($this->items[$key]);
+        }
+    }
+    /**
+     * @inheritDoc \ArrayAccess
+     */
+    public function offsetExists($key) 
+    {
+        return ($this->isInstanceOf($key))
+            ? array_search($key, $this->items)
+            : isset($this->items[$key]);
+    }
+    /**
+     * @inheritDoc \IteratorAggregate
+     */
+    public function getIterator() 
+    {
         return new \ArrayIterator($this->items);
     }
+    /**
+     * @abstract
+     * @return bool subclass must check if item is instanceof concrete domain object
+     */
+    abstract protected function isInstanceOf($key);
 }

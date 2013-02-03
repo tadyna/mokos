@@ -48,5 +48,5 @@ class Table
     public function getName() 
     {
         return $this->name;
-    }	
+    }
 }

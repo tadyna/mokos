@@ -9,7 +9,12 @@ class GeneratorSimpleTest extends \UnitTestBase
      * Generator for simple template
      * @var Mokos\Generator\Generator
      */
-    private $mock;
+    private $mock1;
+    /**
+     * Generator for simple template
+     * @var Mokos\Generator\Generator
+     */
+    private $mock2;    
     /**
      * create Mokos\Database\Adapter object
      */
@@ -23,16 +28,21 @@ class GeneratorSimpleTest extends \UnitTestBase
      */
     public function setUp() 
     {
-        $this->mock = new \Mokos\Generator\GeneratorSimple(
+        $this->mock1 = new \Mokos\Generator\GeneratorSimple(
                 $this->pathTemplateDir.'DOMAIN.tpl',
                 $this->pathTemporaryDir, 
-                'Entity');        
+                'Entity');
+        $this->mock2 = new \Mokos\Generator\GeneratorSimple(
+                $this->pathTemplateDir.'COLLECTION_BASE.tpl',
+                $this->pathTemporaryDir, 
+                'Collection');         
     }
     /**
      * Test generate process... without asserting, only for exception
      */
     public function testGenerate() 
     {
-        $this->mock->generate();
+        $this->mock1->generate();
+        $this->mock2->generate();
     }
 }

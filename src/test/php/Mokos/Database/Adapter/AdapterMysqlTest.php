@@ -36,7 +36,16 @@ class AdapterMysqlTest extends \IntegrationTest
     public function testGetAllTables()
     {
             $names = array();
-            $query = "select * from information_schema.tables where table_schema='".$this->configuration->getDbName()."'";
+            $query="
+            select t.table_name as TABLE_NAME, t.table_comment as TABLE_COMMENT, c.column_name, c.column_key 
+            from information_schema.tables as t, information_schema.columns as c
+            where
+                t.table_schema='mokos_test' 
+                and c.table_schema='".$this->configuration->getDbName()."' 
+                and t.table_name=c.table_name
+                and c.column_key is not null 
+                and c.column_key='PRI';";
+            //$query = "select * from information_schema.tables where table_schema='".$this->configuration->getDbName()."'";
             foreach($this->configuration->getConnection()->query($query) as $table){
                     $names[0] = $table['TABLE_NAME'];
                     $names[1] = $table['TABLE_COMMENT'];
@@ -62,7 +71,7 @@ class AdapterMysqlTest extends \IntegrationTest
             $this->assertTablesEqual($expectedTable, $queryTable);
 
             $this->assertEquals(2, $this->getConnection()->getRowCount(self::$tableName), "Wrong count of rows in table ".self::$tableName);
-            $expectedRow = array('ID_PERSON'=>'1', 'FULLNAME'=>'Tomas Cejka', 'FIRST_NAME'=>'Tomas', 'LAST_NAME'=>'Cejka');
+            $expectedRow = array('ID_PERSON'=>'1', 'FULLNAME'=>'Tomas Cejka', 'FIRST_NAME'=>'Tomas', 'LAST_NAME'=>'Cejka', 'ADDRESS'=>'', 'CITY'=>'');
             $queryRow = $queryTable->getRow(0); 
             return $this->assertEquals($expectedRow, $queryRow, "Rows are not equals");
     }

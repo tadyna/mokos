@@ -5,30 +5,16 @@
  * 
  * Collection interface for ${domain_name} entity
  */
-interface ${domain_name}Collection extends \Countable, \ArrayAccess, \IteratorAggregate 
+interface ${domain_name}Collection
 {
     /**
-     * @inheritDoc
+     * Add ${domain_name} to collection
+     * @return void
      */
     public function add(${domain_name} $entity);
     /**
-     * @inheritDoc
+     * Remove ${domain_name} from collection
+     * @return void
      */
-    public function remove(${domain_name} $entity);
-    /**
-     * @inheritDoc
-     */    
-    public function get($key);
-    /**
-     * @inheritDoc
-     */    
-    public function exists($key);
-    /**
-     * @inheritDoc
-     */    
-    public function clear();
-    /**
-     * @inheritDoc
-     */    
-    public function toArray();   
+    public function remove(${domain_name} $entity);   
 }
