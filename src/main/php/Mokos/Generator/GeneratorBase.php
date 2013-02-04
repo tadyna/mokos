@@ -29,47 +29,58 @@ abstract class GeneratorBase implements Generator
     const CLAZZ_FIELDS = 'clazz_fields';
     const CLAZZ_GET_SET_METHODS = 'clazz_get_set_methods';
     const CLAZZ_SERIALIZATION = 'clazz_serialize';
-    const CLAZZ_DESERIALIZATION = 'clazz_deserialize';    
+    const CLAZZ_DESERIALIZATION = 'clazz_deserialize';
+    const EMPTY_CLASS = "empty_class";
+    const EMPTY_METHOD = "empty_method";
+    const DOMAIN_GET_PRIMARY_METHOD = "domain_get_primary_method";
     /**
      * @var \Mokos\Database\Adapter\Adapter
      */
-    protected $_adapter;
+    protected $adapter;
     /**
      * @var string path to template file
      */
-    private $_templatePath;
+    protected $templatePath;
     /**
      * @var string path to directory where file will be generated 
      */
-    private $_filePath;
+    protected $filePath;
+    /**
+     * @var string name of postfix for filename
+     */
+    protected $filePostfix;    
     /**
      * @param string $templatePath
      * @param string $filePath
+     * @param string $filePostfix
      * @param \Mokos\Database\AdapterBase $adapter
      */
-    public function __construct($templatePath, $filePath, AdapterBase $adapter) 
+    public function __construct($templatePath, $filePath, $filePostfix, AdapterBase $adapter) 
     {
-        $this->_filePath = $filePath;
-        $this->_templatePath = $templatePath;
-        $this->_adapter = $adapter;
+        $this->filePath = $filePath;
+        $this->templatePath = $templatePath;
+        $this->adapter = $adapter;
+        $this->filePostfix = $filePostfix;
     }
     /**
      * Generate classes...
      * @return void
      */
-    public final function generate () 
+    public function generate () 
     {
-        $tables = $this->_adapter->getAllTables();
+        $tables = $this->adapter->getAllTables();
         foreach ($tables as $table) {
             $tableName = $table->getName();
-            $template = new Template($this->_templatePath);
+            $template = new Template($this->templatePath);
             $date = new \DateTime();
             $template->set('date', $date->format('Y-m-d H:i:s'));
+            $template->set(self::EMPTY_CLASS, "//TODO class implementation");
+            $template->set(self::EMPTY_METHOD, "//TODO method implementation");
             $template->set(self::TABLE_NAME_SIMPLE, $this->getTableNameSimple($tableName));
             $template->set(self::DOMAIN_NAME, $this->getClazzName($tableName));
             $template->set(self::DOMAIN_NAME_LOWER, $this->getClazzNameLower($tableName));            
             $this->fill($template, $tableName, $table->getDescription());
-            $template->write($this->_filePath.DIRECTORY_SEPARATOR.$this->getClazzName($tableName).$this->getType().'.php');
+            $template->write($this->filePath.DIRECTORY_SEPARATOR.$this->getClazzName($tableName).$this->getType().$this->filePostfix.'.php');
         }
     }
     /**

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<person_in_organization ID_PERSON="1" FULLNAME="Tomas Cejka"/>
-	<person_in_organization ID_PERSON="2" FULLNAME="Karolina Malkova"/>
+	<person ID_PERSON="1" FIRST_NAME="Tomas" LAST_NAME="Cejka" FULLNAME="Tomas Cejka"/>
+	<person ID_PERSON="2" FIRST_NAME="Karolina" LAST_NAME="Malkova" FULLNAME="Karolina Malkova"/>
 	<person_basic_data ID_PERSON_BASIC_DATA="1" BIRTH_NAME="TomasB" BIRTH_SURNAME="CejkaB" PERSON_ID="1"/>        
 </dataset>

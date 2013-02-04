@@ -45,16 +45,26 @@ class AdapterMysql extends AdapterBase
         return $descriptors;        
     }
     /**
-     * Return list of tables metadata via mysql specific query
+     * Return list of tables metadata via mysql specific query. Does not return tables
+     * which represent many2many relation.
      * @return array Table descriptor
      */
     public function getAllTables() 
     {
-    	$query = "select * from information_schema.tables where table_schema='".$this->schemaName."'";
+        $query="
+        select t.table_name as TABLE_NAME, t.table_comment as TABLE_COMMENT, c.column_name, c.column_key 
+        from information_schema.tables as t, information_schema.columns as c
+        where
+            t.table_schema='mokos_test' 
+            and c.table_schema='".$this->schemaName."' 
+            and t.table_name=c.table_name
+            and c.column_key is not null 
+            and c.column_key='PRI';";        
+    	//$query = "select * from information_schema.tables t where t.table_schema='".$this->schemaName."'";//this query does not filter many2many tables
     	$descriptors = array();
     	$result = $this->pdo->query($query);
         foreach($result as $table){
-        	$descriptors[] = new Table($table['TABLE_NAME'], $table['TABLE_COMMENT']); 
+            $descriptors[] = new Table($table['TABLE_NAME'], $table['TABLE_COMMENT']); 
         }
         return $descriptors;
     }
@@ -79,6 +89,18 @@ class AdapterMysql extends AdapterBase
         return $type;
     }
     public function getMetadata() {
-        //select constraint_name, table_name, column_name, referenced_table_name, referenced_column_name from information_schema.key_column_usage where table_schema='TABLENAME' and referenced_table_name is not null;
+        $query="
+            select c.column_key, c.column_name, u.table_name, u.referenced_column_name, u.referenced_table_name
+            from information_schema.key_column_usage as u, information_schema.columns as c
+            where
+              u.table_schema='mokos_test'
+              -- and u.referenced_table_name is not null
+              -- and u.referenced_column_name is not null
+              and c.column_key is not null 
+              and c.column_name=u.column_name;";
+        $result = $this->pdo->query($query);
+        foreach($result as $value){
+            //$descriptors[] = new Table($table['TABLE_NAME'], $table['TABLE_COMMENT']); 
+        }        
     }
 }

@@ -1,5 +1,6 @@
 <?php
 namespace Mokos\Model\Mapper;
+use Mokos\Model\Domain\Entity;
 /**
  * Mokos
  *
@@ -16,13 +17,7 @@ namespace Mokos\Model\Mapper;
  * Base interface of mapper
  */
 interface Mapper 
-{    
-    /**
-     * Each mapper knows how to map storage entity as array
-     * @param integer $idEntity
-     * @return array representation of entity from storage
-     */
-    public function entity2Array($idEntity); 
+{
     /**
      * Finder method to find entity by given unique key
      * @param mixed $idEntity unique key of entity to be able to find in storage
@@ -31,9 +26,10 @@ interface Mapper
     public function find($idEntity);
     /**
      * Finder method to find all entities
+     * @param array where condition
      * @return object entity
      */
-    public function findAll();
+    public function findAll(array $condition = array());
     /**
      * Concrete implementation can use this for writing and executing specific sql queries
      * @param string $query sql query
@@ -50,16 +46,28 @@ interface Mapper
     public function remove($idEntity);
     /**
      * Concrete implementation must define a way how delete entities
-     * @param integer $idEntity unique id of entity
+     * @param array where condition
      * @throws MapperException
      * @return void
      */
-    public function removeAll();    
+    public function removeAll(array $conditions = array());    
     /**
      * Concrete implementation must define a way how transform data and persist them
-     * @param object $entity
+     * @param Mokos\Model\Domain\Entity $entity
      * @throws MapperException
      * @return void
      */
-    public function save($entity);    
+    public function save(Entity $entity);
+    /**
+     * @return array representation of domain object
+     */
+    public function record2Array($record);    
+    /**
+     * @return Mokos\Model\Domain\Entity entity
+     */
+    public function record2Domain($record);
+    /**
+     * @return Mokos\Model\Dto\Dto object
+     */
+    public function record2Dto($record);    
 }

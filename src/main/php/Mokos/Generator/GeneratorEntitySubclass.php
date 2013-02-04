@@ -14,9 +14,10 @@ use Mokos\Template\Template;
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 
- * Generator for domain Entity objects
+ * Generator for domain Entity objects. It does not generate
+ * primary key and column version. These columns are part of parent class.
  */
-class GeneratorEntity extends GeneratorBase 
+class GeneratorEntitySubclass extends GeneratorBase 
 {
     /**
      * @param \Mokos\Template\Template $template
@@ -32,6 +33,10 @@ class GeneratorEntity extends GeneratorBase
         $methods = "";
         foreach ($columns as $column) {
             $columnName = $column->getFieldName();
+            /*
+             * primary key and version column is part of Entity class, eg. Mokos\Domain\Entity
+             */
+            if($column->isPrimary() || $columnName === 'version') continue;
             $field = $column->getColumnName();
             $type = $column->getType();
             $fields .="    /**\n";

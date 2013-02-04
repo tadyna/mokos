@@ -32,5 +32,9 @@ interface Configuration
     /**
      * @return string directory path where files are be generated
      */
-    public function getOutputDirPath();    
+    public function getOutputDirPath();
+    /**
+     * @return name of database vendor
+     */
+    public function getVendorName();
 }

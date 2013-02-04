@@ -9,7 +9,7 @@ namespace Mokos\Database\Metadata;
  * @abstract
  * @author derhaa
  * @category   Database
- * @package    Database
+ * @package    Metadata
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  *
@@ -48,5 +48,5 @@ class Table
     public function getName() 
     {
         return $this->name;
-    }	
+    }
 }

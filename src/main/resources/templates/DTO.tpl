@@ -1,21 +1,11 @@
 <?php
-namespace Mokos\Model\Domain;
+namespace Mokos\Model\Dto;
 /**
- * Mokos
- *
- * LICENCE
- *   The MIT License
- *
- * @abstract
- * @author     derhaa
- * @category   Entity
- * @package    Domain
- * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
- * @license    http://opensource.org/licenses/mit-license.php - The MIT License
- * 
- * This is central domain model class represents as Entity
+ * @date: ${date}
+ * @version: ${version}
+ *      
  */
-abstract class Entity implements \Serializable 
+abstract class Dto implements \Serializable
 {
     /** 
      * Unique id of object
@@ -56,5 +46,5 @@ abstract class Entity implements \Serializable
     public final function setVersion($version) 
     {
         $this->version = $version;
-    }  
+    }
 }

@@ -9,13 +9,14 @@ namespace Mokos\Database\Metadata;
  * @abstract
  * @author derhaa
  * @category   Database
- * @package    Database
+ * @package    Metadata
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 
  * Descriptor of table column
  */
-class Column {
+class Column 
+{
     /**
      * @var string 
      */
@@ -81,7 +82,6 @@ class Column {
         $this->extra = $extra;
         $this->default = $default;
         $this->comment = $comment;
-                
     }
     /**
      * Extract column name from metadata object
@@ -159,21 +159,24 @@ class Column {
      * Return specified value, eg. auto_increment
      * @return mixed|string
      */
-    public function getExtra() {
+    public function getExtra() 
+    {
         return $this->extra;
     }
     /**
      * Return default value of column
      * @return mixed
      */
-    public function getDefault() {
+    public function getDefault() 
+    {
         return $this->default;
     }
     /**
      * Return comment of column
      * @return string
      */
-    public function getComment() {
+    public function getComment() 
+    {
         return $this->comment;
     }
 }

@@ -16,7 +16,7 @@ use Mokos\Template\Template;
  * 
  * Generator for domain Entity objects
  */
-class GeneratorEntity extends GeneratorBase 
+class GeneratorDto extends GeneratorBase 
 {
     /**
      * @param \Mokos\Template\Template $template
@@ -24,7 +24,7 @@ class GeneratorEntity extends GeneratorBase
      */
     protected function fill(Template $template, $tableName, $tableDescription) 
     {
-        $template->set(self::MARK_ANNOTATION, "@Entity");
+        $template->set(self::MARK_ANNOTATION, "@Dto");
         $clazzName = $this->getClazzName($tableName);
         $template->set(self::DOMAIN_NAME, $clazzName);
         $columns = $this->adapter->getAllFields($tableName);
@@ -64,6 +64,6 @@ class GeneratorEntity extends GeneratorBase
      */
     protected function getType() 
     {
-        return "";
+        return "Dto";
     }
 }

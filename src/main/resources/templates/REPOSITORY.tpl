@@ -1,31 +1,22 @@
 <?php
-namespace Mokos\Model\Repository;
-use Mokos\Model\Domain\Entity;
 /**
- * Interface of repository
+ * @date: ${date}
+ * @version: ${version}
  * 
- * LICENCE
- *   The MIT License
- *
- * @abstract
- * @author tomascejka
- * @category   Provide data
- * @package    Repository
- * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
- * @license    http://opensource.org/licenses/mit-license.php - The MIT License
+ * ${mark_annotation}
  */
-interface Repository 
+interface ${domain_name}Repository 
 {
     /**
     * Finder method to find entity by given unique key
     * @param mixed $idEntity unique key of entity to be able to find in storage
-    * @return object entity
+    * @return ${domain_name} entity
     */
    public function find($idEntity);
    /**
     * Finder method to find all entities
     * @param array conditions for sql where clauzule
-    * @return array of entities
+    * @return array of ${domain_name} entities
    */
    public function findAll(array $condition=array());
    /**
@@ -42,8 +33,8 @@ interface Repository
    public function removeAll(array $condition=array());        
    /**
     * Concrete implementation must define a way how transform data and persist them
-    * @param Mokos\Model\Domain\Entity $entity
+    * @param ${domain_name} $entity
     * @return void
    */
-   public function save(Entity $entity);
+   public function save(${domain_name} $entity);
 }

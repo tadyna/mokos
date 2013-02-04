@@ -31,7 +31,7 @@ class AdapterFactory
     {
         /** @var Mokos\Database\Adapter */
         $adapter = null;
-        switch($configuration->getDbName())
+        switch($configuration->getVendorName())
         {
             case "mysql": 
                 $adapter = new AdapterMysql($configuration); break;
@@ -42,7 +42,7 @@ class AdapterFactory
             case "sqlite": 
                 $adapter = new AdapterSqlLite($configuration); break;
             default:
-                throw new \Exception("Unsupported database connection: ".$configuration);
+                throw new \Exception("Unsupported database connection: ".$configuration->getDbName());
         }
         return $adapter;
     }

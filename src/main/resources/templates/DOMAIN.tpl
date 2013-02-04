@@ -1,19 +1,8 @@
 <?php
-namespace Mokos\Model\Domain;
 /**
- * Mokos
- *
- * LICENCE
- *   The MIT License
- *
- * @abstract
- * @author     derhaa
- * @category   Entity
- * @package    Domain
- * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
- * @license    http://opensource.org/licenses/mit-license.php - The MIT License
- * 
- * This is central domain model class represents as Entity
+ * @date: ${date}
+ * @version: ${version}
+ *      
  */
 abstract class Entity implements \Serializable 
 {

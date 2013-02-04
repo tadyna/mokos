@@ -12,7 +12,8 @@ namespace Mokos\Model\Storage\PDO;
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  *
  */
-class SqlDescriptor {
+class SqlDescriptor 
+{
 	/**
 	 * Table name
 	 * @var string
@@ -34,7 +35,8 @@ class SqlDescriptor {
 	 * @param array $conditions associative array column-value pairs for where clausule
 	 * @param string $query
 	 */
-	public function __construct($tableName, $columns, $conditions=null) {
+	public function __construct($tableName, $columns, $conditions=null) 
+        {
 		$this->tableName = $tableName;
 		$this->values = $columns;
 		$this->conditions = $conditions;
@@ -42,13 +44,15 @@ class SqlDescriptor {
 	/**
 	 * @return string table name
 	 */
-	public function getTableName() {
+	public function getTableName() 
+        {
 		return $this->tableName;
 	}
 	/**
 	 * @return array associative array condition-value pair
 	 */
-	public function getConditions() {
+	public function getConditions() 
+        {
 		return $this->conditions;
 	}
 	/**
