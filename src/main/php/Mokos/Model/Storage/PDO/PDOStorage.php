@@ -12,6 +12,7 @@ use Mokos\Model\Storage\Storage;
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  *
+ * Only for testing
  * @deprecated
  */
 class PDOStorage implements Storage 
