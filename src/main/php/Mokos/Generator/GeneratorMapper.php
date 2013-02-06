@@ -22,10 +22,10 @@ class GeneratorMapper extends GeneratorBase
      * @param \Mokos\Template\Template $template
      * @param string $tableName name of database table
      */
-    protected function fill(Template $template, $tableName, $tableDescription) 
+    protected function fill(Template $template, $tableName) 
     {
         $template->set(self::MARK_ANNOTATION, "@Mapper");
-        $template->set(self::DOMAIN_DESCRIPTION, "Mapper for ".$this->getClazzName($tableName)." entity");
+        $template->set(self::DESCRIPTION, "Mapper for ".$this->getClazzName($tableName)." entity");
     }
     /**
      * @return string name suffix

@@ -1,5 +1,5 @@
 <?php
-require_once 'Configuration.php';
+require_once 'ConfigurationTest.php';
 /**
  * Basic interface for database/integration test subclass
  * @author tomascejka
@@ -35,6 +35,6 @@ abstract class UnitTestBase extends \PHPUnit_Framework_TestCase
         $this->pathResources = $this->pathTestDir.'Mokos'.DIRECTORY_SEPARATOR;
         $this->pathTemplateDir = $this->pathTestDir.DIRECTORY_SEPARATOR.'templates'.DIRECTORY_SEPARATOR;
         $this->pathTemporaryDir = $this->pathTestDir.DIRECTORY_SEPARATOR.'temp'.DIRECTORY_SEPARATOR;
-        $this->configuration = new Configuration();
+        $this->configuration = new ConfigurationTest();
     }
 }

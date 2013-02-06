@@ -25,7 +25,7 @@ abstract class GeneratorBase implements Generator
     const TABLE_NAME_SIMPLE = 'table_name_simple';
     const DOMAIN_NAME = 'domain_name';
     const DOMAIN_NAME_LOWER = 'domain_name_lower';
-    const DOMAIN_DESCRIPTION = 'domain_description';
+    const DESCRIPTION = 'domain_description';
     const CLAZZ_FIELDS = 'clazz_fields';
     const CLAZZ_GET_SET_METHODS = 'clazz_get_set_methods';
     const CLAZZ_SERIALIZATION = 'clazz_serialize';
@@ -78,8 +78,9 @@ abstract class GeneratorBase implements Generator
             $template->set(self::EMPTY_METHOD, "//TODO method implementation");
             $template->set(self::TABLE_NAME_SIMPLE, $this->getTableNameSimple($tableName));
             $template->set(self::DOMAIN_NAME, $this->getClazzName($tableName));
-            $template->set(self::DOMAIN_NAME_LOWER, $this->getClazzNameLower($tableName));            
-            $this->fill($template, $tableName, $table->getDescription());
+            $template->set(self::DOMAIN_NAME_LOWER, $this->getClazzNameLower($tableName));
+            $template->set(self::DESCRIPTION, $table->getDescription());
+            $this->fill($template, $tableName);
             $template->write($this->filePath.DIRECTORY_SEPARATOR.$this->getClazzName($tableName).$this->getType().$this->filePostfix.'.php');
         }
     }
@@ -125,7 +126,7 @@ abstract class GeneratorBase implements Generator
      * Fill template by specific variables by given generator implementation
      * @return void
      */
-    protected abstract function fill(Template $template, $tableName, $tableDescription);
+    protected abstract function fill(Template $template, $tableName);
     /**
      * Returned name is used in filename
      * @return string of generated entity, eg. Dao, Mapper, Repository

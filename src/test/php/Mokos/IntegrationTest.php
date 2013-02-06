@@ -1,5 +1,5 @@
 <?php
-require_once 'Configuration.php';
+require_once 'ConfigurationTest.php';
 require_once 'TruncateDatabaseOperation.php';
 /**
  * Basic interface for database/integration test subclass
@@ -36,7 +36,7 @@ abstract class IntegrationTest extends PHPUnit_Extensions_Database_TestCase
     {
         $this->pathTestDir = '..'.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR;
         $this->pathResources = $this->pathTestDir.'Mokos'.DIRECTORY_SEPARATOR;
-        $this->configuration = new Configuration();
+        $this->configuration = new ConfigurationTest();
         $clazz = new \ReflectionClass($this);
         $this->clazzname = $clazz->getName();  
         

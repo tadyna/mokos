@@ -22,11 +22,9 @@ class GeneratorDto extends GeneratorBase
      * @param \Mokos\Template\Template $template
      * @param string $tableName name of database table
      */
-    protected function fill(Template $template, $tableName, $tableDescription) 
+    protected function fill(Template $template, $tableName) 
     {
         $template->set(self::MARK_ANNOTATION, "@Dto");
-        $clazzName = $this->getClazzName($tableName);
-        $template->set(self::DOMAIN_NAME, $clazzName);
         $columns = $this->adapter->getAllFields($tableName);
         $fields = "";
         $methods = "";
@@ -56,8 +54,6 @@ class GeneratorDto extends GeneratorBase
         }
         $template->set(self::CLAZZ_FIELDS, $fields);
         $template->set(self::CLAZZ_GET_SET_METHODS, $methods);
-        $template->set('date', date("Y-m-d H:i"));
-        $template->set(self::DOMAIN_DESCRIPTION, $tableDescription);
     }
     /**
      * @return string name suffix

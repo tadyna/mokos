@@ -46,9 +46,9 @@ class GeneratorCollection extends GeneratorBase
      * @param \Mokos\Template\Template $template
      * @param string $tableName name of database table
      */
-    protected function fill(Template $template, $tableName, $tableDescription) 
+    protected function fill(Template $template, $tableName) 
     {
-        $template->set(self::DOMAIN_DESCRIPTION, "Aggregate root collection for ".$this->getClazzName($tableName)." entity");
+        $template->set(self::DESCRIPTION, "Aggregate root collection for ".$this->getClazzName($tableName)." entity");
         $columns = $this->adapter->getAllFields($tableName);
         foreach ($columns as $column) {
             /* @var $column \Mokos\Database\Metadata\Column */

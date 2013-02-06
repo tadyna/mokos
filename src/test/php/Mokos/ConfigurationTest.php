@@ -4,7 +4,7 @@
  *
  * @author derhaa
  */
-class Configuration implements Mokos\Database\Configuration
+class ConfigurationTest implements Mokos\Database\Configuration
 {
     /**
      * @var PDO
