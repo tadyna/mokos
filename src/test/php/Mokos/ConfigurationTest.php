@@ -39,7 +39,9 @@ class ConfigurationTest implements Mokos\Database\Configuration
     {
         return "0.1.1 alpha";
     }
-
+    /**
+     * @inheritDoc
+     */
     public function getVendorName() {
         return $GLOBALS['DB_VENDOR'];
     }

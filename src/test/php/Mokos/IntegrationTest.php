@@ -53,8 +53,7 @@ abstract class IntegrationTest extends PHPUnit_Extensions_Database_TestCase
         return $this->connection;
     }
     /*
-     * (non-PHPdoc)
-     * @see PHPUnit\Extensions\Database\TestCase::getDataSet
+     * Get name of directory where test is located and generated path to xml resource
      */
     protected function getDataSet()
     {
@@ -69,6 +68,7 @@ abstract class IntegrationTest extends PHPUnit_Extensions_Database_TestCase
         return $this->createFlatXMLDataSet($filePath);
     }
     /**
+     * This resolves problem with truncate tables with foreign keys before tests
      * @return \PHPUnit_Extensions_Database_Operation_Composite
      */
     protected function getSetUpOperation()

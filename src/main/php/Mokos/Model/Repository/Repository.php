@@ -7,7 +7,6 @@ use Mokos\Model\Domain\Entity;
  * LICENCE
  *   The MIT License
  *
- * @abstract
  * @author tomascejka
  * @category   Provide data
  * @package    Repository
