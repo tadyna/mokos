@@ -26,12 +26,18 @@ class Table
      */
     private $description;
     /**
+     *
+     * @var array Mokos\Database\Metadata\Column objects
+     */
+    private $columns;
+    /**
      * Descriptor of database table
      */
-    public function __construct($tableName, $description) 
+    public function __construct($tableName, $description, $columns = null) 
     {
         $this->name = $tableName;
         $this->description = $description;
+        $this->columns = $columns;
     }
     /**
      * Return description of database table

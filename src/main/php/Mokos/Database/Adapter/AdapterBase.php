@@ -35,4 +35,10 @@ abstract class AdapterBase implements Adapter
         $this->schemaName = $configuration->getDbName();
         $this->pdo = $configuration->getConnection();
     }
+    /**
+     * @inheritDoc
+     */
+    public function getRelations() {
+        return array();
+    }
 }
