@@ -33,4 +33,14 @@ interface Adapter
      * @return string data type as string
     */
     public function getType(Column $columnDescriptor);
+    /**
+     * Return all tables which has one column with primary key at least
+     * @return array of matched tables
+     */
+    public function getTablesWithPrimaryKey();
+    /**
+     * Return many2many | one2many relations between tables
+     * @return array key is table name and array with many2one/many2many methods
+     */
+    public function getRelations();
 }

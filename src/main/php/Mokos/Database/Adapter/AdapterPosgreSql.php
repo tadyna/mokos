@@ -46,4 +46,10 @@ class AdapterPosgreSql extends AdapterBase
         $type = $columnDescriptor->getType();
         return $type;
     }
+    /**
+     * @inheritDoc
+     */
+    public function getTablesWithPrimaryKey() {
+        return array();
+    }
 }

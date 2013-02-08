@@ -64,7 +64,7 @@ class AdapterMysql extends AdapterBase
     	$descriptors = array();
     	$result = $this->pdo->query($query);
         foreach($result as $table){
-            $descriptors[] = new Table($table['TABLE_NAME'], $table['TABLE_COMMENT']); 
+            $descriptors[] = new Table($table['TABLE_NAME'], $table['TABLE_COMMENT'], null); 
         }
         return $descriptors;
     }
@@ -88,19 +88,47 @@ class AdapterMysql extends AdapterBase
         }
         return $type;
     }
-    public function getMetadata() {
-        $query="
-            select c.column_key, c.column_name, u.table_name, u.referenced_column_name, u.referenced_table_name
-            from information_schema.key_column_usage as u, information_schema.columns as c
-            where
-              u.table_schema='mokos_test'
-              -- and u.referenced_table_name is not null
-              -- and u.referenced_column_name is not null
-              and c.column_key is not null 
-              and c.column_name=u.column_name;";
+    /**
+     * @inheritDoc
+     */
+    public function getTablesWithPrimaryKey()
+    {
+        $query = "select c.table_name from information_schema.columns c where c.table_schema='".$this->schemaName."' and column_key='PRI'";
         $result = $this->pdo->query($query);
-        foreach($result as $value){
-            //$descriptors[] = new Table($table['TABLE_NAME'], $table['TABLE_COMMENT']); 
-        }        
+        $tables = array();
+        foreach ($result as $record) {
+            $tables[$record[0]] = $record[0];
+        }
+        return $tables;
+    }
+    /**
+     * @inheritDoc
+     */    
+    public function getRelations()
+    {
+        /*$statement = "select constraint_name, table_name, column_name, referenced_table_name, referenced_column_name 
+                    from information_schema.key_column_usage  
+                    where table_schema='".$this->schemaName."' 
+                        and referenced_table_name is not null";*/
+        $statement="select u.table_name, c.column_name, u.referenced_table_name, u.referenced_column_name
+from information_schema.key_column_usage as u, information_schema.columns as c
+where
+  u.table_schema='mokos_test'
+  and u.referenced_table_name is not null
+  and u.referenced_column_name is not null
+  and c.column_key is not null 
+  and c.column_name=u.column_name;";
+        $tableWithForeignKeys = array();
+        $result = $this->pdo->query($statement);  
+        foreach ($result as $record) {
+            $tableName = $record[0];
+            $tableRef = $record[2];
+            if(array_key_exists($tableName, $tableWithForeignKeys)) {
+                $tableWithForeignKeys[$tableName][]= $tableRef;
+            } else {
+                $tableWithForeignKeys[$tableName] = array($tableRef);
+            }
+        }
+        return $tableWithForeignKeys;
     }
 }
