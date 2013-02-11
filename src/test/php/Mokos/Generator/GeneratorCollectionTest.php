@@ -61,7 +61,7 @@ class GeneratorCollectionTest extends \UnitTestBase
     public function testGenerate() 
     {
         $this->mock1->generate();
-        //$this->mock2->generate();
+        $this->mock2->generate();
         //$this->mock3->generate();
     }
 }

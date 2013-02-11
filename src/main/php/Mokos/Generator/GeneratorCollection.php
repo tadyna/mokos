@@ -24,42 +24,24 @@ class GeneratorCollection extends GeneratorBase
      */
     public function generate () 
     {
-        $methods = $this->createRelationshipMethods();
+        $tablesF = $this->adapter->getTablesWithPrimaryKey();
         $tables = $this->adapter->getAllTables();
         foreach ($tables as $table) {
             $tableName = $table->getName();
-            if(array_key_exists($tableName, $methods)) {
-                $template = new Template($this->templatePath);
-                $date = new \DateTime();
-                $template->set('date', $date->format('Y-m-d H:i:s'));
-                $template->set(self::EMPTY_CLASS, "//TODO class implementation");
-                $template->set(self::EMPTY_METHOD, "//TODO method implementation");
-                $template->set(self::TABLE_NAME_SIMPLE, $this->getTableNameSimple($tableName));
-                $template->set(self::DOMAIN_NAME, $this->getClazzName($tableName));
-                $template->set(self::DOMAIN_NAME_LOWER, $this->getClazzNameLower($tableName));                
-                ///////////////////////////////////////////////////
-                //  Refactor this aplha implementation
-                //  TODO [refactor]
-                    $foo = $methods[$tableName];
-                    $x = "";
-                    $i = 0;
-                    foreach ($foo as $hoo) {
-                        $formated = $this->getClazzNameLower($hoo);
-                        $x .= ($i != 0) ? "\n" : "";
-                        $x .= ($i != 0) ? "    /**\n" : "/**\n";
-                        $x .= "     * @return array \n";
-                        $x .= "     */\n";
-                        $x .= ($i == 0) ? "\t" : "    ";
-                        $x.="public function ".str_replace("#", "$", $formated);
-                        $x .= ($i != 0) ? "" : "";
-                        $i++;
-                    }
-                    $template->set(self::RELATIONS_METHODS, $x );
-                // End of refactor alpha implementation
-                //////////////////////////////////////////////////////  
-                $this->fill($template, $tableName, $table->getDescription());
-                $template->write($this->filePath.DIRECTORY_SEPARATOR.$this->getClazzName($tableName).$this->getType().$this->filePostfix.'.php');                
+            if(!array_key_exists($tableName, $tablesF)) {
+                continue;
             }
+            $template = new Template($this->templatePath);
+            $date = new \DateTime();
+            $template->set('date', $date->format('Y-m-d H:i:s'));
+            $template->set(self::EMPTY_CLASS, "//TODO class implementation");
+            $template->set(self::EMPTY_METHOD, "//TODO method implementation");
+            $template->set(self::TABLE_NAME_SIMPLE, $this->getTableNameSimple($tableName));
+            $template->set(self::DOMAIN_NAME, $this->getClazzName($tableName));
+            $template->set(self::DOMAIN_NAME_LOWER, $this->getClazzNameLower($tableName));
+            $template->set(self::DESCRIPTION, $table->getDescription());
+            $this->fill($template, $tableName);
+            $template->write($this->filePath.DIRECTORY_SEPARATOR.$this->getClazzName($tableName).$this->getType().$this->filePostfix.'.php');            
         }
     }
     /**
@@ -68,15 +50,7 @@ class GeneratorCollection extends GeneratorBase
      */
     protected function fill(Template $template, $tableName) 
     {
-        $template->set(self::DESCRIPTION, "Aggregate root collection for ".$this->getClazzName($tableName)." entity");
-        $columns = $this->adapter->getAllFields($tableName);
-        foreach ($columns as $column) {
-            /* @var $column \Mokos\Database\Metadata\Column */
-            if($column->isPrimary()) {
-                $template->set(self::DOMAIN_GET_PRIMARY_METHOD, 'get'.$column->getColumnName().'()');     
-                break;
-            }           
-        }
+        // do nothing ... 
     }
     /**
      * @return string name suffix

@@ -39,7 +39,8 @@ class AdapterMysql extends AdapterBase
                 $row['CHARACTER_MAXIMUM_LENGTH'],
                 $row['EXTRA'],
                 $row['COLUMN_DEFAULT'],
-                $row['COLUMN_COMMENT']
+                $row['COLUMN_COMMENT'],
+                null, null
             );
         }
         return $descriptors;        
@@ -55,8 +56,7 @@ class AdapterMysql extends AdapterBase
         select t.table_name as TABLE_NAME, t.table_comment as TABLE_COMMENT, c.column_name, c.column_key 
         from information_schema.tables as t, information_schema.columns as c
         where
-            t.table_schema='".$this->schemaName."'
-            and c.table_schema='".$this->schemaName."' 
+            c.table_schema='".$this->schemaName."' 
             and t.table_name=c.table_name
             and c.column_key is not null 
             and c.column_key='PRI';";        
@@ -106,23 +106,24 @@ class AdapterMysql extends AdapterBase
      */    
     public function getRelations()
     {
-        $tables = array();
-        $result = $this->pdo->query("select u.table_name, u.column_name, u.referenced_table_name, u.referenced_column_name from information_schema.key_column_usage u
-                    where u.table_schema='".$this->schemaName."'
-                    and u.referenced_table_name is not null");  
+        $statement = "select table_name, column_name, referenced_table_name, referenced_column_name 
+                    from information_schema.key_column_usage  
+                    where table_schema='".$this->schemaName."' 
+                        and referenced_table_name is not null";
+        $tableWithForeignKeys = array();
+        $result = $this->pdo->query($statement);  
         foreach ($result as $record) {
-            $name = $record[0];
-            $column = $record[1];//name of "filterColumn", eg. ByPersonId
-            $ref = $record[2];//if many2many need referenced table name
-            $refCol = $record[3];
-//            $rels[] = new \Relationship( new Table($name, null, array($column)), $column, new Table($refTable, null, array($refCol)), $refCol);
-            $tableName = $name;//array_key_exists($name, $foreignKeys) ? $name : $ref;
-            if(array_key_exists($tableName, $tables)) {
-                $tables[$tableName]->addColumn($refCol);
+            $tabName = $record[0];
+            $colName = $record[1];
+            $refTab = $record[2];
+            $refCol =$record[3];
+            $column = new Column($colName, null, null, null, null, null, null, null, null, null, $refTab, $refCol);
+            if(array_key_exists($tabName, $tableWithForeignKeys)) {
+                $tableWithForeignKeys[$tabName]->addColumn($column);
             } else {
-                $tables[$tableName] = new Table($tableName, null, array($refCol));
+                $tableWithForeignKeys[$tabName] = new Table($tabName, null, array($column));
             }
         }
-        return $tables;
+        return $tableWithForeignKeys;
     }
 }

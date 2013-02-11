@@ -2,9 +2,9 @@
 <phpunit>
     <php>
         <var name="DB_VENDOR" value="mysql" />
-        <var name="DB_DATABASE" value="mokos_test" /><!-- sakila, mokos_test -->
+        <var name="DB_DATABASE" value="sakila" /><!-- sakila  mokos_test -->
         <var name="DB_HOST" value="localhost" />
-        <var name="DB_DSN" value="mysql:dbname=mokos_test;host=localhost" />
+        <var name="DB_DSN" value="mysql:dbname=sakila;host=localhost" />
         <var name="DB_USER" value="mokos_test" />
         <var name="DB_PASSWD" value="mokos_test" />
     </php>

@@ -52,8 +52,8 @@ class ${domain_name}RepositoryImpl implements ${domain_name}Repository
     public function save(${domain_name} $entity)
     {
          return $this->${domain_name_lower}Mapper->save($entity);
-    } 
-    /**
+    }
+    ${relations_methods}    /**
      * Return collection if implements \Countable, \ArrayAccess, \IteratorAggregate interfaces
      * @return ${domain_name}Collection object
      */    

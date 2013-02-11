@@ -8,6 +8,10 @@
 abstract class CollectionBase implements \Countable, \ArrayAccess, \IteratorAggregate
 {
     /**
+     * @var array collection items
+     */
+    protected $items = array();
+    /**
      * @param $key mixed unique id of object
      * @return mixed object from collection
      */

@@ -7,8 +7,9 @@
  */
 class ${domain_name} extends Entity
 {
+   ${collections}
    ${clazz_fields}
-   ${clazz_get_set_methods}
+   ${clazz_get_set_methods} ${relations_methods}   
     /**
      * @return array represetantion of entity
      * @throw EntityException if serialization fails

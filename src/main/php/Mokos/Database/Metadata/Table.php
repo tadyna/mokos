@@ -56,11 +56,11 @@ class Table
         return $this->name;
     }
     /**
-     * @param type $column
+     * @param Column $column
      */
-    public function addColumn($column)
+    public function addColumn(Column $column)
     {
-        $this->columns[]= $column;
+        array_push($this->columns, $column);
     }
     /**
      * @return array
