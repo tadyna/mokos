@@ -58,6 +58,14 @@ class Column
      */
     private $comment;
     /**
+     * @var string 
+     */
+    private $refTab;
+    /**
+     * @var string 
+     */
+    private $refCol;    
+    /**
      * Descriptor of table column
      * @param string $columName
      * @param string $type
@@ -69,8 +77,22 @@ class Column
      * @param mixed $extra
      * @param mixed $default
      * @param string $comment
+     * @param string $referencedTable foreign key table
+     * @param string $referencedColumn foreign key column
      */
-    public function __construct($columName, $type, $nullable, $key, $unique, $primary, $maxLength, $extra, $default, $comment) 
+    public function __construct(
+            $columName, 
+            $type, 
+            $nullable, 
+            $key, 
+            $unique, 
+            $primary, 
+            $maxLength, 
+            $extra, 
+            $default, 
+            $comment, 
+            $referencedTable,
+            $referencedColumn) 
     {
         $this->name = $columName;
         $this->type = $type;
@@ -82,6 +104,8 @@ class Column
         $this->extra = $extra;
         $this->default = $default;
         $this->comment = $comment;
+        $this->refTab = $referencedTable;
+        $this->refCol = $referencedColumn;
     }
     /**
      * Extract column name from metadata object
@@ -179,4 +203,18 @@ class Column
     {
         return $this->comment;
     }
+    /**
+     * @return string name of referenced table
+     */
+    public function getReferencedTable()
+    {
+        return $this->refTab;
+    }
+    /**
+     * @return string name of referenced column
+     */    
+    public function getReferencedColumn()
+    {
+        return $this->refCol;
+    }    
 }

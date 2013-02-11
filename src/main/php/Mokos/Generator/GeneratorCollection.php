@@ -29,34 +29,51 @@ class GeneratorCollection extends GeneratorBase
         //  TODO [refactor]
         $tablesF = $this->adapter->getTablesWithPrimaryKey();
         $methods = array();
-        foreach ($this->adapter->getRelations() as $tableName => $columns){
+        //foreach ($this->adapter->getRelations() as $tableName => $columns){
+        foreach ($this->adapter->getRelations() as $table){
+            $columns = $table->getColumns();
+            $tableName = $table->getName();
             // if table has no primary key (eg. many2many table)
             if(array_search($tableName, $tablesF, true) == null) 
             {
                 $inner = array();
                 $counter1 = count($columns) - 1;
+                $x = "";
                 foreach ($columns as $column) {
                     $index = $counter1--;
-                    $methods[$columns[$index]][] = "get_".$column."s";
+                    $x .= "\t/*\n";
+                    $x .= "\t * @param type pouzij metada column pro zjisteni typu \n";
+                    $x .= "\t */\n";
+                    $x .= "\tpublic function get_".$column->getColumnName()."s";
+                    $methods[$columns[$index]->getReferencedTable()][] = $x;
                 }
+                
                 $counter = 0;
                 foreach ($columns as $column) {
-                    $tab = $columns[$counter++];
+                    $tab = $columns[$counter++]->getReferencedTable();
                     $position = 0;
                     if(array_key_exists($tab, $methods)){
                         if(array_key_exists($position, $methods[$tab])) {
                             $i = $position++;
-                            $methods[$tab][$i].="_by_".$column."(#id_".$column.");";
+                            $methods[$tab][$i].="_by_".$column->getColumnName()."(#id_".$column->getColumnName().");\n";
                         }                       
                     }
                 }
+//                foreach ($inner as $method) {
+//                    $methods[$tableName][] = $method;
+//                }
             } 
             // if table has primary key (eg. table with one2many relation(s))
             else 
             {
                 $inner = array();
+                $x = "";
                 foreach ($columns as $column) {
-                    $inner[] = "get_".$tableName."s_by_".$column."(#id_".$column.");";
+                    $x = "\t/*\n";
+                    $x .= "\t * @param type pouzij metada column pro zjisteni typu \n";
+                    $x .= "\t */\n";                    
+                    $x .= "\tpublic function get_".$tableName."s_by_".$column->getColumnName()."(#id_".$column->getColumnName().");\n";
+                    $inner[] = $x;
                 }                
                 $methods[$tableName] = $inner;
             }
@@ -66,6 +83,9 @@ class GeneratorCollection extends GeneratorBase
         $tables = $this->adapter->getAllTables();
         foreach ($tables as $table) {
             $tableName = $table->getName();
+            if(!array_key_exists($tableName, $methods)) {
+                continue;
+            }
             $template = new Template($this->templatePath);
             $date = new \DateTime();
             $template->set('date', $date->format('Y-m-d H:i:s'));
@@ -78,14 +98,13 @@ class GeneratorCollection extends GeneratorBase
             ///////////////////////////////////////////////////
             //  Refactor this aplha implementation
             //  TODO [refactor]
-            $foo = $methods[$tableName];
+            $inner = $methods[$tableName];
             $x = "";
             $i = 0;
-            foreach ($foo as $hoo) {
+            foreach ($inner as $hoo) {
                 $formated = $this->getClazzNameLower($hoo);
-                $x .= ($i != 0) ? "    " : "";
-                $x.="public function ".str_replace("#", "$", $formated);
-                $x .= ($i != 0) ? "\n" : "";
+                $x.=str_replace("#", "$", $formated);
+//                $x .= ($i != 0) ? "\n" : "\n";
                 $i++;
             }
             $template->set(self::RELATIONS_METHODS, $x );

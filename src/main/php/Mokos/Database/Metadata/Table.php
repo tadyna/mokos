@@ -55,4 +55,16 @@ class Table
     {
         return $this->name;
     }
+    /**
+     * @param string name of column
+     */
+    public function addColumn($column)
+    {
+        array_push($this->columns, $column);
+    }
+    /*  */
+    public function getColumns()
+    {
+        return $this->columns;
+    }
 }
