@@ -8,10 +8,6 @@
  */
 class ${domain_name}MapperImpl implements ${domain_name}Mapper 
 {
-    public function __construct(${domain_name}Collection $collection)
-    {
-        $this->collection = $collection;
-    }
     /**
      * Finder method to find entity by given unique key
      * @param mixed $idEntity unique key of entity to be able to find in storage
@@ -19,7 +15,7 @@ class ${domain_name}MapperImpl implements ${domain_name}Mapper
      */
     public function find($idEntity)
     {
-        $record = null;//fetch database
+        $record = null;//fetch collection
         return $this->record2Domain($record);
     }    
     /**
@@ -93,19 +89,5 @@ class ${domain_name}MapperImpl implements ${domain_name}Mapper
     private function record2Dto(array $record)
     {
         ${empty_method}
-    }
-    /**
-     * Return collection if implements \Countable, \ArrayAccess, \IteratorAggregate interfaces
-     * @return ${domain_name}Collection object
-     */    
-    private function createCollection(array $records)
-    {
-        $this->collection->clear();
-        if ($records) {
-            foreach ($records as $record) {
-                $this->collection[] = $this->record2Domain($record);
-            }
-        }
-        return $this->collection;
     }
 }

@@ -32,7 +32,7 @@ class GeneratorEntityTest extends \UnitTestBase
         $this->mock = new \Mokos\Generator\GeneratorEntity(
                 $this->pathTemplateDir.'DOMAIN_IMPL.tpl',
                 $this->pathTemporaryDir, 
-                'Impl',
+                '',
                 $this->adapter);        
     }
     /**

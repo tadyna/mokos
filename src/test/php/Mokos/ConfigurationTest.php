@@ -23,7 +23,7 @@ class ConfigurationTest implements Mokos\Database\Configuration
      */
     public function getDbName()
     {
-        return $GLOBALS['DB_DBNAME'];
+        return $GLOBALS['DB_DATABASE'];
     }
     /**
      * @inheritDoc

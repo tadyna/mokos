@@ -26,9 +26,6 @@ interface ${domain_name}Collection
      * Remove array of ${domain_name} from collection
      * @return void
      */
-    public function removeAll(array $${domain_name_lower}s = null);
-    /**
-     * TODO jeste doresit javadocy
-     */    
+    public function removeAll(array $${domain_name_lower}s = null);   
     ${relations_methods}
 }

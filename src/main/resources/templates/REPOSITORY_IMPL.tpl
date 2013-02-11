@@ -8,6 +8,17 @@
 class ${domain_name}RepositoryImpl implements ${domain_name}Repository
 {
     /**
+     * @var ${domain_name}Collection $collection
+     */
+    private $collection = null;
+    /**
+     * @param ${domain_name}Collection $collection
+     */
+    public function __construct(${domain_name}Collection $collection)
+    {
+        $this->collection = $collection;
+    }
+    /**
      * @inheritDoc
      */
     public function find($idEntity)
@@ -41,7 +52,21 @@ class ${domain_name}RepositoryImpl implements ${domain_name}Repository
     public function save(${domain_name} $entity)
     {
          return $this->${domain_name_lower}Mapper->save($entity);
-    }   
+    } 
+    /**
+     * Return collection if implements \Countable, \ArrayAccess, \IteratorAggregate interfaces
+     * @return ${domain_name}Collection object
+     */    
+    private function createCollection(array $records)
+    {
+        $this->collection->clear();
+        if ($records) {
+            foreach ($records as $record) {
+                $this->collection[] = $this->record2Domain($record);
+            }
+        }
+        return $this->collection;
+    }  
     /**
      * @var ${domain_name}Mapper mapper
      */
