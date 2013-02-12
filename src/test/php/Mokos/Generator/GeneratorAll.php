@@ -4,7 +4,7 @@ use Mokos\Database\Adapter\AdapterMysql;
 /**
  * @author tomascejka
  */
-class GeneratorCollectionTest extends \UnitTestBase 
+class GeneratorAllTest extends \UnitTestBase 
 {
     /**
      * Generator for simple template
@@ -45,7 +45,32 @@ class GeneratorCollectionTest extends \UnitTestBase
      * Generator for simple template
      * @var Mokos\Generator\Generator\GeneratorCollection
      */
-    private $mock8;     
+    private $mock8;  
+    /**
+     * Generator for simple template
+     * @var Mokos\Generator\Generator\GeneratorCollection
+     */
+    private $mock9;     
+    /**
+     * Generator for simple template
+     * @var Mokos\Generator\Generator\GeneratorCollection
+     */
+    private $mock10;
+    /**
+     * Generator for simple template
+     * @var Mokos\Generator\Generator\GeneratorCollection
+     */
+    private $mock11; 
+    /**
+     * Generator for simple template
+     * @var Mokos\Generator\Generator\GeneratorCollection
+     */
+    private $mock12;
+    /**
+     * Generator for simple template
+     * @var Mokos\Generator\Generator\GeneratorCollection
+     */
+    private $mock13;    
     /**
      * @var Mokos\Database\Adapter\Adapter
      */
@@ -101,7 +126,32 @@ class GeneratorCollectionTest extends \UnitTestBase
         $this->mock8 = new \Mokos\Generator\GeneratorSimple(
                 $this->pathTemplateDir.'COLLECTION_BASE.tpl',
                 $this->pathTemporaryDir, 
-                'Collection');        
+                'Collection');  
+        $this->mock9 = new \Mokos\Generator\GeneratorDomain2Dto(
+                $this->pathTemplateDir.'CONVERT_DOMAIN_2_DTO.tpl',
+                $this->pathTemporaryDir, 
+                '',
+                $this->adapter);  
+        $this->mock10 = new \Mokos\Generator\GeneratorDto2Domain(
+                $this->pathTemplateDir.'CONVERT_DTO_2_DOMAIN.tpl',
+                $this->pathTemporaryDir, 
+                '',
+                $this->adapter);
+        $this->mock11 = new \Mokos\Generator\GeneratorDto(
+                $this->pathTemplateDir.'DTO_IMPL.tpl',
+                $this->pathTemporaryDir, 
+                '',
+                $this->adapter);
+        $this->mock12 = new \Mokos\Generator\GeneratorRepository(
+                $this->pathTemplateDir.'REPOSITORY.tpl',
+                $this->pathTemporaryDir, 
+                '',
+                $this->adapter);
+        $this->mock13 = new \Mokos\Generator\GeneratorService(
+                $this->pathTemplateDir.'SERVICE.tpl',
+                $this->pathTemporaryDir, 
+                '',
+                $this->adapter);        
     }
     /**
      * Test generate process... without asserting, only for exception
@@ -116,5 +166,10 @@ class GeneratorCollectionTest extends \UnitTestBase
         $this->mock6->generate();
         $this->mock7->generate();
         $this->mock8->generate();        
+        $this->mock9->generate();
+        $this->mock10->generate();
+        $this->mock11->generate();
+        $this->mock12->generate();
+        $this->mock13->generate();
     }
 }

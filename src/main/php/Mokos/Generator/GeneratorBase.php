@@ -34,6 +34,7 @@ abstract class GeneratorBase implements Generator
     const EMPTY_METHOD = "empty_method";
     const DOMAIN_GET_PRIMARY_METHOD = "domain_get_primary_method";
     const RELATIONS_METHODS = "relations_methods";
+    const CONVERT_METHODS = 'convert_methods';
     /**
      * @var \Mokos\Database\Adapter\Adapter
      */
