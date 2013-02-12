@@ -41,6 +41,7 @@ class GeneratorEntity extends GeneratorBase
                 $x = "";
                 $y = "";
                 foreach ($columns as $column) {
+                    $columnx = $columns[$counter++];
                     $x .= "\t/*\n";
                     $x .= "\t * Add ".$column->getColumnName()." objects to domain object \n";
                     $x .= "\t * @param array ".$column->getColumnName()." objects \n";
@@ -51,9 +52,9 @@ class GeneratorEntity extends GeneratorBase
                     $x .= "\t * @param array ".$column->getColumnName()." objects. If it is null remove all related ".$column->getColumnName()." objects \n";
                     $x .= "\t */\n";
                     $x .= "\tpublic function remove_".$column->getColumnName()."s(array $".$column->getColumnName()."s = null){}\n";                    
-                    $methods[$columns[$counter++]->getReferencedTable()][] = $x;
+                    $methods[$columnx->getReferencedTable()][] = $x;
                     $y .= "\tprivate $".$this->getClazzNameLower($column->getColumnName())."s = array();\n";
-                    $collections[$columns[$counter++]->getReferencedTable()] = $y;
+                    $collections[$columnx->getReferencedTable()] = $y;
                 }
             } 
             // if table has primary key (eg. table with one2many relation(s))
@@ -100,7 +101,7 @@ class GeneratorEntity extends GeneratorBase
             }
             //generate relations
             if(array_key_exists($tableName, $methods)) {
-                $lower = $this->getClazzNameLower($methods[$tableName]);
+                $lower = $this->getClazzNameLower($tableName);
                 $formated =str_replace("#", "$", $lower);              
                 $template->set(self::RELATIONS_METHODS, $formated);
             } else {
