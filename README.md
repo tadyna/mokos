@@ -3,8 +3,8 @@ mokos
 
 Generator domain/repository/mapper php classes from database. 
 
-Issues for new release 0.2
-===========================
+Issues for new release 0.2 aplha
+================================
 *   #12 Enviroment how to work with console
 * 	 #10 Generation of table relationship in domain objects 
 
