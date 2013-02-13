@@ -20,4 +20,4 @@ There are finished issues in this release:
 * 	 #4	Generation strategy
 * 	 #3	Complete integration tests for MysqlAdapter clazz new
 * 	 #2	Complete integration test for PDOStorage new - Cancelled, PDOStoraqge has been removed! 
-* 	 #1	#1 - instalation of PHPUnit/DBUnit
+* 	 #1	Instalation of PHPUnit/DBUnit
