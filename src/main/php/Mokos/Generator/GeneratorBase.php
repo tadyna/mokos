@@ -29,12 +29,13 @@ abstract class GeneratorBase implements Generator
     const CLAZZ_FIELDS = 'clazz_fields';
     const CLAZZ_GET_SET_METHODS = 'clazz_get_set_methods';
     const CLAZZ_SERIALIZATION = 'clazz_serialize';
-    const CLAZZ_DESERIALIZATION = 'clazz_deserialize';
+    const CLAZZ_UN_SERIALIZATION = 'clazz_deserialize';
     const EMPTY_CLASS = "empty_class";
     const EMPTY_METHOD = "empty_method";
     const DOMAIN_GET_PRIMARY_METHOD = "domain_get_primary_method";
     const RELATIONS_METHODS = "relations_methods";
     const CONVERT_METHODS = 'convert_methods';
+    const DATE = 'date';
     /**
      * @var \Mokos\Database\Adapter\Adapter
      */
@@ -55,7 +56,7 @@ abstract class GeneratorBase implements Generator
      * @param string $templatePath
      * @param string $filePath
      * @param string $filePostfix
-     * @param \Mokos\Database\AdapterBase $adapter
+     * @param \Mokos\Database\Adapter\Adapter $adapter
      */
     public function __construct($templatePath, $filePath, $filePostfix, AdapterBase $adapter) 
     {
@@ -72,10 +73,11 @@ abstract class GeneratorBase implements Generator
     {
         $tables = $this->adapter->getAllTables();
         foreach ($tables as $table) {
+            /** @var \Mokos\Database\Metadata\Table $table */
             $tableName = $table->getName();
             $template = new Template($this->templatePath);
             $date = new \DateTime();
-            $template->set('date', $date->format('Y-m-d H:i:s'));
+            $template->set(self::DATE, $date->format('Y-m-d H:i:s'));
             $template->set(self::EMPTY_CLASS, "//TODO class implementation");
             $template->set(self::EMPTY_METHOD, "//TODO method implementation");
             $template->set(self::TABLE_NAME_SIMPLE, $this->getTableNameSimple($tableName));
@@ -89,6 +91,7 @@ abstract class GeneratorBase implements Generator
     /**
      * Give table name and upperCase first letter in name,
      * and if table contains '_' removed than and use camel-based naming class
+     * @param string $tableName of table
      * @return string modified table name for class
      */
     public final function getClazzName($tableName)

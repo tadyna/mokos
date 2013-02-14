@@ -15,7 +15,7 @@ use Mokos\Database\Metadata\Column;
  * @copyright  Copyright (c) 2012 Tomas Cejka (http://mokos.tomascejka.eu)
  * @license    http://opensource.org/licenses/mit-license.php - The MIT License
  * 
- * Adapter database rules for Sqllite vendor
+ * Adapter database rules for SqlLite vendor
  */
 class AdapterSqlLite extends AdapterBase 
 {

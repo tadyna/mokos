@@ -14,7 +14,7 @@ class ${domain_name} extends Entity
      * @return array represetantion of entity
      * @throw EntityException if serialization fails
      */
-    protected final function serialize() 
+    public final function serialize()
     {
         //do something
     }
@@ -23,7 +23,7 @@ class ${domain_name} extends Entity
      * @param mixed $serialized 
      * @throw EntityException if deserialization fails
      */
-    protected final function unserialize($serialized) 
+    public final function unserialize($serialized)
     {
         if(is_array($serialized)) {
             // do something

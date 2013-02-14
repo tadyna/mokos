@@ -8,11 +8,11 @@ use Mokos\Template\Template;
  */
 class GeneratorBaseTest extends \UnitTestBase {
     /**
-     * @var Mokos\Generator\Generator
+     * @var Mokos\Generator\GeneratorBase
      */
     private $mock;
     /**
-     * @var Mokos\Database\Adapter
+     * @var Mokos\Database\Adapter\Adapter
      */
     private $adapter;
     /**
@@ -46,7 +46,7 @@ class GeneratorBaseTest extends \UnitTestBase {
 }
 /**
  * @author tomascejka
- * @property Mokos\Generator\BaseGenerator
+ * @property Mokos\Generator\GeneratorBase
  */
 class BaseGeneratorMock extends GeneratorBase 
 {

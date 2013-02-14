@@ -1,10 +1,11 @@
 <?php
+use Mokos\Database\Configuration;
 /**
  * Description of Configuration
  *
  * @author derhaa
  */
-class ConfigurationTest implements Mokos\Database\Configuration
+class ConfigurationTest implements Configuration
 {
     /**
      * @var PDO

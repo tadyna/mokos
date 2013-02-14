@@ -8,67 +8,67 @@ class GeneratorAllTest extends \UnitTestBase
 {
     /**
      * Generator for simple template
-     * @var Mokos\Generator\Generator\GeneratorCollection
+     * @var Mokos\Generator\GeneratorCollection
      */
     private $mock1;
     /**
      * Generator for simple template
-     * @var Mokos\Generator\Generator\GeneratorCollection
+     * @var Mokos\Generator\GeneratorCollection
      */
     private $mock2;
     /**
      * Generator for simple template
-     * @var Mokos\Generator\Generator\GeneratorCollection
+     * @var Mokos\Generator\GeneratorCollection
      */
     private $mock3;
     /**
      * Generator for simple template
-     * @var Mokos\Generator\Generator\GeneratorCollection
+     * @var Mokos\Generator\GeneratorCollection
      */
     private $mock4; 
     /**
      * Generator for simple template
-     * @var Mokos\Generator\Generator\GeneratorCollection
+     * @var Mokos\Generator\GeneratorCollection
      */
     private $mock5; 
     /**
      * Generator for simple template
-     * @var Mokos\Generator\Generator\GeneratorCollection
+     * @var Mokos\Generator\GeneratorCollection
      */
     private $mock6;
     /**
      * Generator for simple template
-     * @var Mokos\Generator\Generator\GeneratorCollection
+     * @var Mokos\Generator\GeneratorCollection
      */
     private $mock7; 
     /**
      * Generator for simple template
-     * @var Mokos\Generator\Generator\GeneratorCollection
+     * @var Mokos\Generator\GeneratorCollection
      */
     private $mock8;  
     /**
      * Generator for simple template
-     * @var Mokos\Generator\Generator\GeneratorCollection
+     * @var Mokos\Generator\GeneratorCollection
      */
     private $mock9;     
     /**
      * Generator for simple template
-     * @var Mokos\Generator\Generator\GeneratorCollection
+     * @var Mokos\Generator\GeneratorCollection
      */
     private $mock10;
     /**
      * Generator for simple template
-     * @var Mokos\Generator\Generator\GeneratorCollection
+     * @var Mokos\Generator\GeneratorCollection
      */
     private $mock11; 
     /**
      * Generator for simple template
-     * @var Mokos\Generator\Generator\GeneratorCollection
+     * @var Mokos\Generator\GeneratorCollection
      */
     private $mock12;
     /**
      * Generator for simple template
-     * @var Mokos\Generator\Generator\GeneratorCollection
+     * @var Mokos\Generator\GeneratorCollection
      */
     private $mock13;    
     /**
