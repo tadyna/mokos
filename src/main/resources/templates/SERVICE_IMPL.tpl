@@ -15,7 +15,7 @@ class ${domain_name}ServiceImpl implements ${domain_name}Service
     {
         //TODO conversion/translation dto object to domain
         $domain = new ${domain_name}();
-        $this->${domain_name_lower}Repository->create($domain);
+        $this->${domain_name_lower}Repository->save($domain);
     }
     /**
      * @inheritDoc
@@ -24,7 +24,7 @@ class ${domain_name}ServiceImpl implements ${domain_name}Service
     {
         //TODO conversion/translation dto object to domain
         $domain = null;
-        $this->${domain_name_lower}Repository->update($domain);
+        $this->${domain_name_lower}Repository->save($domain);
     }
     /**
      * @inheritDoc

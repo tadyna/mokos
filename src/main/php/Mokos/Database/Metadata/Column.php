@@ -81,7 +81,7 @@ class Column
      * @param string $referencedColumn foreign key column
      */
     public function __construct(
-            $columName, 
+            $columnName,
             $type, 
             $nullable, 
             $key, 
@@ -94,7 +94,7 @@ class Column
             $referencedTable,
             $referencedColumn) 
     {
-        $this->name = $columName;
+        $this->name = $columnName;
         $this->type = $type;
         $this->nullable = $nullable;
         $this->key = $key;
@@ -109,7 +109,7 @@ class Column
     }
     /**
      * Extract column name from metadata object
-     * @return string camelized name of colunm
+     * @return string camelized name of column
      */
     public final function getFieldName()
     {

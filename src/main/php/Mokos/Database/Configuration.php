@@ -34,7 +34,7 @@ interface Configuration
      */
     public function getOutputDirPath();
     /**
-     * @return name of database vendor
+     * @return string name of database vendor, eg. mysql, mssql
      */
     public function getVendorName();
 }

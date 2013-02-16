@@ -88,7 +88,7 @@ class GeneratorRepository extends GeneratorBase
             $template->set(self::DESCRIPTION, $table->getDescription());
             //generate relations
             if(array_key_exists($tableName, $methods)) {
-                $lower = $this->getClazzNameLower($methods[$tableName]);
+                $lower = $this->getClazzNameLower($tableName);
                 $formated =str_replace("#", "$", $lower);              
                 $template->set(self::RELATIONS_METHODS, $formated);
             } else {

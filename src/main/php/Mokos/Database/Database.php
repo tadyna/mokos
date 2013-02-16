@@ -28,7 +28,7 @@ class Database
      */
     public function getAdapter(Configuration $configuration) 
     {
-        if(self::$adapter === null) self::$adapter = new AdapterFactory();
+        if(self::$adapterFactory === null) self::$adapterFactory = new AdapterFactory();
         $adapter = self::$adapterFactory->getAdapter($configuration);
         return $adapter;
     }

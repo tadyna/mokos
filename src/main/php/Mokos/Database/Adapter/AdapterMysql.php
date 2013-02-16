@@ -58,7 +58,6 @@ class AdapterMysql extends AdapterBase
         where
             c.table_schema='".$this->schemaName."' 
             and t.table_name=c.table_name
-            and c.column_key is not null 
             and c.column_key='PRI';";        
     	//$query = "select * from information_schema.tables t where t.table_schema='".$this->schemaName."'";//this query does not filter many2many tables
     	$descriptors = array();
