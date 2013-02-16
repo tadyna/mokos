@@ -3,6 +3,7 @@ namespace Mokos\Generator;
 use Mokos\Generator\Generator;
 use Mokos\Database\Adapter\AdapterBase;
 use Mokos\Template\Template;
+use Mokos\Generator\GeneratorHelper;
 /**
  * Mokos
  *
@@ -80,53 +81,14 @@ abstract class GeneratorBase implements Generator
             $template->set(self::DATE, $date->format('Y-m-d H:i:s'));
             $template->set(self::EMPTY_CLASS, "//TODO class implementation");
             $template->set(self::EMPTY_METHOD, "//TODO method implementation");
-            $template->set(self::TABLE_NAME_SIMPLE, $this->getTableNameSimple($tableName));
-            $template->set(self::DOMAIN_NAME, $this->getClazzName($tableName));
-            $template->set(self::DOMAIN_NAME_LOWER, $this->getClazzNameLower($tableName));
+            $template->set(self::TABLE_NAME_SIMPLE, GeneratorHelper::getTableNameSimple($tableName));
+            $template->set(self::DOMAIN_NAME, GeneratorHelper::getClazzName($tableName));
+            $template->set(self::DOMAIN_NAME_LOWER, GeneratorHelper::getClazzNameLower($tableName));
             $template->set(self::DESCRIPTION, $table->getDescription());
             $this->fill($template, $tableName);
-            $template->write($this->filePath.DIRECTORY_SEPARATOR.$this->getClazzName($tableName).$this->getType().$this->filePostfix.'.php');
+            $template->write($this->filePath.DIRECTORY_SEPARATOR.GeneratorHelper::getClazzName($tableName).$this->getType().$this->filePostfix.'.php');
         }
-    }
-    /**
-     * Give table name and upperCase first letter in name,
-     * and if table contains '_' removed than and use camel-based naming class
-     * @param string $tableName of table
-     * @return string modified table name for class
-     */
-    public final function getClazzName($tableName)
-    {
-        $name = strtoupper($tableName[0]).substr($tableName,1);
-        for($i=0;$i<strlen($name);$i++){
-            if($name[$i]=='_'){
-                $name = substr($name, 0, $i).strtoupper($name[$i+1]).substr($name, $i+2);
-            }
-        }
-        return $name;
-    }
-    /**
-     * Extract table name from metadata object
-     * @return string camelized name of table
-     */
-    public final function getClazzNameLower($tableName)
-    {
-          $name = strtolower($tableName);
-          for($i=0;$i<strlen($name);$i++){
-              if($name[$i]=='_'){
-                  $name = substr($name, 0, $i).strtoupper($name[$i+1]).substr($name, $i+2);
-              }
-          }          
-          return $name;
-    } 
-    /**
-     * Extract table name from metadata object
-     * @return string name of table without underscores
-     */
-    public final function getTableNameSimple($tableName)
-    {
-          $name = strtolower($tableName);         
-          return str_ireplace("_", " ", $name);
-    }     
+    }    
     /**
      * Fill template by specific variables by given generator implementation
      * @return void

@@ -1,6 +1,7 @@
 <?php
 namespace Mokos\Generator;
 use Mokos\Template\Template;
+use Mokos\Generator\GeneratorHelper;
 /**
  * Mokos
  *
@@ -25,7 +26,7 @@ class GeneratorMapper extends GeneratorBase
     protected function fill(Template $template, $tableName) 
     {
         $template->set(self::MARK_ANNOTATION, "@Mapper");
-        $template->set(self::DESCRIPTION, "Mapper for ".$this->getClazzName($tableName)." entity");
+        $template->set(self::DESCRIPTION, "Mapper for ".GeneratorHelper::getClazzName($tableName)." entity");
     }
     /**
      * @return string name suffix

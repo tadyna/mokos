@@ -1,6 +1,7 @@
 <?php
 namespace Mokos\Generator;
 use Mokos\Template\Template;
+use Mokos\Generator\GeneratorHelper;
 /**
  * Mokos
  *
@@ -35,7 +36,7 @@ class GeneratorDomain2Dto extends GeneratorBase
             if(array_key_exists($table->getName(), $generated)) continue;
             $generated[$table->getName()] = true;
             
-            $tableName = $this->getClazzName($table->getName());
+            $tableName = GeneratorHelper::getClazzName($table->getName());
             $columns = $this->adapter->getAllFields($table->getName());
             $methods .="   /**\n";
             $methods .="     * @return void\n";

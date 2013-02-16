@@ -1,6 +1,7 @@
 <?php
 namespace Mokos\Generator;
 use Mokos\Template\Template;
+use Mokos\Generator\GeneratorHelper;
 /**
  * Mokos
  *
@@ -25,7 +26,7 @@ class GeneratorService extends GeneratorBase
     protected function fill(Template $template, $tableName) 
     {
         $template->set(self::MARK_ANNOTATION, "@Service");
-        $template->set(self::DESCRIPTION, "Service for ".$this->getClazzName($tableName)." entity");
+        $template->set(self::DESCRIPTION, "Service for ".GeneratorHelper::getClazzName($tableName)." entity");
     }
     /**
      * @return string name suffix
