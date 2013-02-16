@@ -51,9 +51,10 @@ class GeneratorEntity extends GeneratorBase
                     $x .= "\t * @param array ".$column->getColumnName()." objects. If it is null remove all related ".$column->getColumnName()." objects \n";
                     $x .= "\t */\n";
                     $x .= "\tpublic function remove_".$column->getColumnName()."s(array $".$column->getColumnName()."s = null){}\n";                    
-                    $methods[$columns[$counter++]->getReferencedTable()][] = $x;
+                    $in = $counter++;
+                    $methods[$columns[$in]->getReferencedTable()][] = $x;
                     $y .= "\tprivate $".$this->getClazzNameLower($column->getColumnName())."s = array();\n";
-                    $collections[$columns[$counter++]->getReferencedTable()] = $y;
+                    $collections[$columns[$in]->getReferencedTable()] = $y;
                 }
             } 
             // if table has primary key (eg. table with one2many relation(s))
