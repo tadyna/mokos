@@ -8,29 +8,27 @@
 class ${domain_name}RepositoryImpl implements ${domain_name}Repository
 {
     /**
-     * @var ${domain_name}Collection $collection
-     */
-    private $collection = null;
-    /**
-     * @param ${domain_name}Collection $collection
-     */
-    public function __construct(${domain_name}Collection $collection)
-    {
-        $this->collection = $collection;
-    }
-    /**
      * @inheritDoc
      */
     public function find($idEntity)
     {
-         return $this->${domain_name_lower}Mapper->find($idEntity);
+         $result = $this->${domain_name_lower}Mapper->find($idEntity);
+         $domain = new ${domain_name}();
+         Array2Domain::convert${domain_name}($result, $domain);
+         return $domain;
     }
     /**
      * @inheritDoc
      */
     public function findAll(array $condition=array())
     {
-         return $this->${domain_name_lower}Mapper->findAll($condition);
+         $result = $this->${domain_name_lower}Mapper->findAll($condition);
+         $retval = array();
+         foreach ($result as $row) {
+            $domain = new ${domain_name}();
+            Array2Domain::convert${domain_name}($result, $domain);
+            $retval[${domain_primary_key}] = $domain;
+         }
     }
     /**
      * @inheritDoc
@@ -72,11 +70,23 @@ class ${domain_name}RepositoryImpl implements ${domain_name}Repository
      */
     private $${domain_name_lower}Mapper;
     /**
+     * @var ${domain_name}Collection $collection
+     */
+    private $${domain_name_lower}Collection;    
+    /**
      * Inject ${table_name_simple} mapper implementation
      * @param ${domain_name}Mapper implementation
      */
     protected final function set${domain_name}Mapper(${domain_name}Mapper $mapper) 
     {
         $this->${domain_name_lower}Mapper = $mapper;
-    }   
+    }  
+    /**
+     * Inject ${table_name_simple} collection implementation
+     * @param ${domain_name}Collection implementation
+     */
+    protected final function set${domain_name}Collection(${domain_name}Collection $collection) 
+    {
+        $this->${domain_name_lower}Collection = $collection;
+    }     
 }

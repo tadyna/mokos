@@ -107,6 +107,10 @@ class Column
         $this->refTab = $referencedTable;
         $this->refCol = $referencedColumn;
     }
+    public final function getName()
+    {
+        return $this->name;
+    }
     /**
      * Extract column name from metadata object
      * @return string camelized name of column

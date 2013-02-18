@@ -45,7 +45,7 @@ class GeneratorDto2Domain extends GeneratorBase
             $methods .="    {\n";
             foreach ($columns as $column) {
                 $field = $column->getColumnName();
-                $methods .="        $"."dto->set".$field."($"."domain->get".$field."())\n";           
+                $methods .="        $"."dto->set".$field."($"."domain->get".$field."());\n";           
             }
             $methods .="    }\n";           
         }

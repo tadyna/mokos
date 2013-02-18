@@ -17,7 +17,7 @@ use Mokos\Generator\GeneratorHelper;
  * 
  * Generator for domain Entity objects
  */
-class GeneratorDomain2Dto extends GeneratorBase 
+class GeneratorArray2Domain extends GeneratorBase 
 {    
     /**
      * Generate classes...
@@ -41,16 +41,17 @@ class GeneratorDomain2Dto extends GeneratorBase
             $methods .="   /**\n";
             $methods .="     * @return void\n";
             $methods .="     */\n";             
-            $methods .="    public static function convert".$tableName."(".$tableName." $"."domain, Dto".$tableName." $"."dto)\n";
+            $methods .="    public static function convert".$tableName."(array $"."array, ".$tableName." $"."domain)\n";
             $methods .="    {\n";
             foreach ($columns as $column) {
+                /** @var $column \Mokos\Database\Metadata\Column  */
                 $field = $column->getColumnName();
-                $methods .="        $"."domain->set".$field."($"."dto->get".$field."());\n";           
+                $methods .="        $"."array['".strtolower($column->getName())."'] = $"."domain->get".$field."();\n";           
             }
             $methods .="    }\n";           
         }
         $template->set(self::CONVERT_METHODS, $methods);            
-        $template->write($this->filePath.DIRECTORY_SEPARATOR.'Domain2Dto.php'); 
+        $template->write($this->filePath.DIRECTORY_SEPARATOR.'Array2Domain.php'); 
     }
     /**
      * @param \Mokos\Template\Template $template

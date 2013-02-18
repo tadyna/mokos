@@ -34,6 +34,7 @@ abstract class UnitTestBase extends \PHPUnit_Framework_TestCase
         $this->pathTestDir = '..'.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR;
         $this->pathResources = $this->pathTestDir.'Mokos'.DIRECTORY_SEPARATOR;
         $this->pathTemplateDir = $this->pathTestDir.DIRECTORY_SEPARATOR.'templates'.DIRECTORY_SEPARATOR;
+        //$this->pathTemplateDir = '..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.'\main\resources\templates'.DIRECTORY_SEPARATOR;
         $this->pathTemporaryDir = $this->pathTestDir.DIRECTORY_SEPARATOR.'temp'.DIRECTORY_SEPARATOR;
         $this->configuration = new ConfigurationTest();
     }

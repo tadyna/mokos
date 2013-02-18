@@ -13,8 +13,8 @@ class ${domain_name}ServiceImpl implements ${domain_name}Service
      */
     public function create${domain_name}(array $data)
     {
-        //TODO conversion/translation dto object to domain
         $domain = new ${domain_name}();
+        Array2Domain::convert${domain_name}($data, $domain);
         $this->${domain_name_lower}Repository->save($domain);
     }
     /**
@@ -22,8 +22,8 @@ class ${domain_name}ServiceImpl implements ${domain_name}Service
      */
     public function update${domain_name}(array $data)
     {
-        //TODO conversion/translation dto object to domain
-        $domain = null;
+        $domain = $this->${domain_name_lower}Repository->find($data['${domain_primary_key}']);
+        Array2Domain::convert${domain_name}($data, $domain);
         $this->${domain_name_lower}Repository->save($domain);
     }
     /**

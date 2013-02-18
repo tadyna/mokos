@@ -53,7 +53,7 @@ class AdapterMysql extends AdapterBase
     public function getAllTables() 
     {
         $query="
-        select t.table_name as TABLE_NAME, t.table_comment as TABLE_COMMENT, c.column_name, c.column_key 
+        select t.table_name as TABLE_NAME, t.table_comment as TABLE_COMMENT, c.column_name as PRIVAT, c.column_key 
         from information_schema.tables as t, information_schema.columns as c
         where
             c.table_schema='".$this->schemaName."' 
@@ -63,7 +63,7 @@ class AdapterMysql extends AdapterBase
     	$descriptors = array();
     	$result = $this->pdo->query($query);
         foreach($result as $table){
-            $descriptors[] = new Table($table['TABLE_NAME'], $table['TABLE_COMMENT'], null); 
+            $descriptors[] = new Table($table['TABLE_NAME'], $table['TABLE_COMMENT'], $table['PRIVAT'], null); 
         }
         return $descriptors;
     }
@@ -120,7 +120,7 @@ class AdapterMysql extends AdapterBase
             if(array_key_exists($tabName, $tableWithForeignKeys)) {
                 $tableWithForeignKeys[$tabName]->addColumn($column);
             } else {
-                $tableWithForeignKeys[$tabName] = new Table($tabName, null, array($column));
+                $tableWithForeignKeys[$tabName] = new Table($tabName, null, null, array($column));
             }
         }
         return $tableWithForeignKeys;

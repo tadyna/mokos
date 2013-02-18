@@ -37,6 +37,7 @@ abstract class GeneratorBase implements Generator
     const RELATIONS_METHODS = "relations_methods";
     const CONVERT_METHODS = 'convert_methods';
     const DATE = 'date';
+    const DOMAIN_PRIMARY_KEY = 'domain_primary_key';
     /**
      * @var \Mokos\Database\Adapter\Adapter
      */
@@ -83,6 +84,7 @@ abstract class GeneratorBase implements Generator
             $template->set(self::EMPTY_METHOD, "//TODO method implementation");
             $template->set(self::TABLE_NAME_SIMPLE, GeneratorHelper::getTableNameSimple($tableName));
             $template->set(self::DOMAIN_NAME, GeneratorHelper::getClazzName($tableName));
+            $template->set(self::DOMAIN_PRIMARY_KEY, $table->getPrimaryKeyColumnName());
             $template->set(self::DOMAIN_NAME_LOWER, GeneratorHelper::getClazzNameLower($tableName));
             $template->set(self::DESCRIPTION, $table->getDescription());
             $this->fill($template, $tableName);

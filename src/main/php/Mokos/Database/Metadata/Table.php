@@ -26,6 +26,10 @@ class Table
      */
     private $description;
     /**
+     * @var string name of private key column
+     */
+    private $privateKey;    
+    /**
      *
      * @var array Mokos\Database\Metadata\Column objects
      */
@@ -33,10 +37,11 @@ class Table
     /**
      * Descriptor of database table
      */
-    public function __construct($tableName, $description, $columns = null) 
+    public function __construct($tableName, $description, $privateColumnName, $columns = null) 
     {
         $this->name = $tableName;
         $this->description = $description;
+        $this->privateKey = $privateColumnName;
         $this->columns = $columns;
     }
     /**
@@ -55,6 +60,14 @@ class Table
     {
         return $this->name;
     }
+    /**
+     * Return name of database table
+     * @return string
+     */
+    public function getPrimaryKeyColumnName() 
+    {
+        return $this->privateKey;
+    }    
     /**
      * @param Column $column
      */
