@@ -3,9 +3,13 @@ mokos
 
 Generator domain/repository/mapper php classes from database. 
 
+Issues for new release 0.3 alpha
+================================
+*   #14 Filter generation process - allow to filter generation process to specific tables
+*   #12 Enviroment how to work with console - design how to work with console and call generation process
 Issues for new release 0.2 alpha
 ================================
-*   #15 Translator for translate column name to specific name
+*   #15 Translator for translate column name to specific name ... manually or automaticlly?
 *   #13 Generation process change filosofy... refactor generation process
 * 	#10 Generation of table relationship in domain objects 
 
