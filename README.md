@@ -6,6 +6,7 @@ Generator domain/repository/mapper php classes from database.
 Issues for new release 0.2 alpha
 ================================
 *   #15 Translator for translate column name to specific name
+*   #13 Generation process change filosofy... refactor generation process
 * 	#10 Generation of table relationship in domain objects 
 
 0.1 alpha
