@@ -7,6 +7,7 @@ Issues for new release 0.3 alpha
 ================================
 *   #14 Filter generation process - allow to filter generation process to specific tables
 *   #12 Enviroment how to work with console - design how to work with console and call generation process
+
 Issues for new release 0.2 alpha
 ================================
 *   #15 Translator for translate column name to specific name ... manually or automaticlly?
