@@ -5,8 +5,8 @@ Generator domain/repository/mapper php classes from database.
 
 Issues for new release 0.2 alpha
 ================================
-*   #12 Environment how to work with console
-* 	 #10 Generation of table relationship in domain objects 
+*   #15 Translator for translate column name to specific name
+* 	#10 Generation of table relationship in domain objects 
 
 0.1 alpha
 ============
