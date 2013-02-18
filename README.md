@@ -13,8 +13,8 @@ Issues for new release 0.2 alpha
 *   #13 Generation process change filosofy... refactor generation process
 * 	#10 Generation of table relationship in domain objects 
 
-0.1 alpha
-============
+0.1 alpha - released 02.02.2013
+===============================
 There are finished issues in this release:
 *    #11 Create sql script for create database for integration tests.
 * 	 #9	Create facade for switch between database vendors new
