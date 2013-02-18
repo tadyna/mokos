@@ -15,7 +15,8 @@ class ${domain_name}ServiceImpl implements ${domain_name}Service
     {
         $domain = new ${domain_name}();
         Array2Domain::convert${domain_name}($data, $domain);
-        $this->${domain_name_lower}Repository->save($domain);
+        $retval = $this->${domain_name_lower}Repository->save($domain);
+        return $retval;
     }
     /**
      * @inheritDoc

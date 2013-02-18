@@ -53,7 +53,7 @@ abstract class GeneratorBase implements Generator
     /**
      * @var string name of postfix for filename
      */
-    protected $filePostfix;    
+    protected $filePostfix;
     /**
      * @param string $templatePath
      * @param string $filePath
@@ -73,7 +73,7 @@ abstract class GeneratorBase implements Generator
      */
     public function generate () 
     {
-        $tables = $this->adapter->getAllTables();
+        $tables = GeneratorHelper::getAllTables($this->adapter);
         foreach ($tables as $table) {
             /** @var \Mokos\Database\Metadata\Table $table */
             $tableName = $table->getName();

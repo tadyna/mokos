@@ -25,9 +25,7 @@ class GeneratorRepository extends GeneratorBase
      */
     public function generate () 
     {
-        $relatioships = GeneratorHelper::getMethods($this->adapter);
-        $methods = $relatioships['methods'];
-        
+        $methods = GeneratorHelper::getMethods($this->adapter);
         $tables = $this->adapter->getAllTables();
         foreach ($tables as $table) {
             $tableName = $table->getName();
@@ -40,6 +38,7 @@ class GeneratorRepository extends GeneratorBase
             $template->set(self::TABLE_NAME_SIMPLE, GeneratorHelper::getTableNameSimple($tableName));
             $template->set(self::DOMAIN_NAME, GeneratorHelper::getClazzName($tableName));
             $template->set(self::DOMAIN_NAME_LOWER, GeneratorHelper::getClazzNameLower($tableName));
+            $template->set(self::DOMAIN_PRIMARY_KEY, $table->getPrimaryKeyColumnName());
             $template->set(self::DESCRIPTION, $table->getDescription());
             //generate relations
             if(array_key_exists($tableName, $methods)) {

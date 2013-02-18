@@ -27,7 +27,7 @@ class ${domain_name}RepositoryImpl implements ${domain_name}Repository
          foreach ($result as $row) {
             $domain = new ${domain_name}();
             Array2Domain::convert${domain_name}($result, $domain);
-            $retval[${domain_primary_key}] = $domain;
+            $retval['${domain_primary_key}'] = $domain;
          }
     }
     /**
@@ -35,14 +35,14 @@ class ${domain_name}RepositoryImpl implements ${domain_name}Repository
      */
     public function remove($idEntity)
     {
-        return $this->${domain_name_lower}Mapper->remove($idEntity); 
+        $this->${domain_name_lower}Mapper->remove($idEntity); 
     }
     /**
      * @inheritDoc
      */
     public function removeAll(array $condition=array())
     {
-         return $this->${domain_name_lower}Mapper->removeAll($condition);
+         $this->${domain_name_lower}Mapper->removeAll($condition);
     }
     /**
      * @inheritDoc

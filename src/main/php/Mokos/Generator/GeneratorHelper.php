@@ -1,5 +1,6 @@
 <?php
 namespace Mokos\Generator;
+use Mokos\Database\Adapter\Adapter;
 /**
  * Mokos
  *
@@ -17,40 +18,101 @@ namespace Mokos\Generator;
  */
 class GeneratorHelper {
     /**
-     * Return associative array with 'method'=>methods and 'collection'=>collections
+     * @var array of \Mokos\Database\Metadata\Table objects
+     */    
+    private static $foreignKeys;    
+    /**
+     * @var array of \Mokos\Database\Metadata\Table objects
+     */    
+    private static $allTables;
+    /**
+     * @var array of collections, relationship between tables
+     */    
+    private static $collections;    
+    /**
+     * @var array of methods
+     */    
+    private static $methods;    
+    /**
      * @param \Mokos\Database\Adapter\Adapter $adapter
-     * @return array with methods and collections
+     * @return array of \Mokos\Database\Metadata\Table objects
      */
-    public static function getMethods(\Mokos\Database\Adapter\Adapter $adapter) 
+    public static function getAllTables(Adapter $adapter)
     {
-        $foreignKeys = $adapter->getTablesWithPrimaryKey();
-        $methods = array();
+        if(self::$allTables === null) self::$allTables = $adapter->getRelations();
+        return self::$allTables;
+    }
+    /**
+     * @param \Mokos\Database\Adapter\Adapter $adapter
+     * @var array of collections
+     */    
+    public static function getCollections(Adapter $adapter)
+    {        
+        if(self::$collections != null) return self::$collections;
+        if(self::$foreignKeys == null) self::$foreignKeys = $adapter->getTablesWithPrimaryKey();
         $collections = array();
-        //foreach ($this->adapter->getRelations() as $tableName => $columns){
         foreach ($adapter->getRelations() as $table){
             $columns = $table->getColumns();
             $tableName = $table->getName();
             // if table has no primary key (eg. many2many table)
-            if(array_search($tableName, $foreignKeys, true) == null) 
+            if(array_search($tableName, self::$foreignKeys, true) == null) 
+            {
+                $counter = 0;
+                $y = "";
+                foreach ($columns as $column) {
+                    $columnx = $columns[$counter++];
+                    $name = \Mokos\Translator::translate($column->getColumnName());
+                    $y .= "\tprivate $".self::getClazzNameLower($name)."s = array();\n";
+                    $collections[$columnx->getReferencedTable()] = $y;
+                }
+            } 
+            // if table has primary key (eg. table with one2many relation(s))
+            else 
+            {
+                $y = "";
+                foreach ($columns as $column) {
+                    $name = \Mokos\Translator::translate($column->getColumnName());
+                    $y .= "\tprivate $".self::getClazzNameLower($name)."s = array();\n";
+                    $collections[$tableName] = $y;
+                }
+            }
+        } 
+        self::$collections = $collections;
+        return self::$collections;        
+    }
+    /**
+     * Return associative array with 'method'=>methods 
+     * @param \Mokos\Database\Adapter\Adapter $adapter
+     * @return array with methods
+     */
+    public static function getMethods(Adapter $adapter) 
+    {
+        if(self::$methods != null) return self::$methods;
+        if(self::$foreignKeys == null) self::$foreignKeys = $adapter->getTablesWithPrimaryKey();
+        $methods = array();
+        foreach ($adapter->getRelations() as $table){
+            $columns = $table->getColumns();
+            $tableName = $table->getName();
+            // if table has no primary key (eg. many2many table)
+            if(array_search($tableName, self::$foreignKeys, true) == null) 
             {
                 $counter = 0;
                 $x = "";
                 $y = "";
                 foreach ($columns as $column) {
                     $columnx = $columns[$counter++];
+                    $name = \Mokos\Translator::translate($column->getName());
                     $x .= "\t/*\n";
-                    $x .= "\t * Add ".$column->getColumnName()." objects to domain object \n";
-                    $x .= "\t * @param array ".$column->getColumnName()." objects \n";
+                    $x .= "\t * Add ".$name." objects to domain object \n";
+                    $x .= "\t * @param array ".$name." objects \n";
                     $x .= "\t */\n";
-                    $x .= "\tpublic function add_".$column->getColumnName()."s(array $".$column->getColumnName()."s){}\n";
+                    $x .= "\tpublic function add_".$name."s(array $".$name."s){}\n";
                     $x .= "\t/*\n";
-                    $x .= "\t * Remove ".$column->getColumnName()." objects from domain object \n";
-                    $x .= "\t * @param array ".$column->getColumnName()." objects. If it is null remove all related ".$column->getColumnName()." objects \n";
+                    $x .= "\t * Remove ".$name." objects from domain object \n";
+                    $x .= "\t * @param array ".$name." objects. If it is null remove all related ".$name." objects \n";
                     $x .= "\t */\n";
-                    $x .= "\tpublic function remove_".$column->getColumnName()."s(array $".$column->getColumnName()."s = null){}\n";                    
+                    $x .= "\tpublic function remove_".$name."s(array $".$name."s = null){}\n";                    
                     $methods[$columnx->getReferencedTable()][] = $x;
-                    $y .= "\tprivate $".self::getClazzNameLower($column->getColumnName())."s = array();\n";
-                    $collections[$columnx->getReferencedTable()] = $y;
                 }
             } 
             // if table has primary key (eg. table with one2many relation(s))
@@ -59,27 +121,24 @@ class GeneratorHelper {
                 $x = "";
                 $y = "";
                 foreach ($columns as $column) {
+                    $name = \Mokos\Translator::translate($column->getName());
+                    $clazz = self::getClazzName($name);
                     $x .= "\t/*\n";
-                    $x .= "\t * Add ".$column->getColumnName()." objects to domain object \n";
-                    $x .= "\t * @param array ".$column->getColumnName()." objects \n";
+                    $x .= "\t * Add ".$clazz." objects to domain object \n";
+                    $x .= "\t * @param array ".$clazz." objects \n";
                     $x .= "\t */\n";
-                    $x .= "\tpublic function add_".$column->getColumnName()."s(array $".$column->getColumnName()."s){}\n";
+                    $x .= "\tpublic function add_".$name."s(array $".$name."s){}\n";
                     $x .= "\t/*\n";
-                    $x .= "\t * Remove ".$column->getColumnName()." objects to domain object \n";
-                    $x .= "\t * @param array ".$column->getColumnName()." objects. If it is null remove all related ".$column->getColumnName()." objects \n";
+                    $x .= "\t * Remove ".$clazz." objects to domain object \n";
+                    $x .= "\t * @param array ".$clazz." objects. If it is null remove all related ".$clazz." objects \n";
                     $x .= "\t */\n";
-                    $x .= "\tpublic function remove_".$column->getColumnName()."s(array $".$column->getColumnName()."s = null){}\n";  
+                    $x .= "\tpublic function remove_".$name."s(array $".$name."s = null){}\n";  
                     $methods[$tableName] = $x;
-                    $y .= "\tprivate $".self::getClazzNameLower($column->getColumnName())."s = array();\n";
-                    $collections[$tableName] = $y;
                 }
             }
         } 
-        $retval = array(
-            'methods'=>$methods,
-            'collections'=>$collections
-        );
-        return $retval;
+        self::$methods = $methods;
+        return self::$methods;
     }
     /**
      * Give table name and upperCase first letter in name,

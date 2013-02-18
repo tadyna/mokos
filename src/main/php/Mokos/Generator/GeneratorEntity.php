@@ -24,12 +24,11 @@ class GeneratorEntity extends GeneratorBase
      * @return void
      */
     public function generate () 
-    {   
-        $relatioships = GeneratorHelper::getMethods($this->adapter);
-        $methods = $relatioships['methods'];
-        $collections = $relatioships['collections'];
+    {
+        $methods = GeneratorHelper::getMethods($this->adapter);
+        $collections = GeneratorHelper::getCollections($this->adapter);
         
-        $tables = $this->adapter->getAllTables();
+        $tables = GeneratorHelper::getAllTables($this->adapter);
         foreach ($tables as $table) {
             $tableName = $table->getName();
             $template = new Template($this->templatePath);
