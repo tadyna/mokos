@@ -32,16 +32,17 @@ class GeneratorDto2Domain extends GeneratorBase
             $template = $this->getTemplate($table);
             if(array_key_exists($table->getName(), $generated)) return false;
             $generated[$table->getName()] = true;
-            $tableName = $table->getName();
+            $tableName = GeneratorHelper::getClazzName($table->getName());
             $columns = $this->adapter->getAllFields($table->getName());
             $methods .="   /**\n";
             $methods .="     * @return void\n";
             $methods .="     */\n";
             $methods .="    public static function convert".$tableName."(".$tableName." $"."dto, ".$tableName." $"."domain)\n";
+            $methods .="    {\n";
             foreach ($columns as $column) {
                 /** @var $column \Mokos\Database\Metadata\Column  */
                 $field = $column->getColumnName();
-                $methods .="        $"."domain->set".$field."'] = $"."dto->get".$field."();\n";
+                $methods .="        $"."domain->set".$field."($"."dto->get".$field."());\n";
             }
             $methods .="    }\n";
         }
