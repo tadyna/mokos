@@ -23,8 +23,8 @@ class Template
     }
     /**
      * Set value into variable in template
-     * @param type $key
-     * @param type $value
+     * @param mixed $key
+     * @param string $value
      */
     function set($key, $value)
     {

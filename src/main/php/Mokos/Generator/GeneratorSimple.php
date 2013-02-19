@@ -30,12 +30,12 @@ class GeneratorSimple implements Generator
     /**
      * @var string name of generated file 
      */
-    private $fileName;    
+    private $fileName;
+
     /**
      * @param string $templatePath
      * @param string $filePath
-     * @param string $filePostfix
-     * @param \Mokos\Database\AdapterBase $adapter
+     * @param $fileName
      */
     public function __construct($templatePath, $filePath, $fileName) 
     {

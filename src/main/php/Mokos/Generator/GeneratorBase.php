@@ -1,8 +1,9 @@
 <?php
 namespace Mokos\Generator;
 use Mokos\Generator\Generator;
-use Mokos\Database\Adapter\AdapterBase;
+use Mokos\Database\Adapter\Adapter;
 use Mokos\Template\Template;
+use Mokos\Database\Metadata\Table;
 use Mokos\Generator\GeneratorHelper;
 /**
  * Mokos
@@ -38,6 +39,7 @@ abstract class GeneratorBase implements Generator
     const CONVERT_METHODS = 'convert_methods';
     const DATE = 'date';
     const DOMAIN_PRIMARY_KEY = 'domain_primary_key';
+    const COLLECTIONS = 'collections';
     /**
      * @var \Mokos\Database\Adapter\Adapter
      */
@@ -59,8 +61,9 @@ abstract class GeneratorBase implements Generator
      * @param string $filePath
      * @param string $filePostfix
      * @param \Mokos\Database\Adapter\Adapter $adapter
+     * @return \Mokos\Generator\GeneratorBase
      */
-    public function __construct($templatePath, $filePath, $filePostfix, AdapterBase $adapter) 
+    public function __construct($templatePath, $filePath, $filePostfix, Adapter $adapter)
     {
         $this->filePath = $filePath;
         $this->templatePath = $templatePath;
@@ -74,31 +77,63 @@ abstract class GeneratorBase implements Generator
     public function generate () 
     {
         $tables = GeneratorHelper::getAllTables($this->adapter);
+        $this->beforeGenerate();
         foreach ($tables as $table) {
-            /** @var \Mokos\Database\Metadata\Table $table */
-            $tableName = $table->getName();
-            $template = new Template($this->templatePath);
+            $template = $this->getTemplate($table);
+            $this->processTable($template, $table);
             $date = new \DateTime();
             $template->set(self::DATE, $date->format('Y-m-d H:i:s'));
-            $template->set(self::EMPTY_CLASS, "//TODO class implementation");
-            $template->set(self::EMPTY_METHOD, "//TODO method implementation");
-            $template->set(self::TABLE_NAME_SIMPLE, GeneratorHelper::getTableNameSimple($tableName));
-            $template->set(self::DOMAIN_NAME, GeneratorHelper::getClazzName($tableName));
-            $template->set(self::DOMAIN_PRIMARY_KEY, $table->getPrimaryKeyColumnName());
-            $template->set(self::DOMAIN_NAME_LOWER, GeneratorHelper::getClazzNameLower($tableName));
-            $template->set(self::DESCRIPTION, $table->getDescription());
-            $this->fill($template, $tableName);
-            $template->write($this->filePath.DIRECTORY_SEPARATOR.GeneratorHelper::getClazzName($tableName).$this->getType().$this->filePostfix.'.php');
+            $template->write($this->filePath.DIRECTORY_SEPARATOR.$this->getFilePath($table->getName()));
         }
-    }    
+        $this->afterGenerate();
+    }
     /**
-     * Fill template by specific variables by given generator implementation
+     * @param Table $table
+     * @return \Mokos\Template\Template
+     */
+    protected function getTemplate(Table $table)
+    {
+        $template = new Template($this->templatePath);
+        /** @var \Mokos\Database\Metadata\Table $table */
+        $tableName = $table->getName();
+        $template->set(self::EMPTY_CLASS, "//TODO class implementation");
+        $template->set(self::EMPTY_METHOD, "//TODO method implementation");
+        $template->set(self::TABLE_NAME_SIMPLE, GeneratorHelper::getTableNameSimple($tableName));
+        $template->set(self::DOMAIN_NAME, GeneratorHelper::getClazzName($tableName));
+        $template->set(self::DOMAIN_PRIMARY_KEY, $table->getPrimaryKeyColumnName());
+        $template->set(self::DOMAIN_NAME_LOWER, GeneratorHelper::getClazzNameLower($tableName));
+        $template->set(self::DOMAIN_PRIMARY_KEY, $table->getPrimaryKeyColumnName());
+        $template->set(self::DESCRIPTION, $table->getDescription());
+        return $template;
+    }
+    /**
      * @return void
      */
-    protected abstract function fill(Template $template, $tableName);
+    protected function beforeGenerate()
+    {
+        //for override
+    }
     /**
-     * Returned name is used in filename
-     * @return string of generated entity, eg. Dao, Mapper, Repository
+     * Fill template by specific variables by given generator implementation
+     * @param \Mokos\Template\Template $template
+     * @param \Mokos\Database\Metadata\Table $table
+     * @return boolean true if process can go on
      */
-    protected abstract function getType();
+    protected abstract function processTable(Template $template, Table $table);
+    /**
+     * @return void
+     */
+    protected function afterGenerate()
+    {
+        //for override
+    }
+    /**
+     * Create file path (include name) where final file will be generated
+     * @param string $tableName
+     * @return string
+     */
+    protected function getFilePath($tableName)
+    {
+        return GeneratorHelper::getClazzName($tableName).$this->getType().$this->filePostfix.'.php';
+    }
 }

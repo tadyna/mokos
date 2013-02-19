@@ -50,6 +50,6 @@ class GeneratorBaseTest extends \UnitTestBase {
  */
 class BaseGeneratorMock extends GeneratorBase 
 {
-	protected function fill(Template $template, $tableName) {}
+	protected function processTable(Template $template, $tableName) {}
 	protected function getType() {}
 }

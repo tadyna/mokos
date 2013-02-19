@@ -1,6 +1,7 @@
 <?php
 namespace Mokos\Generator;
 use Mokos\Template\Template;
+use Mokos\Database\Metadata\Table;
 use Mokos\Generator\GeneratorHelper;
 /**
  * Mokos
@@ -20,44 +21,33 @@ use Mokos\Generator\GeneratorHelper;
 class GeneratorCollection extends GeneratorBase 
 {
     /**
-     * Generate classes...
+     * @var array of \Mokos\Database\Metadata\Table objects
+     */
+    private $tableWithPrimaryKeys;
+    /**
      * @return void
      */
-    public function generate () 
+    protected function beforeGenerate()
     {
-        $tablesF = $this->adapter->getTablesWithPrimaryKey();
-        $tables = $this->adapter->getAllTables();
-        foreach ($tables as $table) {
-            $tableName = $table->getName();
-            if(!array_key_exists($tableName, $tablesF)) {
-                continue;
-            }
-            $template = new Template($this->templatePath);
-            $date = new \DateTime();
-            $template->set('date', $date->format('Y-m-d H:i:s'));
-            $template->set(self::EMPTY_CLASS, "//TODO class implementation");
-            $template->set(self::EMPTY_METHOD, "//TODO method implementation");
-            $template->set(self::TABLE_NAME_SIMPLE, GeneratorHelper::getTableNameSimple($tableName));
-            $template->set(self::DOMAIN_NAME, GeneratorHelper::getClazzName($tableName));
-            $template->set(self::DOMAIN_NAME_LOWER, GeneratorHelper::getClazzNameLower($tableName));
-            $template->set(self::DESCRIPTION, $table->getDescription());
-            $this->fill($template, $tableName);
-            $template->write($this->filePath.DIRECTORY_SEPARATOR.GeneratorHelper::getClazzName($tableName).$this->getType().$this->filePostfix.'.php');            
-        }
+        $this->tableWithPrimaryKeys = GeneratorHelper::getTableWithPrimaryKey($this->adapter);
     }
     /**
      * @param \Mokos\Template\Template $template
-     * @param string $tableName name of database table
+     * @param \Mokos\Database\Metadata\Table $table
+     * @return boolean true if process can go on
      */
-    protected function fill(Template $template, $tableName) 
+    protected function processTable(Template $template, Table $table)
     {
-        // do nothing ... 
+        //if table does not have primary key, cannot be generated
+        if(!array_key_exists($table->getName(), $this->tableWithPrimaryKeys)) return false;
+        return true;
     }
     /**
-     * @return string name suffix
+     * @param string $tableName
+     * @return string
      */
-    protected function getType() 
+    public function getFilePath($tableName)
     {
-        return "Collection";
+        return GeneratorHelper::getClazzName($tableName).'Collection'.$this->filePostfix.'.php';
     }
 }

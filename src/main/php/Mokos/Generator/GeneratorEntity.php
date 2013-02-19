@@ -2,6 +2,7 @@
 namespace Mokos\Generator;
 use Mokos\Template\Template;
 use Mokos\Generator\GeneratorHelper;
+use Mokos\Database\Metadata\Table;
 /**
  * Mokos
  *
@@ -18,88 +19,82 @@ use Mokos\Generator\GeneratorHelper;
  * Generator for domain Entity objects
  */
 class GeneratorEntity extends GeneratorBase 
-{    
+{
     /**
-     * Generate classes...
      * @return void
      */
-    public function generate () 
+    public function generate()
     {
-        $methods = GeneratorHelper::getMethods($this->adapter);
+        $relations = GeneratorHelper::getMethods($this->adapter);
         $collections = GeneratorHelper::getCollections($this->adapter);
-        
         $tables = GeneratorHelper::getAllTables($this->adapter);
+        $fields = "";
+        $methods = "";
         foreach ($tables as $table) {
-            $tableName = $table->getName();
-            $template = new Template($this->templatePath);
+            $template = $this->getTemplate($table);
             $template->set(self::MARK_ANNOTATION, "@Entity");
-            $date = new \DateTime();
-            $template->set('date', $date->format('Y-m-d H:i:s'));
-            $template->set(self::EMPTY_CLASS, "//TODO class implementation");
-            $template->set(self::EMPTY_METHOD, "//TODO method implementation");
-            $template->set(self::TABLE_NAME_SIMPLE, GeneratorHelper::getTableNameSimple($tableName));
-            $template->set(self::DOMAIN_NAME, GeneratorHelper::getClazzName($tableName));
-            $template->set(self::DOMAIN_NAME_LOWER, GeneratorHelper::getClazzNameLower($tableName));
-            $template->set(self::DESCRIPTION, $table->getDescription());
+
+            $tableName = $table->getName();
             if(array_key_exists($tableName, $collections)) {
-                $template->set('collections', $collections[$tableName]);
+                $template->set(self::COLLECTIONS, $collections[$tableName]);
             } else {
-                $template->set('collections', "");
+                $template->set(self::COLLECTIONS, "");
             }
             //generate relations
-            if(array_key_exists($tableName, $methods)) {
-                $lower = GeneratorHelper::getClazzNameLower($methods[$tableName]);
-                $formated =str_replace("#", "$", $lower);              
+            if(array_key_exists($tableName, $relations)) {
+                $lower = GeneratorHelper::getClazzNameLower($relations[$tableName]);
+                $formated =str_replace("#", "$", $lower);
                 $template->set(self::RELATIONS_METHODS, $formated);
             } else {
                 $template->set(self::RELATIONS_METHODS, "");
             }
-            $this->fill($template, $tableName);
-            $template->write($this->filePath.DIRECTORY_SEPARATOR.GeneratorHelper::getClazzName($tableName).$this->getType().$this->filePostfix.'.php');            
+
+            $columns = $this->adapter->getAllFields($table->getName());
+            foreach ($columns as $column) {
+                /** @var $column \Mokos\Database\Metadata\Column */
+                $columnName = $column->getFieldName();
+                $field = $column->getColumnName();
+                $type = $column->getType();
+                $fields .="    /**\n";
+                $fields .="     * ".$column->getComment()."\n";
+                $fields .="     * @var ".$type." ".$columnName.";\n";
+                $fields .="     */\n";
+                $fields .="    private \$".$columnName.";\n";
+                $methods .="   /**\n";
+                $methods .="     * @return ".$type." $".$columnName.";\n";
+                $methods .="     */\n";
+                $methods .="    public function get".$field."()\n";
+                $methods .="    {\n" ;
+                $methods .="        return \$this->".$columnName.";\n";
+                $methods .="    }\n";
+                $methods .="    /**\n";
+                $methods .="     *@param ".$type." $".$columnName.";\n";
+                $methods .="     */\n";
+                $methods .="    public function set".$field."(\$".$columnName.")\n";
+                $methods .="    {\n" ;
+                $methods .="        \$this->".$columnName."=\$".$columnName.";\n";
+                $methods .="    }\n";
+            }
+            $template->set(self::CLAZZ_FIELDS, $fields);
+            $template->set(self::CLAZZ_GET_SET_METHODS, $methods);
+            $template->write($this->filePath.DIRECTORY_SEPARATOR.$this->getFilePath($table->getName()));
         }
     }
     /**
      * @param \Mokos\Template\Template $template
-     * @param string $tableName name of database table
+     * @param \Mokos\Database\Metadata\Table $table
+     * @return boolean true if process can go on
      */
-    protected function fill(Template $template, $tableName) 
+    protected function processTable(Template $template, Table $table)
     {
-        $template->set(self::MARK_ANNOTATION, "@Entity");
-        $columns = $this->adapter->getAllFields($tableName);
-        $fields = "";
-        $methods = "";
-        foreach ($columns as $column) {
-            $columnName = $column->getFieldName();
-            $field = $column->getColumnName();
-            $type = $column->getType();
-            $fields .="    /**\n";
-            $fields .="     * ".$column->getComment()."\n";
-            $fields .="     * @var ".$type." ".$columnName.";\n";
-            $fields .="     */\n";
-            $fields .="    private \$".$columnName.";\n";
-            $methods .="   /**\n";
-            $methods .="     * @return ".$type." $".$columnName.";\n";
-            $methods .="     */\n";                
-            $methods .="    public function get".$field."()\n";
-            $methods .="    {\n" ;
-            $methods .="        return \$this->".$columnName.";\n";
-            $methods .="    }\n";
-            $methods .="    /**\n";
-            $methods .="     *@param ".$type." $".$columnName.";\n";
-            $methods .="     */\n";                
-            $methods .="    public function set".$field."(\$".$columnName.")\n";
-            $methods .="    {\n" ;
-            $methods .="        \$this->".$columnName."=\$".$columnName.";\n";
-            $methods .="    }\n";            
-        }
-        $template->set(self::CLAZZ_FIELDS, $fields);
-        $template->set(self::CLAZZ_GET_SET_METHODS, $methods);
+        // do nothing...
     }
     /**
-     * @return string name suffix
+     * @param string $tableName
+     * @return string
      */
-    protected function getType() 
+    public function getFilePath($tableName)
     {
-        return "";
+        return GeneratorHelper::getClazzName($tableName).$this->filePostfix.'.php';
     }
 }

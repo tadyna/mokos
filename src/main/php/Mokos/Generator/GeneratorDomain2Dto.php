@@ -2,6 +2,7 @@
 namespace Mokos\Generator;
 use Mokos\Template\Template;
 use Mokos\Generator\GeneratorHelper;
+use Mokos\Database\Metadata\Table;
 /**
  * Mokos
  *
@@ -18,53 +19,50 @@ use Mokos\Generator\GeneratorHelper;
  * Generator for domain Entity objects
  */
 class GeneratorDomain2Dto extends GeneratorBase 
-{    
+{
     /**
-     * Generate classes...
      * @return void
      */
-    public function generate () 
+    public function generate()
     {
-        $template = new Template($this->templatePath);
-        $date = new \DateTime();
-        $template->set('date', $date->format('Y-m-d H:i:s'));
-        $generated = array();
+        $tables = GeneratorHelper::getAllTables($this->adapter);
         $methods = "";
-        $tables = $this->adapter->getAllTables();
+        $generated = array();
         foreach ($tables as $table) {
-            //if table has more than one primary keys
-            if(array_key_exists($table->getName(), $generated)) continue;
+            $template = $this->getTemplate($table);
+            if(array_key_exists($table->getName(), $generated)) return false;
             $generated[$table->getName()] = true;
-            
-            $tableName = GeneratorHelper::getClazzName($table->getName());
+            $tableName = $table->getName();
             $columns = $this->adapter->getAllFields($table->getName());
             $methods .="   /**\n";
             $methods .="     * @return void\n";
-            $methods .="     */\n";             
-            $methods .="    public static function convert".$tableName."(".$tableName." $"."domain, Dto".$tableName." $"."dto)\n";
-            $methods .="    {\n";
+            $methods .="     */\n";
+            $methods .="    public static function convert".$tableName."(".$tableName." $"."domain, ".$tableName." $"."dto)\n";
             foreach ($columns as $column) {
+                /** @var $column \Mokos\Database\Metadata\Column  */
                 $field = $column->getColumnName();
-                $methods .="        $"."domain->set".$field."($"."dto->get".$field."());\n";           
+                $methods .="        $"."dto->set".$field."'] = $"."domain->get".$field."();\n";
             }
-            $methods .="    }\n";           
+            $methods .="    }\n";
         }
-        $template->set(self::CONVERT_METHODS, $methods);            
-        $template->write($this->filePath.DIRECTORY_SEPARATOR.'Domain2Dto.php'); 
+        $template->set(self::CONVERT_METHODS, $methods);
+        $template->write($this->filePath.DIRECTORY_SEPARATOR.$this->getFilePath($table->getName()));
     }
     /**
      * @param \Mokos\Template\Template $template
-     * @param string $tableName name of database table
+     * @param \Mokos\Database\Metadata\Table $table
+     * @return void
      */
-    protected function fill(Template $template, $tableName) 
+    protected function processTable(Template $template, Table $table)
     {
-        //do nothing
+        //do nothing...
     }
     /**
-     * @return string name suffix
+     * @param string $tableName
+     * @return string
      */
-    protected function getType() 
+    protected function getFilePath($tableName)
     {
-        return "";
+        return 'Domain2Dto.php';
     }
 }

@@ -32,7 +32,16 @@ class GeneratorHelper {
     /**
      * @var array of methods
      */    
-    private static $methods;    
+    private static $methods;
+    /**
+     * @param \Mokos\Database\Adapter\Adapter $adapter
+     * @return array of \Mokos\Database\Metadata\Table objects
+     */
+    public static function getTableWithPrimaryKey($adapter)
+    {
+        if(self::$foreignKeys == null) self::$foreignKeys = $adapter->getTablesWithPrimaryKey();
+        return self::$foreignKeys;
+    }
     /**
      * @param \Mokos\Database\Adapter\Adapter $adapter
      * @return array of \Mokos\Database\Metadata\Table objects
@@ -178,5 +187,5 @@ class GeneratorHelper {
     {
           $name = strtolower($tableName);         
           return str_ireplace("_", " ", $name);
-    }    
+    }
 }

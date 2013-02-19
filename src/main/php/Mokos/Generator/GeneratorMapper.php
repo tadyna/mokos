@@ -1,6 +1,7 @@
 <?php
 namespace Mokos\Generator;
 use Mokos\Template\Template;
+use Mokos\Database\Metadata\Table;
 use Mokos\Generator\GeneratorHelper;
 /**
  * Mokos
@@ -21,18 +22,21 @@ class GeneratorMapper extends GeneratorBase
 {
     /**
      * @param \Mokos\Template\Template $template
-     * @param string $tableName name of database table
+     * @param \Mokos\Database\Metadata\Table $table
+     * @return bool
      */
-    protected function fill(Template $template, $tableName) 
+    protected function processTable(Template $template, Table $table)
     {
         $template->set(self::MARK_ANNOTATION, "@Mapper");
-        $template->set(self::DESCRIPTION, "Mapper for ".GeneratorHelper::getClazzName($tableName)." entity");
+        $template->set(self::DESCRIPTION, "Mapper for ".GeneratorHelper::getClazzName($table->getName())." entity");
+        return true;
     }
     /**
-     * @return string name suffix
+     * @param string $tableName
+     * @return string
      */
-    protected function getType() 
+    public function getFilePath($tableName)
     {
-        return "Mapper";
+        return GeneratorHelper::getClazzName($tableName).'Mapper'.$this->filePostfix.'.php';
     }
 }

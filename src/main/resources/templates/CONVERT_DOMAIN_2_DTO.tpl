@@ -3,7 +3,7 @@
  * @date: ${date}
  * @version: ${version}
  * 
- * Convert Dto object to Entity objects
+ * Convert Domain object to dto objects
  */
 class Domain2Dto
 {
