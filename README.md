@@ -11,7 +11,7 @@ Issues for new release 0.3 alpha
 Issues for new release 0.2 alpha
 ================================
 *   #15 Translator for translate column name to specific name ... manually or automaticlly?
-*   #13 Generation process change filosofy... refactor generation process
+*   #13 Generation process change filosophy... refactor generation process
 * 	#10 Generation of table relationship in domain objects 
 
 0.1 alpha - released 02.02.2013
