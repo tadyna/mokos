@@ -70,8 +70,8 @@ class GeneratorHelper {
                 $y = "";
                 foreach ($columns as $column) {
                     $columnx = $columns[$counter++];
-                    $name = \Mokos\Translator::translate($column->getColumnName());
-                    $y .= "\tprivate $".self::getClazzNameLower($name)."s = array();\n";
+                    $name = \Mokos\Translator::translate($column->getName());
+                    $y .= "\tprivate $".self::getClazzNameLower($name[1])." = array();\n";
                     $collections[$columnx->getReferencedTable()] = $y;
                 }
             } 
@@ -80,8 +80,8 @@ class GeneratorHelper {
             {
                 $y = "";
                 foreach ($columns as $column) {
-                    $name = \Mokos\Translator::translate($column->getColumnName());
-                    $y .= "\tprivate $".self::getClazzNameLower($name)."s = array();\n";
+                    $name = \Mokos\Translator::translate($column->getName());
+                    $y .= "\tprivate $".self::getClazzNameLower($name[1])." = array();\n";
                     $collections[$tableName] = $y;
                 }
             }
@@ -110,17 +110,18 @@ class GeneratorHelper {
                 $y = "";
                 foreach ($columns as $column) {
                     $columnx = $columns[$counter++];
-                    $name = \Mokos\Translator::translate($column->getName());
+                    $namex = \Mokos\Translator::translate($column->getName());
+                    $name = $namex[1];
                     $x .= "\t/*\n";
                     $x .= "\t * Add ".$name." objects to domain object \n";
                     $x .= "\t * @param array ".$name." objects \n";
                     $x .= "\t */\n";
-                    $x .= "\tpublic function add_".$name."s(array $".$name."s){}\n";
+                    $x .= "\tpublic function add_".$name."(array $".$name."){}\n";
                     $x .= "\t/*\n";
                     $x .= "\t * Remove ".$name." objects from domain object \n";
                     $x .= "\t * @param array ".$name." objects. If it is null remove all related ".$name." objects \n";
                     $x .= "\t */\n";
-                    $x .= "\tpublic function remove_".$name."s(array $".$name."s = null){}\n";                    
+                    $x .= "\tpublic function remove_".$name."(array $".$name." = null){}\n";                    
                     $methods[$columnx->getReferencedTable()][] = $x;
                 }
             } 
@@ -130,18 +131,18 @@ class GeneratorHelper {
                 $x = "";
                 $y = "";
                 foreach ($columns as $column) {
-                    $name = \Mokos\Translator::translate($column->getName());
+                    $namex = \Mokos\Translator::translate($column->getName());
+                    $name = $namex[0];
                     $clazz = self::getClazzName($name);
                     $x .= "\t/*\n";
-                    $x .= "\t * Add ".$clazz." objects to domain object \n";
-                    $x .= "\t * @param array ".$clazz." objects \n";
+                    $x .= "\t * Getter for ".$clazz." domain object \n";
                     $x .= "\t */\n";
-                    $x .= "\tpublic function add_".$name."s(array $".$name."s){}\n";
+                    $x .= "\tpublic function get_".$name."(){}\n";
                     $x .= "\t/*\n";
-                    $x .= "\t * Remove ".$clazz." objects to domain object \n";
-                    $x .= "\t * @param array ".$clazz." objects. If it is null remove all related ".$clazz." objects \n";
+                    $x .= "\t * Setter for ".$clazz." domain object \n";
+                    $x .= "\t * @param ".$clazz." domain object. \n";
                     $x .= "\t */\n";
-                    $x .= "\tpublic function remove_".$name."s(array $".$name."s = null){}\n";  
+                    $x .= "\tpublic function set_".$name."(_".$name." $".$name."){}\n";  
                     $methods[$tableName] = $x;
                 }
             }

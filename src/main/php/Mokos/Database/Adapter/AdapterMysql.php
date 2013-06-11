@@ -107,7 +107,7 @@ class AdapterMysql extends AdapterBase
     {
         $statement = "select table_name, column_name, referenced_table_name, referenced_column_name 
                     from information_schema.key_column_usage  
-                    where table_schema='".$this->schemaName."' 
+                    where table_schema='".$this->schemaName."'
                         and referenced_table_name is not null";
         $tableWithForeignKeys = array();
         $result = $this->pdo->query($statement);  
@@ -121,6 +121,19 @@ class AdapterMysql extends AdapterBase
                 $tableWithForeignKeys[$tabName]->addColumn($column);
             } else {
                 $tableWithForeignKeys[$tabName] = new Table($tabName, null, null, array($column));
+            }
+        }
+        $table2Many = array();
+        foreach ($tableWithForeignKeys as $tableName => $table) {
+            foreach ($table->getColumns() as $column) {
+                $tabRef = $column->getReferencedTable();
+                if(isset($tableWithForeignKeys[$tabRef])) {
+                    if(isset($table2Many[$tabRef])) {
+                        $table2Many[$column->getReferencedTable()][]=$tableName; 
+                    } else {
+                        $table2Many[$column->getReferencedTable()]=array($tableName);
+                    }
+                }
             }
         }
         return $tableWithForeignKeys;
